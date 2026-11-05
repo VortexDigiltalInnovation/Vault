@@ -1,0 +1,35 @@
+# TimeFlow — PWA v2.1
+
+## Contenuto
+- `index.html`: applicazione (guida utente integrata)
+- `manifest.webmanifest`, `service-worker.js`: installazione come app e funzionamento offline
+- `icons/`: icone clessidra (72–512 px, maskable 192/512, apple-touch-icon 180, favicon 64)
+- `Guida_Utente_TimeFlow.pdf`: guida PDF originale, apribile dall'app
+
+## Pubblicazione e installazione
+1. Carica TUTTI i file, mantenendo la cartella `icons`, su un hosting statico HTTPS (Netlify, GitHub Pages...).
+2. Apri l'indirizzo https://... (non il file locale): installazione e offline richiedono HTTPS.
+3. Android/Chrome/Edge: pulsante "Installa" nell'intestazione (o menu del browser). iPhone/iPad: Safari -> Condividi -> Aggiungi alla schermata Home.
+4. La prima apertura richiede Internet: librerie e font vengono salvati e poi l'app funziona offline.
+
+## IMPORTANTE
+- I dati stanno nel browser e sono legati all'indirizzo: da un nuovo indirizzo l'app parte vuota. Trasferiscili con Backup JSON -> Ripristina.
+- Google Calendar: aggiungi il NUOVO indirizzo tra le "Origini JavaScript autorizzate" del tuo ID client OAuth nella Google Cloud Console, altrimenti la connessione non funziona.
+
+## Novità v2.1
+- Nuove icone (clessidra): intestazione, favicon, installazione, schermata Home, scorciatoie.
+- Google Calendar: dopo un rinnovo silenzioso del token fallito (popup bloccato fuori da un clic) l'app non riprova per 2 minuti, evitando tentativi ripetuti a ogni rientro nell'app; usa "Riconnetti" per autorizzare subito.
+- Timer: indicatore sull'icona dell'app installata mentre corre (dove il sistema lo supporta); se resta acceso oltre 12 ore, alla chiusura chiede quante ore registrare (prima creava un'unica attività enorme).
+- Service worker v2.1 con cache aggiornata. Chi ha già installato la v2.0: apri l'app online e riaprila una seconda volta; su alcuni telefoni l'icona sulla Home cambia solo reinstallando l'app.
+
+## Novità v2.0
+- Pulsante Guida (intestazione) con guida integrata e aggiornata.
+- Timer attività: avvio/stop, persistente alla chiusura, arrotondamento 15/30 min o esatto.
+- Inserimento IA migliorato: minuti, "1h30", "un'ora e mezza", ieri/altro ieri/dd-mm/giorno della settimana, "alle 14:30", cliente riconosciuto per nome o parola; non salva a caso se manca durata o cliente.
+- Correzioni: data odierna in ora locale (prima tra mezzanotte e le 2 poteva risultare il giorno prima); CSV con virgolette e "#" nel testo (prima il file si troncava), separatore ";" e BOM per Excel italiano, protezione da formule; etichetta "Anno Corrente" dinamica; caricamento sicuro dei dati corrotti; Ripristino con conferma e controlli.
+- Smartphone: margini notch, finestre a pannello scorrevole, campi a 16px (niente zoom automatico su iPhone), pulsanti da 40px, condivisione file nativa per backup/CSV.
+- PWA installabile e offline; scorciatoie "Nuova attività" e "Avvia timer"; promemoria backup dopo 30 giorni; Google/OAuth mai in cache.
+
+## Limiti noti
+- Tailwind resta caricato da CDN (a runtime); viene salvato in cache dopo la prima apertura online.
+- Su iPhone l'autorizzazione Google nell'app installata può essere bloccata dal sistema (autorizza prima da Safari).
