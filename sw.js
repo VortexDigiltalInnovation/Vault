@@ -1,6 +1,6 @@
 // Vault - Service Worker (solo guscio dell'app; i dati restano cifrati in localStorage)
 const CACHE = 'vault-shell-v3';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192x192.png', './icons/icon-512x512.png', './icons/favicon.png', './Guida_Rapida_Vault.pdf', './icons/apple-touch-icon.png'];
+const SHELL = ['./', './manifest.webmanifest', './icons/icon-192x192.png', './icons/icon-512x512.png', './icons/favicon.png', './Guida_Rapida_Vault.pdf', './icons/apple-touch-icon.png'];
 const CDN = [
   'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js',
   'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'

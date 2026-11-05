@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
-    
+    <base href="/vault/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#4f46e5">
@@ -1430,6 +1430,7 @@
                 document.head.appendChild(sc);
             });
         }
+        const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
         async function gAuth(clientId) {
             if (gTok && Date.now() < gTokExp) return gTok;
             await gLoadGis();
@@ -1444,7 +1445,7 @@
 
         // --- BACKUP AUTOMATICO SU GOOGLE DRIVE ---
         async function driveUpload(name, data, interactive) {
-            const clientId = localStorage.getItem('vault_gdrive_client_id');
+            const clientId = (localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID);
             if (!clientId || location.protocol === 'file:') return false;
             if (!interactive && !(gTok && Date.now() < gTokExp)) return false;
             const tok = await gAuth(clientId);
@@ -1469,7 +1470,7 @@
             }, 3000);
         }
         async function syncWithGoogleDrive() {
-            const clientId = localStorage.getItem('vault_gdrive_client_id');
+            const clientId = (localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID);
             const icon = document.getElementById('syncCloudIcon');
             if (!clientId) { alert("Per usare il Sync Cloud, inserisci il tuo Client ID Google OAuth nelle impostazioni di Sicurezza."); openSecurityModal(); return; }
             if (!activePassword) return;
@@ -1800,7 +1801,7 @@
             a.click();
             setTimeout(() => URL.revokeObjectURL(a.href), 5000);
             showToast("Backup cifrato scaricato!");
-            if (localStorage.getItem('vault_gdrive_client_id')) {
+            if ((localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID)) {
                 try {
                     await driveUpload(`vault_backup_${new Date().toISOString().slice(0,10)}.json`, payload, true);
                     localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
@@ -2176,7 +2177,7 @@
 
         function openSecurityModal() {
             renderRevisionsHistoryList();
-            document.getElementById('gdriveClientId').value = localStorage.getItem('vault_gdrive_client_id') || '';
+            document.getElementById('gdriveClientId').value = (localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID) || '';
             document.getElementById('autoLockTimeout').value = String(inactivityTimeoutMinutes);
             document.getElementById('newMasterPass').value = ''; document.getElementById('confirmMasterPass').value = '';
             document.getElementById('securityError').classList.add('hidden');
