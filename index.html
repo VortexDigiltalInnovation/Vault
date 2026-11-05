@@ -1435,28 +1435,64 @@
             await gLoadGis();
             return new Promise((res, rej) => {
                 google.accounts.oauth2.initTokenClient({
-                    client_id: clientId, scope: 'https://www.googleapis.com/auth/drive.appdata',
+                    client_id: clientId, scope: 'https://www.googleapis.com/auth/drive.file',
                     callback: r => { if (r.error) return rej(new Error(r.error)); gTok = r.access_token; gTokExp = Date.now() + (r.expires_in - 60) * 1000; res(gTok); },
                     error_callback: e => rej(new Error(e.type || 'autorizzazione annullata'))
                 }).requestAccessToken();
             });
         }
 
-        // --- BACKUP AUTOMATICO SU GOOGLE DRIVE ---
-        async function driveUpload(name, data, interactive) {
-            const clientId = (localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID);
+        // --- BACKUP GOOGLE DRIVE: CARTELLA VISIBILE + TIMESTAMP ---
+        const VAULT_DRIVE_FOLDER = 'Vault Backups';
+        async function driveRequest(tok, url, options = {}) {
+            const response = await fetch(url, {
+                ...options,
+                headers: { ...(options.headers || {}), Authorization: 'Bearer ' + tok }
+            });
+            if (!response.ok) {
+                let detail = '';
+                try { detail = (await response.json()).error?.message || ''; } catch (_) {}
+                throw new Error('Google Drive ' + response.status + (detail ? ': ' + detail : ''));
+            }
+            return response;
+        }
+        async function getVaultDriveFolder(tok) {
+            const q = encodeURIComponent("name='" + VAULT_DRIVE_FOLDER + "' and mimeType='application/vnd.google-apps.folder' and trashed=false");
+            const found = await (await driveRequest(tok,
+                `https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id,name)`)).json();
+            if (found.files && found.files.length) return found.files[0].id;
+            const created = await (await driveRequest(tok, 'https://www.googleapis.com/drive/v3/files', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: VAULT_DRIVE_FOLDER, mimeType: 'application/vnd.google-apps.folder' })
+            })).json();
+            if (!created.id) throw new Error('Google Drive non ha restituito l’ID della cartella.');
+            return created.id;
+        }
+        async function driveUpload(name, data, interactive, unique = false) {
+            const clientId = (localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID);
             if (!clientId || location.protocol === 'file:') return false;
             if (!interactive && !(gTok && Date.now() < gTokExp)) return false;
             const tok = await gAuth(clientId);
-            const gf = (u, o = {}) => fetch(u, { ...o, headers: { ...(o.headers || {}), Authorization: 'Bearer ' + tok } }).then(r => { if (!r.ok) throw new Error('Drive ' + r.status); return r; });
-            const q = encodeURIComponent(`name='${name}'`);
-            const list = await (await gf(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id)`)).json();
+            const folderId = await getVaultDriveFolder(tok);
+            const now = new Date();
+            const iso = now.toISOString();
+            const stamped = { ...data, timestamp: Date.now(), backupTimestamp: iso, backupTimestampLocal: now.toLocaleString('it-IT') };
+            const finalName = unique
+                ? name.replace(/\.json$/i, '') + '_' + now.toISOString().replace(/[:.]/g, '-') + '.json'
+                : name;
+            const q = encodeURIComponent("name='" + finalName.replace(/'/g, "\\'") + "' and '" + folderId + "' in parents and trashed=false");
+            const list = await (await driveRequest(tok,
+                `https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id,name)`)).json();
             const id = list.files && list.files[0] && list.files[0].id;
-            const bd = 'vbk' + Date.now();
-            const meta = id ? {} : { name, parents: ['appDataFolder'] };
-            const body = `--${bd}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(data)}\r\n--${bd}--`;
-            await gf(`https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body });
-            return true;
+            const boundary = 'vault' + Date.now();
+            const metadata = id ? {} : { name: finalName, parents: [folderId] };
+            const body = `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(stamped)}\r\n--${boundary}--`;
+            const uploaded = await driveRequest(tok,
+                `https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id,name,webViewLink`,
+                { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + boundary }, body });
+            const confirmation = await uploaded.json();
+            if (!confirmation.id) throw new Error('Caricamento non confermato da Google Drive.');
+            return confirmation;
         }
         let __autoDriveT = null;
         function scheduleAutoDriveSync() {
@@ -1478,8 +1514,9 @@
             try {
                 const tok = await gAuth(clientId);
                 const gf = (u, o = {}) => fetch(u, { ...o, headers: { ...(o.headers || {}), Authorization: 'Bearer ' + tok } }).then(r => { if (!r.ok) throw new Error('Drive ' + r.status); return r; });
-                const q = encodeURIComponent("name='vault_sync.json'");
-                const list = await (await gf(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id)`)).json();
+                const folderId = await getVaultDriveFolder(tok);
+                const q = encodeURIComponent("name='vault_sync.json' and '" + folderId + "' in parents and trashed=false");
+                const list = await (await gf(`https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id)`)).json();
                 const id = list.files && list.files[0] && list.files[0].id;
                 const local = JSON.parse(localStorage.getItem('vault_encrypted_store') || 'null');
                 if (id) {
@@ -1495,10 +1532,12 @@
                         return;
                     }
                 }
+                const stamp = new Date();
+                const cloudData = { ...local, timestamp: Date.now(), backupTimestamp: stamp.toISOString(), backupTimestampLocal: stamp.toLocaleString('it-IT') };
                 const bd = 'vsync' + Date.now();
-                const meta = id ? {} : { name: 'vault_sync.json', parents: ['appDataFolder'] };
-                const body = `--${bd}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(local)}\r\n--${bd}--`;
-                await gf(`https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body });
+                const meta = id ? {} : { name: 'vault_sync.json', parents: [folderId] };
+                const body = `--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(cloudData)}\r\n--${bd}--`;
+                await gf(`https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body });
                 localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
                 showToast("Caveau cifrato sincronizzato su Google Drive!");
             } catch (e) {
@@ -1802,9 +1841,10 @@
             showToast("Backup cifrato scaricato!");
             if ((localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID)) {
                 try {
-                    await driveUpload(`vault_backup_${new Date().toISOString().slice(0,10)}.json`, payload, true);
+                    const uploaded = await driveUpload('Vault_backup', payload, true, true);
+                    if (!uploaded || !uploaded.id) throw new Error('Google Drive non ha confermato il salvataggio.');
                     localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
-                    showToast("Backup salvato anche su Google Drive!");
+                    showToast("Backup verificato su Google Drive nella cartella Vault Backups.");
                 } catch (e) { alert("Backup scaricato, ma il salvataggio su Google Drive non è riuscito: " + e.message); }
             }
         }
