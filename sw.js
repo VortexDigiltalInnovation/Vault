@@ -1,6 +1,6 @@
 // Vault - Service Worker (solo guscio dell'app; i dati restano cifrati in localStorage)
-const CACHE = 'vault-shell-v3';
-const SHELL = ['./', './manifest.webmanifest', './icons/icon-192x192.png', './icons/icon-512x512.png', './icons/favicon.png', './Guida_Rapida_Vault.pdf', './icons/apple-touch-icon.png'];
+const CACHE = 'vault-shell-v4';
+const SHELL = ['./', './manifest.webmanifest', './icons/icon-192x192.png', './icons/icon-512x512.png', './icons/favicon.png', './Guida_Rapida_Vault.pdf', './icons/apple-touch-icon.png', './icons/maskable-192x192.png', './icons/maskable-512x512.png'];
 const CDN = [
   'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js',
   'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'
@@ -11,7 +11,7 @@ const CACHEABLE_HOSTS = ['cdnjs.cloudflare.com', 'cdn.jsdelivr.net'];
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
     const c = await caches.open(CACHE);
-    await c.addAll(SHELL);
+    await Promise.all(SHELL.map(u => c.add(u).catch(() => {})));  // un file mancante non blocca l'installazione
     await Promise.all(CDN.map(u => fetch(new Request(u, { mode: 'no-cors' })).then(r => c.put(u, r)).catch(() => {})));
     await self.skipWaiting();
   })());

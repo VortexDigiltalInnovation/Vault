@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
-    <base href="/vault/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#4f46e5">
@@ -2457,11 +2456,11 @@
         }
         document.addEventListener('DOMContentLoaded', updateInstallBtn);
         const __h = location.hostname.toLowerCase();
-        const __isPreview = window.self !== window.top || /^(id-preview|preview)(-[a-z0-9]+)?--/.test(__h) || /(^|\.)lovableproject(-dev)?\.com$/.test(__h) || /(^|\.)beta\.lovable\.dev$/.test(__h) || /^project--.*-dev\./.test(__h) || __h === 'localhost' || new URLSearchParams(location.search).get('sw') === 'off';
+        const __isPreview = window.self !== window.top || /^(id-preview|preview)(-[a-z0-9]+)?--/.test(__h) || /(^|\.)lovableproject(-dev)?\.com$/.test(__h) || /(^|\.)beta\.lovable\.dev$/.test(__h) || /^project--.*-dev\./.test(__h) || new URLSearchParams(location.search).get('sw') === 'off';
         if ('serviceWorker' in navigator && __isPreview) {
-            navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => { if ((r.active || r.installing || r.waiting || {}).scriptURL?.endsWith('/vault/sw.js')) r.unregister(); }));
+            navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => { if ((r.active || r.installing || r.waiting || {}).scriptURL?.endsWith('sw.js')) r.unregister(); }));
         } else if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
-            window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+            window.addEventListener('load', () => navigator.serviceWorker.register('sw.js', { scope: './' }).catch(err => console.warn('SW non registrato:', err)));
         }
     </script>
 </body>
