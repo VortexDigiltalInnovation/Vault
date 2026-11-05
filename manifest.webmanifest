@@ -1,117 +1,37 @@
 {
-  "id": "./",
-  "name": "TimeFlow – Ore, Compensi & Calendar",
-  "short_name": "TimeFlow",
-  "description": "Tracciamento ore, clienti, compensi e sincronizzazione con Google Calendar. Dati solo sul tuo dispositivo.",
-  "lang": "it-IT",
-  "dir": "ltr",
-  "start_url": "./?source=pwa",
-  "scope": "./",
-  "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
-  "orientation": "any",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "categories": [
-    "business",
-    "productivity"
-  ],
-  "prefer_related_applications": false,
-  "shortcuts": [
-    {
-      "name": "Nuova attività",
-      "short_name": "Nuova",
-      "url": "./?action=new",
-      "icons": [
-        {
-          "src": "./icons/icon-96.png",
-          "sizes": "96x96"
-        },
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Avvia timer",
-      "short_name": "Timer",
-      "url": "./?action=timer",
-      "icons": [
-        {
-          "src": "./icons/icon-96.png",
-          "sizes": "96x96"
-        },
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ],
-  "icons": [
-    {
-      "src": "./icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
+ "id": "./",
+ "name": "Vault",
+ "short_name": "Vault",
+ "description": "Gestore di credenziali cifrato, offline, con assistente IA",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "lang": "it",
+ "background_color": "#0f172a",
+ "theme_color": "#4f46e5",
+ "categories": [
+  "security",
+  "productivity"
+ ],
+ "icons": [
+  {
+   "src": "icons/icon-192x192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/icon-512x512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/icon-512x512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
 }
