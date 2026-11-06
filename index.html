@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Vault">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'self' https://api.pwnedpasswords.com https://www.googleapis.com https://accounts.google.com https://oauth2.googleapis.com">
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'self' https://api.pwnedpasswords.com https://www.googleapis.com https://accounts.google.com https://oauth2.googleapis.com https://www.wikidata.org">
     <meta name="referrer" content="no-referrer">
     <title>Vault</title>
     <style>
@@ -33,6 +33,7 @@
         body { padding-bottom: env(safe-area-inset-bottom); overflow-x: hidden; }
         header { padding-top: max(0.625rem, env(safe-area-inset-top)); padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
         #moreMenuBtn { display: none; }
+        .m-lbl { display: none; }
         #installBtn[hidden] { display: none !important; }
         .sec-actions { display: none; }
         .lbl-long, .menu-head { display: none; }
@@ -48,7 +49,11 @@
         @media (max-width: 639px) {
             .brand-text { display: none; }
             .hdr-actions { flex: 1 1 auto; flex-wrap: nowrap !important; justify-content: space-between !important; gap: 4px !important; }
-            .hdr-actions > button, #moreMenuBtn { flex: 1 1 0; min-width: 34px; max-width: 48px; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; }
+            .hdr-actions > button, #moreMenuBtn { flex: 1 1 0; min-width: 0; max-width: none; min-height: 54px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 5px 1px !important; border-radius: 12px; }
+            .hdr-actions > button i, #moreMenuBtn i { font-size: 18px; }
+            .hdr-actions > button .m-lbl, #moreMenuBtn .m-lbl { display: block; font-size: 10px; line-height: 1; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+            .hdr-actions > button > span.hidden, .hdr-actions > button > span.sm\:inline { display: none !important; }
+            .hdr-actions > button > span.m-lbl { display: block !important; }
             #moreMenuBtn { display: inline-flex; }
             .sec-actions.open {
                 display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; z-index: 45;
@@ -164,26 +169,26 @@
             <div class="hdr-actions flex items-center gap-1.5 sm:gap-2 flex-wrap justify-end">
                 <button onclick="openModal()" class="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all shadow-sm active:scale-95">
                     <i class="fa-solid fa-plus"></i>
-                    <span class="hidden sm:inline">Nuova Voce</span>
+                    <span class="hidden sm:inline">Nuova Voce</span><span class="m-lbl">Nuova</span>
                 </button>
 
                 <!-- AI Assistant Trigger Button -->
-                <button onclick="openAiAssistantModal()" title="Assistente IA Caveau" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1">
+                <button onclick="openAiAssistantModal()" title="Vault AI: chiedi all'assistente (cerca, statistiche, audit password)" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span class="hidden md:inline">Vault AI</span>
+                    <span class="hidden md:inline">Vault AI</span><span class="m-lbl">Vault AI</span>
                 </button>
 
                 <!-- Guida Rapida (PDF) -->
                 <button onclick="openGuideModal()" id="guideBtn" title="Guida Rapida (PDF)" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60 text-xs font-medium transition-colors flex items-center gap-1">
                     <i class="fa-solid fa-book-open"></i>
-                    <span class="hidden md:inline">Guida</span>
+                    <span class="hidden md:inline">Guida</span><span class="m-lbl">Guida</span>
                 </button>
 
-                <button onclick="openSecurityModal()" title="Sicurezza, Biometria & Audit" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 text-xs font-medium transition-colors">
-                    <i class="fa-solid fa-shield-halved"></i>
+                <button onclick="openSecurityModal()" title="Sicurezza: biometria, blocco automatico, audit password" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 text-xs font-medium transition-colors flex items-center gap-1" aria-label="Sicurezza">
+                    <i class="fa-solid fa-shield-halved"></i><span class="hidden md:inline">Sicurezza</span><span class="m-lbl">Sicurezza</span>
                 </button>
-                <button onclick="lockVaultManual()" title="Blocca Caveau" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-medium transition-colors">
-                    <i class="fa-solid fa-lock"></i>
+                <button onclick="lockVaultManual()" title="Blocca subito il caveau" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-medium transition-colors flex items-center gap-1" aria-label="Blocca il caveau">
+                    <i class="fa-solid fa-lock"></i><span class="hidden md:inline">Blocca</span><span class="m-lbl">Blocca</span>
                 </button>
                 <div id="secActions" class="sec-actions">
                 <div class="menu-head">Google Drive</div>
@@ -229,8 +234,8 @@
                     <span class="hidden md:inline">Installa</span>
                 </button>
                 </div>
-                <button id="moreMenuBtn" onclick="toggleMoreMenu(event)" title="Altre azioni" aria-label="Altre azioni" aria-expanded="false" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-ellipsis"></i>
+                <button id="moreMenuBtn" onclick="toggleMoreMenu(event)" title="Altro: Drive, backup, Excel, opzioni, tema" aria-label="Altre azioni" aria-expanded="false" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
+                    <i class="fa-solid fa-ellipsis"></i><span class="m-lbl">Altro</span>
                 </button>
             </div>
         </div>
@@ -366,8 +371,11 @@
                 <div>
                     <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 uppercase mb-1">Nome Servizio / Sito *</label>
                     <div class="flex gap-2">
-                        <input type="text" id="inputService" required oninput="suggestDomainFromName(this.value)" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <div id="svcLogoPreview" class="hidden w-10 h-10 shrink-0 rounded-xl bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 items-center justify-center overflow-hidden" title="Logo trovato"><img id="svcLogoImg" alt="" class="w-full h-full object-contain p-1"></div>
+                        <input type="text" id="inputService" required autocomplete="off" oninput="suggestDomainFromName(this.value)" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
                     </div>
+                    <div id="autoFillStatus" class="text-[11px] mt-1 min-h-[14px] font-medium text-slate-500 dark:text-slate-400" aria-live="polite"></div>
+                    <label class="flex items-start gap-1.5 mt-1 text-[10px] text-slate-500 dark:text-slate-400 cursor-pointer leading-snug"><input type="checkbox" id="autoLookupToggle" checked class="rounded text-indigo-600 mt-0.5"> <span>Cerca sito e logo online mentre scrivi (viene inviato solo il nome del servizio, mai utente o password)</span></label>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2.5">
@@ -1456,7 +1464,7 @@
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.2.0';
+        const APP_VERSION = '4.3.0';
         const APP_BUILD = '2026-11-06';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
@@ -2609,5 +2617,210 @@
             window.addEventListener('load', () => navigator.serviceWorker.register('sw.js', { scope: './' }).catch(err => console.warn('SW non registrato:', err)));
         }
     </script>
+<script>
+/* ===== Vault 4.3 – compilazione automatica da nome servizio (dominio, logo, categoria) =====
+   1) elenco locale di servizi noti (funziona anche offline)
+   2) Wikidata (sito ufficiale) se l'opzione "Cerca online" è attiva: viene inviato solo il nome digitato
+   3) tentativi .com / .it verificando che esista un logo
+   Non sovrascrive mai un dominio scritto a mano. */
+(function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const LSK = 'vault_autolookup';
+    const onlineOn = () => { try { return localStorage.getItem(LSK) !== '0'; } catch (e) { return true; } };
+
+    const EXTRA = {
+        fineco: 'fineco.it', finecobank: 'finecobank.com', bnl: 'bnl.it', bnlparibas: 'bnl.it', mps: 'mps.it', montepaschi: 'mps.it', montedeipaschi: 'mps.it',
+        ing: 'ing.it', ingdirect: 'ing.it', widiba: 'widiba.it', hype: 'hype.it', satispay: 'satispay.com', mediolanum: 'bancamediolanum.it',
+        bancamediolanum: 'bancamediolanum.it', bper: 'bper.it', bancobpm: 'bancobpm.it', bpm: 'bancobpm.it', credem: 'credem.it', sella: 'sella.it',
+        bancasella: 'sella.it', nexi: 'nexi.it', inps: 'inps.it', agenziaentrate: 'agenziaentrate.gov.it', entrate: 'agenziaentrate.gov.it', spid: 'spid.gov.it',
+        tim: 'tim.it', vodafone: 'vodafone.it', windtre: 'windtre.it', iliad: 'iliad.it', fastweb: 'fastweb.it', enel: 'enel.it', eni: 'eni.com',
+        plenitude: 'eniplenitude.com', a2a: 'a2a.it', hera: 'gruppohera.it', edison: 'edison.it', sky: 'sky.it', dazn: 'dazn.com',
+        disneyplus: 'disneyplus.com', disney: 'disneyplus.com', primevideo: 'primevideo.com', prime: 'amazon.it', youtube: 'youtube.com', linkedin: 'linkedin.com',
+        tiktok: 'tiktok.com', snapchat: 'snapchat.com', pinterest: 'pinterest.com', reddit: 'reddit.com', dropbox: 'dropbox.com', zoom: 'zoom.us',
+        slack: 'slack.com', notion: 'notion.so', trello: 'trello.com', gitlab: 'gitlab.com', openai: 'openai.com', chatgpt: 'chatgpt.com',
+        claude: 'claude.ai', anthropic: 'anthropic.com', aruba: 'aruba.it', register: 'register.it', cloudflare: 'cloudflare.com',
+        wordpress: 'wordpress.com', stripe: 'stripe.com', coinbase: 'coinbase.com', kraken: 'kraken.com', bitpanda: 'bitpanda.com',
+        trading212: 'trading212.com', degiro: 'degiro.it', directa: 'directa.com', scalablecapital: 'scalable.capital', etoro: 'etoro.com',
+        zalando: 'zalando.it', ikea: 'ikea.com', unieuro: 'unieuro.it', mediaworld: 'mediaworld.it', esselunga: 'esselunga.it', coop: 'coop.it',
+        conad: 'conad.it', lidl: 'lidl.it', carrefour: 'carrefour.it', trenitalia: 'trenitalia.com', italo: 'italotreno.it', ryanair: 'ryanair.com',
+        easyjet: 'easyjet.com', booking: 'booking.com', airbnb: 'airbnb.it', tripadvisor: 'tripadvisor.it', uber: 'uber.com', glovo: 'glovo.com',
+        justeat: 'justeat.it', deliveroo: 'deliveroo.it', vinted: 'vinted.it', idealista: 'idealista.it', immobiliare: 'immobiliare.it',
+        tinder: 'tinder.com', signal: 'signal.org', skype: 'skype.com', office: 'office.com', office365: 'office.com', adobe: 'adobe.com',
+        canva: 'canva.com', figma: 'figma.com', steam: 'steampowered.com', epicgames: 'epicgames.com', playstation: 'playstation.com',
+        psn: 'playstation.com', xbox: 'xbox.com', nintendo: 'nintendo.com', twitch: 'twitch.tv', discord: 'discord.com', tesla: 'tesla.com',
+        unipol: 'unipol.it', unipolsai: 'unipolsai.it', generali: 'generali.it', allianz: 'allianz.it', axa: 'axa.it', zurich: 'zurich.it'
+    };
+    const STOP = new Set(['banca', 'bank', 'spa', 'srl', 'italia', 'italy', 'online', 'app', 'web', 'account', 'conto', 'area', 'personale', 'riservata', 'home', 'login', 'sito', 'il', 'la', 'di', 'del', 'the', 'my', 'mio', 'mia']);
+
+    const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const squash = s => norm(s).replace(/[^a-z0-9]/g, '');
+    const dict = () => Object.assign({}, EXTRA, (typeof knownBrandDomains !== 'undefined' ? knownBrandDomains : {}));
+
+    function localLookup(name) {
+        const d = dict(), full = squash(name);
+        if (d[full]) return d[full];
+        const words = norm(name).split(/[^a-z0-9]+/).filter(w => w && !STOP.has(w));
+        const joined = words.join('');
+        if (joined && d[joined]) return d[joined];
+        for (const w of words) if (w.length >= 3 && d[w]) return d[w];
+        return null;
+    }
+
+    function registrable(host) {
+        host = host.toLowerCase().replace(/^www\./, '');
+        const p = host.split('.');
+        if (p.length <= 2) return host;
+        const sl = new Set(['co', 'com', 'gov', 'org', 'edu', 'net', 'ac']);
+        return sl.has(p[p.length - 2]) ? p.slice(-3).join('.') : p.slice(-2).join('.');
+    }
+
+    async function getJson(url, ms) {
+        const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms || 6000);
+        try { const r = await fetch(url, { signal: ctl.signal }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.json(); }
+        finally { clearTimeout(t); }
+    }
+
+    async function wikidataLookup(name) {
+        const q = encodeURIComponent(name.trim());
+        const s = await getJson('https://www.wikidata.org/w/api.php?action=wbsearchentities&search=' + q + '&language=it&uselang=it&type=item&limit=6&format=json&origin=*');
+        const hits = (s.search || []).slice(0, 6);
+        if (!hits.length) return null;
+        const e = await getJson('https://www.wikidata.org/w/api.php?action=wbgetentities&ids=' + hits.map(h => h.id).join('|') + '&props=claims&format=json&origin=*');
+        const good = /azienda|societ|banca|bank|company|brand|marchio|servizio|service|sito|website|piattaforma|platform|provider|app|gruppo|ente|agenzia|istituto|operator|gestore|compagnia/i;
+        const cands = [];
+        for (const h of hits) {
+            const cl = (((e.entities || {})[h.id] || {}).claims || {}).P856;
+            if (!cl || !cl.length) continue;
+            const best = cl.find(c => c.rank === 'preferred') || cl.find(c => c.rank !== 'deprecated');
+            const v = best && best.mainsnak && best.mainsnak.datavalue && best.mainsnak.datavalue.value;
+            if (!v) continue;
+            try { cands.push({ domain: registrable(new URL(v).hostname), label: h.label || '', desc: h.description || '', good: good.test(h.description || '') }); } catch (x) { }
+        }
+        return cands.find(c => c.good) || cands[0] || null;
+    }
+
+    function loadLogo(domain) {
+        const srcs = (typeof LOGO_SRC !== 'undefined' ? LOGO_SRC : [d => 'https://www.google.com/s2/favicons?domain=' + d + '&sz=128']);
+        return new Promise(resolve => {
+            let i = 0;
+            const next = () => {
+                if (i >= srcs.length) return resolve(null);
+                const url = srcs[i++](domain), img = new Image();
+                const to = setTimeout(() => { img.onload = img.onerror = null; next(); }, 5000);
+                img.onload = () => { clearTimeout(to); if (img.naturalWidth > 16) resolve(url); else next(); };
+                img.onerror = () => { clearTimeout(to); next(); };
+                img.src = url;
+            };
+            next();
+        });
+    }
+
+    const CAT_RULES = [
+        { re: /banc|bank|intesa|unicredit|poste|paypal|revolut|n26|fineco|mediolanum|bnl|mps|ing\b|widiba|hype|satispay|nexi|bper|credem|sella|carta|conto|directa|degiro|trading|coinbase|binance|kraken|bitpanda|etoro|scalable|assicur|unipol|generali|allianz|axa|zurich|inps|entrate|spid/, cat: /banc|bank|finanz|assicur/i },
+        { re: /office|outlook|teams|slack|zoom|linkedin|github|gitlab|jira|notion|trello|asana|figma|adobe|canva|aruba|register|cloudflare|openai|chatgpt|claude/, cat: /uffic|lavor|work|profession/i }
+    ];
+    function suggestCategory(name, domain) {
+        const sel = $('inputCategory');
+        if (!sel || sel.dataset.touched === '1') return null;
+        const hay = norm(name + ' ' + (domain || ''));
+        for (const r of CAT_RULES) {
+            if (!r.re.test(hay)) continue;
+            const opt = [...sel.options].find(o => r.cat.test(o.value));
+            if (opt) { sel.value = opt.value; return opt.value; }
+        }
+        return null;
+    }
+
+    function setStatus(msg, kind) {
+        const el = $('autoFillStatus'); if (!el) return;
+        el.textContent = msg || '';
+        el.className = 'text-[11px] mt-1 min-h-[14px] font-medium ' + (kind === 'ok' ? 'text-emerald-600 dark:text-emerald-400' : kind === 'warn' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400');
+    }
+    function setPreview(url) {
+        const box = $('svcLogoPreview'), img = $('svcLogoImg'); if (!box || !img) return;
+        if (url) { img.src = url; box.classList.remove('hidden'); box.classList.add('flex'); }
+        else { img.removeAttribute('src'); box.classList.add('hidden'); box.classList.remove('flex'); }
+    }
+
+    let tok = 0, timer = null;
+    async function run(name, my) {
+        const dom = $('inputDomain');
+        const mayWrite = () => !dom.value.trim() || dom.dataset.auto === '1';
+        if (!mayWrite()) return;
+        let domain = localLookup(name), note = '';
+        if (domain) note = 'servizio noto';
+        else if (onlineOn()) {
+            setStatus('Cerco il sito ufficiale e il logo…');
+            try {
+                const w = await wikidataLookup(name);
+                if (my !== tok) return;
+                if (w) { domain = w.domain; note = (w.label || '') + (w.desc ? ' · ' + w.desc : ''); }
+            } catch (e) { if (my !== tok) return; }
+            if (!domain) {
+                const clean = squash(name);
+                if (clean.length >= 3) {
+                    for (const tld of ['.com', '.it']) {
+                        const u = await loadLogo(clean + tld);
+                        if (my !== tok) return;
+                        if (u) { domain = clean + tld; note = 'da verificare'; break; }
+                    }
+                }
+            }
+        }
+        if (my !== tok || !mayWrite()) return;
+        if (!domain) { setStatus(onlineOn() ? 'Sito non trovato: scrivi il dominio a mano (es. banca.it).' : 'Servizio non nell\'elenco offline: scrivi il dominio a mano o attiva la ricerca online.', 'warn'); setPreview(null); return; }
+        dom.value = domain; dom.dataset.auto = '1';
+        const cat = suggestCategory(name, domain);
+        setStatus('Trovato: ' + domain + (note ? ' (' + note + ')' : '') + (cat ? ' · categoria «' + cat + '»' : '') + '. Se non è giusto, correggi il dominio qui sotto.', 'ok');
+        const logo = await loadLogo(domain);
+        if (my !== tok) return;
+        setPreview(logo);
+        if (!logo) setStatus('Dominio ' + domain + ' impostato, ma il logo non è disponibile (verrà usata l\'icona della categoria).', 'warn');
+    }
+
+    window.suggestDomainFromName = function (v) {
+        clearTimeout(timer);
+        const my = ++tok;
+        const name = (v || '').trim();
+        const dom = $('inputDomain');
+        if (dom && dom.value.trim() && dom.dataset.auto !== '1') return;  // dominio scritto dall'utente: non toccare
+        if (name.length < 3) { setStatus(''); if (dom && dom.dataset.auto === '1') { dom.value = ''; dom.dataset.auto = ''; } setPreview(null); return; }
+        if (dom && dom.dataset.auto === '1') { dom.value = ''; }          // il nome è cambiato: ricalcola
+        timer = setTimeout(() => run(name, my), 650);
+    };
+
+    function init() {
+        const dom = $('inputDomain'), sel = $('inputCategory'), tg = $('autoLookupToggle');
+        if (dom) dom.addEventListener('input', () => {
+            dom.dataset.auto = '0'; ++tok; clearTimeout(timer);
+            const v = dom.value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+            clearTimeout(init._t);
+            init._t = setTimeout(async () => {
+                if (!v || v.indexOf('.') < 1) { setPreview(null); return; }
+                const u = await loadLogo(v); setPreview(u);
+            }, 600);
+        });
+        if (sel) sel.addEventListener('change', () => { sel.dataset.touched = '1'; });
+        if (tg) { tg.checked = onlineOn(); tg.addEventListener('change', () => { try { localStorage.setItem(LSK, tg.checked ? '1' : '0'); } catch (e) { } }); }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+
+    // reset a ogni apertura della scheda
+    const prevOpen = window.openModal;
+    window.openModal = function (index) {
+        const r = prevOpen.apply(this, arguments);
+        const dom = $('inputDomain'), sel = $('inputCategory'), tg = $('autoLookupToggle');
+        ++tok; clearTimeout(timer);
+        if (dom) dom.dataset.auto = '';
+        if (sel) sel.dataset.touched = (index !== null && index !== undefined && index !== '') ? '1' : '';
+        if (tg) tg.checked = onlineOn();
+        setStatus(''); setPreview(null);
+        if (dom && dom.value.trim()) loadLogo(dom.value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '')).then(setPreview);
+        return r;
+    };
+})();
+
+</script>
 </body>
 </html>
