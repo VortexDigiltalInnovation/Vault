@@ -35,6 +35,14 @@
         #moreMenuBtn { display: none; }
         #installBtn[hidden] { display: none !important; }
         .sec-actions { display: none; }
+        .lbl-long, .menu-head { display: none; }
+        .drv-list { display: flex; flex-direction: column; gap: 8px; max-height: 55vh; overflow-y: auto; }
+        .drv-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; }
+        .dark .drv-item { border-color: #334155; background: #0f172a; }
+        .drv-item b { display: block; font-size: 13px; } .drv-item small { color: #64748b; font-size: 11px; word-break: break-all; }
+        .drv-btn { padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+        .drv-restore { background: #e0e7ff; color: #4338ca; } .drv-del { background: #ffe4e6; color: #be123c; }
+        .dark .drv-restore { background: #312e81; color: #c7d2fe; } .dark .drv-del { background: #4c0519; color: #fecdd3; }
         .sheet-scroll { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
         @media (min-width: 640px) { .sec-actions { display: contents; } }
         @media (max-width: 639px) {
@@ -51,6 +59,10 @@
             .dark .sec-actions.open { background: #1e293b; border-color: #334155; }
             .sec-actions.open > button { display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-height: 46px; padding: 10px 12px; font-size: 13px; }
             .sec-actions.open > button span { display: inline !important; }
+            .sec-actions.open { grid-template-columns: 1fr !important; gap: 6px !important; max-height: 80dvh; overflow-y: auto; }
+            .sec-actions.open > button span.lbl-short { display: none !important; }
+            .sec-actions.open .menu-head { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748b; padding: 6px 4px 0; }
+            .sec-actions.open > #themeToggleBtn::after { content: "Tema chiaro / scuro" !important; }
             .sec-actions.open > #themeToggleBtn::after { content: "Tema"; font-size: 13px; font-weight: 500; }
             /* Modali come bottom-sheet */
             #modalOverlay, [id$="ModalOverlay"] { align-items: flex-end !important; padding: 0 !important; }
@@ -174,43 +186,47 @@
                     <i class="fa-solid fa-lock"></i>
                 </button>
                 <div id="secActions" class="sec-actions">
-                <button hidden id="installBtn" onclick="installApp()" title="Installa l'app" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors shadow-sm flex items-center gap-1">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                    <span class="hidden md:inline">Installa</span>
+                <div class="menu-head">Google Drive</div>
+                <button onclick="syncWithGoogleDrive()" title="Sincronizza ora il caveau con Google Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60">
+                    <i class="fa-solid fa-cloud-arrow-up" id="syncCloudIcon"></i>
+                    <span class="hidden md:inline lbl-short">Sync</span><span class="lbl-long">Sincronizza ora con Drive</span>
                 </button>
-                <!-- Cloud Drive Sync Button -->
-                <button onclick="syncWithGoogleDrive()" title="Sincronizza Cloud (Google Drive)" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60 text-xs font-medium transition-colors flex items-center gap-1">
-                    <i class="fa-cloud-arrow-up fa-solid" id="syncCloudIcon"></i>
-                    <span class="hidden md:inline">Sync</span>
+                <button onclick="openDriveBackupsModal()" title="Vedi, ripristina o elimina i backup su Google Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span class="hidden md:inline lbl-short">Backup Drive</span><span class="lbl-long">Backup su Drive (vedi / ripristina / elimina)</span>
                 </button>
-
-                <button onclick="exportData()" title="Backup JSON Cifrato" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-medium transition-colors">
+                <div class="menu-head">Backup su file</div>
+                <button onclick="exportData()" title="Crea un backup cifrato: scarica il file e lo salva su Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">
                     <i class="fa-solid fa-file-export"></i>
-                    <span class="hidden md:inline">Backup</span>
+                    <span class="hidden md:inline lbl-short">Backup</span><span class="lbl-long">Crea backup cifrato (file + Drive)</span>
                 </button>
-                <button onclick="triggerImport()" title="Ripristina JSON" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-medium transition-colors">
+                <button onclick="triggerImport()" title="Ripristina il caveau da un file di backup sul dispositivo" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">
                     <i class="fa-solid fa-file-import"></i>
-                    <span class="hidden md:inline">Ripristina</span>
+                    <span class="hidden md:inline lbl-short">Ripristina</span><span class="lbl-long">Ripristina da file sul dispositivo</span>
                 </button>
                 <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="handleFileImport(event)">
-                
-                <button onclick="exportExcel()" title="Esporta Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-sm">
+                <div class="menu-head">Excel</div>
+                <button onclick="exportExcel()" title="Esporta le voci in un file Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
                     <i class="fa-solid fa-file-excel"></i>
-                    <span class="hidden md:inline">Excel</span>
+                    <span class="hidden md:inline lbl-short">Excel</span><span class="lbl-long">Esporta in Excel</span>
                 </button>
-                <button onclick="triggerExcelImport()" title="Importa Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 text-xs font-medium transition-colors">
+                <button onclick="triggerExcelImport()" title="Importa voci da un file Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
                     <i class="fa-solid fa-file-arrow-up"></i>
-                    <span class="hidden md:inline">Imp.</span>
+                    <span class="hidden md:inline lbl-short">Imp.</span><span class="lbl-long">Importa da Excel</span>
                 </button>
                 <input type="file" id="importExcelFileInput" accept=".xlsx,.xls,.enc" class="hidden" onchange="handleExcelFileImport(event)">
-                
-                <button onclick="openManagerModal()" title="Opzioni e Colori" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-violet-50 dark:bg-violet-950/40 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800/60 text-xs font-medium transition-colors">
+                <div class="menu-head">Impostazioni</div>
+                <button onclick="openManagerModal()" title="Categorie, titolari e colori" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-violet-50 dark:bg-violet-950/40 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800/60">
                     <i class="fa-solid fa-sliders"></i>
-                    <span class="hidden md:inline">Opzioni</span>
+                    <span class="hidden md:inline lbl-short">Opzioni</span><span class="lbl-long">Categorie, titolari e colori</span>
                 </button>
                 <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:inline"></i>
+                </button>
+                <button hidden id="installBtn" onclick="installApp()" title="Installa l'app" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors shadow-sm flex items-center gap-1">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span class="hidden md:inline">Installa</span>
                 </button>
                 </div>
                 <button id="moreMenuBtn" onclick="toggleMoreMenu(event)" title="Altre azioni" aria-label="Altre azioni" aria-expanded="false" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
@@ -638,6 +654,16 @@
     </div>
 
     <!-- Security, Biometrics & Audit Modal -->
+    <div id="driveBackupsModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg p-5">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white"><i class="fa-brands fa-google-drive text-sky-500"></i> Backup su Google Drive</h3>
+                <button onclick="closeDriveBackupsModal()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">Cartella "Vault Backups" del tuo Drive. Puoi ripristinare un backup o eliminarlo definitivamente.</p>
+            <div id="driveBackupsList" class="drv-list"></div>
+        </div>
+    </div>
     <div id="securityModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden opacity-0 transition-opacity duration-200">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-5 shadow-xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200 max-h-[90vh] overflow-y-auto" id="securityModalContainer">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700 mb-3">
@@ -1430,7 +1456,7 @@
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.1.0';
+        const APP_VERSION = '4.2.0';
         const APP_BUILD = '2026-11-06';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
@@ -1873,8 +1899,14 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = async function(ev) {
+                let payload;
+                try { payload = JSON.parse(ev.target.result); } catch (err) { return alert("Formato file non valido."); }
+                await restoreFromPayload(payload);
+            };
+            reader.readAsText(file);
+        }
+        async function restoreFromPayload(payload) {
                 try {
-                    const payload = JSON.parse(ev.target.result);
                     const norm = d => Array.isArray(d) ? { credentials: d } : (d && Array.isArray(d.credentials) ? d : null);
                     let dec = norm(await decryptData(payload, activePassword));
                     if (!dec) {
@@ -1894,11 +1926,69 @@
                     }
                     await saveToLocalStorage(); refreshUIState();
                     showToast("Backup ripristinato con successo!");
+                    return true;
                 } catch (err) {
                     alert("Formato file non valido.");
                 }
-            };
-            reader.readAsText(file);
+        }
+
+        // --- BACKUP SU GOOGLE DRIVE: ELENCO / RIPRISTINO / ELIMINAZIONE ---
+        let driveBackupsCache = [];
+        function driveClientOrWarn() {
+            if (location.protocol === 'file:') { alert("Google Drive non funziona aprendo il file dal computer: apri Vault dal suo indirizzo https://."); return null; }
+            return localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID;
+        }
+        function openDriveBackupsModal() {
+            const clientId = driveClientOrWarn(); if (!clientId) return;
+            const tokP = gAuth(clientId); tokP.catch(() => {});
+            const ov = document.getElementById('driveBackupsModalOverlay');
+            ov.classList.remove('hidden'); setTimeout(() => ov.classList.remove('opacity-0'), 10);
+            loadDriveBackups(tokP);
+        }
+        function closeDriveBackupsModal() {
+            const ov = document.getElementById('driveBackupsModalOverlay');
+            ov.classList.add('opacity-0'); setTimeout(() => ov.classList.add('hidden'), 200);
+        }
+        async function loadDriveBackups(tokP) {
+            const box = document.getElementById('driveBackupsList');
+            box.innerHTML = '<p class="text-xs text-slate-500"><i class="fa-solid fa-spinner animate-spin"></i> Caricamento da Google Drive...</p>';
+            try {
+                const tok = await (tokP || gAuth(driveClientOrWarn()));
+                const folderId = await getVaultDriveFolder(tok);
+                const q = encodeURIComponent("'" + folderId + "' in parents and trashed=false");
+                const res = await (await driveRequest(tok, `https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&orderBy=modifiedTime desc&pageSize=200&fields=files(id,name,modifiedTime,size)`)).json();
+                driveBackupsCache = res.files || [];
+                if (!driveBackupsCache.length) { box.innerHTML = '<p class="text-xs text-slate-500 italic">Nessun backup presente su Google Drive.</p>'; return; }
+                box.innerHTML = driveBackupsCache.map((f, i) => `
+                    <div class="drv-item">
+                        <div><b>${f.name === 'vault_sync.json' ? 'Sincronizzazione automatica' : 'Backup manuale'}</b>
+                        <small>${new Date(f.modifiedTime).toLocaleString('it-IT')} · ${f.size ? Math.max(1, Math.round(f.size / 1024)) + ' KB' : ''}<br>${escapeHtml(f.name)}</small></div>
+                        <div style="display:flex;gap:6px">
+                            <button type="button" class="drv-btn drv-restore" onclick="restoreDriveBackup(${i})">Ripristina</button>
+                            <button type="button" class="drv-btn drv-del" onclick="deleteDriveBackup(${i})">Elimina</button>
+                        </div>
+                    </div>`).join('');
+            } catch (e) {
+                box.innerHTML = '<p class="text-xs" style="color:#e11d48">Impossibile leggere i backup: ' + escapeHtml(e.message) + '</p>';
+            }
+        }
+        async function restoreDriveBackup(i) {
+            const f = driveBackupsCache[i]; if (!f || !activePassword) return;
+            try {
+                const tok = await gAuth(driveClientOrWarn());
+                const payload = await (await driveRequest(tok, `https://www.googleapis.com/drive/v3/files/${f.id}?alt=media`)).json();
+                if (await restoreFromPayload(payload)) closeDriveBackupsModal();
+            } catch (e) { alert("Ripristino da Drive non riuscito: " + e.message); }
+        }
+        async function deleteDriveBackup(i) {
+            const f = driveBackupsCache[i]; if (!f) return;
+            if (!confirm(`Eliminare definitivamente da Google Drive il backup del ${new Date(f.modifiedTime).toLocaleString('it-IT')}?\n(${f.name})`)) return;
+            try {
+                const tok = await gAuth(driveClientOrWarn());
+                await driveRequest(tok, `https://www.googleapis.com/drive/v3/files/${f.id}`, { method: 'DELETE' });
+                showToast("Backup eliminato da Google Drive.");
+                loadDriveBackups();
+            } catch (e) { alert("Eliminazione non riuscita: " + e.message); }
         }
 
         // --- EXCEL EXPORT MATCHING TEMPLATE LAYOUT ---
