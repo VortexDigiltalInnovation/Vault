@@ -134,7 +134,7 @@
     <header class="sticky top-0 z-30 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 py-2.5 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
             <div class="flex items-center gap-2.5">
-                <div class="p-2 bg-indigo-600 text-white rounded-xl shadow-md shadow-indigo-500/20 shrink-0">
+                <div onclick="showAppVersion()" title="Informazioni sulla versione" role="button" class="p-2 bg-indigo-600 text-white rounded-xl shadow-md shadow-indigo-500/20 shrink-0 cursor-pointer">
                     <i class="fa-solid fa-vault text-base sm:text-xl"></i>
                 </div>
                 <div class="brand-text">
@@ -1430,9 +1430,20 @@
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        async function gAuth(clientId) {
-            if (gTok && Date.now() < gTokExp) return gTok;
-            await gLoadGis();
+        const APP_VERSION = '4.1.0';
+        const APP_BUILD = '2026-11-06';
+        function showAppVersion() {
+            const last = localStorage.getItem('vault_last_drive_backup');
+            alert('Vault\nVersione ' + APP_VERSION + ' (build ' + APP_BUILD + ')\n\nUltimo backup su Google Drive: ' +
+                (last ? new Date(last).toLocaleString('it-IT') : 'nessuno'));
+        }
+        // Precarica Google Identity Services: la richiesta del token deve partire subito dal click, altrimenti il browser blocca il popup.
+        if (location.protocol !== 'file:') window.addEventListener('load', () => gLoadGis().catch(() => {}));
+        function gAuth(clientId) {
+            if (gTok && Date.now() < gTokExp) return Promise.resolve(gTok);
+            if (!(window.google && google.accounts && google.accounts.oauth2)) {
+                return gLoadGis().then(() => Promise.reject(new Error('Google era ancora in caricamento: riprova tra un istante.')));
+            }
             return new Promise((res, rej) => {
                 google.accounts.oauth2.initTokenClient({
                     client_id: clientId, scope: 'https://www.googleapis.com/auth/drive.file',
@@ -1468,11 +1479,11 @@
             if (!created.id) throw new Error('Google Drive non ha restituito l’ID della cartella.');
             return created.id;
         }
-        async function driveUpload(name, data, interactive, unique = false) {
+        async function driveUpload(name, data, interactive, unique = false, tokPromise = null) {
             const clientId = (localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID);
             if (!clientId || location.protocol === 'file:') return false;
             if (!interactive && !(gTok && Date.now() < gTokExp)) return false;
-            const tok = await gAuth(clientId);
+            const tok = await (tokPromise || gAuth(clientId));
             const folderId = await getVaultDriveFolder(tok);
             const now = new Date();
             const iso = now.toISOString();
@@ -1829,6 +1840,9 @@
         }
         async function exportData() {
             if (!activePassword) return;
+            const driveClient = location.protocol !== 'file:' && (localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID);
+            let tokPromise = null;
+            if (driveClient) { tokPromise = gAuth(driveClient); tokPromise.catch(() => {}); }
             const pw = prompt("Password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master:");
             if (pw === null) return;
             if (pw && pw.length < 8) return alert("Password troppo corta.");
@@ -1839,12 +1853,14 @@
             a.click();
             setTimeout(() => URL.revokeObjectURL(a.href), 5000);
             showToast("Backup cifrato scaricato!");
-            if ((localStorage.getItem('vault_gdrive_client_id')||DEFAULT_GDRIVE_CLIENT_ID)) {
+            if (location.protocol === 'file:') {
+                alert("Backup scaricato. Il salvataggio su Google Drive non funziona aprendo il file dal computer (file://): apri Vault dal suo indirizzo https://.");
+            } else if (driveClient) {
                 try {
-                    const uploaded = await driveUpload('Vault_backup', payload, true, true);
+                    const uploaded = await driveUpload('Vault_backup.json', payload, true, true, tokPromise);
                     if (!uploaded || !uploaded.id) throw new Error('Google Drive non ha confermato il salvataggio.');
                     localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
-                    showToast("Backup verificato su Google Drive nella cartella Vault Backups.");
+                    showToast("Backup salvato su Google Drive: cartella \"Vault Backups\" (" + uploaded.name + ")");
                 } catch (e) { alert("Backup scaricato, ma il salvataggio su Google Drive non è riuscito: " + e.message); }
             }
         }
