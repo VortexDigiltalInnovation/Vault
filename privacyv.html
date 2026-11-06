@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informativa sulla Privacy & Architettura - Vault</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --container-bg: #1e293b;
+            --accent-color: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.1);
+            --border-color: #334155;
+            --muted-color: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #ffffff;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            font-size: 2rem;
+            letter-spacing: -0.025em;
+        }
+
+        h2 {
+            color: #f1f5f9;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        p, ul {
+            margin-bottom: 16px;
+            color: #cbd5e1;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #ffffff;
+        }
+
+        .hero-box {
+            background-color: var(--accent-soft);
+            border: 1px solid var(--accent-color);
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        .hero-box p {
+            color: #e2e8f0;
+            font-size: 1.05rem;
+            margin-bottom: 0;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .grid-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .grid-card h3 {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .grid-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--muted-color);
+        }
+
+        .last-updated {
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            margin-top: 8px;
+            margin-bottom: 24px;
+        }
+
+        .footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Informativa sulla Privacy e Architettura Dati</h1>
+    <p class="last-updated">Ultimo aggiornamento: 6 Novembre 2026</p>
+
+    <div class="hero-box">
+        <p><strong>Controllo Esclusivo dell'Utente:</strong> Vault è un'applicazione <em>Local-First</em>[cite: 1]. Non esiste un backend centrale, non esistono server aziendali e non raccogliamo alcun tipo di dato. <strong>Tutta l'applicazione, i dati inseriti, i file di configurazione e le copie di backup rimangono nel controllo esclusivo e totale dell'utente finale.</strong></p>
+    </div>
+
+    <div class="highlight-grid">
+        <div class="grid-card">
+            <h3>Zero Server</h3>
+            <p>Nessun dato o backup abbandona mai il tuo dispositivo. Non ci sono API o database remoti[cite: 1].</p>
+        </div>
+        <div class="grid-card">
+            <h3>Zero Tracciamento</h3>
+            <p>Nessuna analisi del comportamento, nessun cookie di profilazione, nessuna telemetria[cite: 1].</p>
+        </div>
+        <div class="grid-card">
+            <h3>Backup Sovrani</h3>
+            <p>Le copie di sicurezza sono file fisici salvati esclusivamente dove decidi tu, senza intermediari[cite: 1].</p>
+        </div>
+    </div>
+
+    <h2>1. Assenza di Titolare e Trattamento Remoto</h2>
+    <p>Poiché l'applicazione opera interamente sul tuo dispositivo, non esiste alcun trattamento di dati personali da parte nostra. Non raccogliamo, non vediamo e non tratteniamo alcuna informazione. L'utente possiede il controllo assoluto sull'intera applicazione e sui suoi flussi di dati[cite: 1].</p>
+
+    <h2>2. Controllo Totale dell'Applicazione e dei Dati</h2>
+    <p>L'intera architettura di Vault è progettata per garantire che l'utente non debba delegare la fiducia a terze parti:</p>
+    <ul>
+        <li><strong>Esecuzione Locale:</strong> L'applicazione gira interamente all'interno del tuo browser o dispositivo tramite tecnologie locali[cite: 1].</li>
+        <li><strong>Cifratura Autonoma:</strong> Ogni password o credenziale viene elaborata e protetta direttamente sul tuo hardware.</li>
+        <li><strong>Nessun Account Remoto:</strong> Non ti viene richiesto un profilo su server esterni; l'accesso e la gestione dipendono unicamente dalle tue credenziali locali.</li>
+    </ul>
+
+    <h2>3. Gestione Esclusiva dei Backup</h2>
+    <p>Anche le copie di sicurezza sottostanno al principio del controllo esclusivo dell'utente[cite: 1]:</p>
+    <ul>
+        <li><strong>Nessun Backup sui nostri server:</strong> Noi non disponiamo di server di archiviazione, pertanto non possiamo in alcun modo trattenere, generare o visualizzare i tuoi backup[cite: 1].</li>
+        <li><strong>Autonomia di Esportazione:</strong> Qualsiasi file di backup viene esportato direttamente sul tuo dispositivo o salvato esclusivamente sui canali personali da te scelti (es. storage locale o cloud personali gestiti da te).</li>
+        <li><strong>Responsabilità e Sovranità:</strong> Poiché l'intero ecosistema (app e backup) è nelle tue mani, la conservazione e la sicurezza dei file di ripristino dipendono interamente dalle tue scelte[cite: 1].</li>
+    </ul>
+
+    <h2>4. Diritti dell'Utente</h2>
+    <p>Non essendoci alcun intermediario o server che tratti i tuoi dati, eserciti il pieno controllo su cancellazione, modifica e portabilità in modo diretto: eliminare l'app o i file locali significa cancellare ogni traccia in modo definitivo e immediato[cite: 1].</p>
+
+    <div class="footer">
+        Vault — Architettura Client-Side a Controllo Esclusivo dell'Utente[cite: 1]
+    </div>
+</div>
+
+</body>
+</html>
