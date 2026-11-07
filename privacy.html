@@ -1,224 +1,103 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informativa sulla Privacy & Architettura Dati - Vault</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --text-color: #f8fafc;
-            --container-bg: #1e293b;
-            --accent-color: #10b981;
-            --accent-soft: rgba(16, 185, 129, 0.1);
-            --border-color: #334155;
-            --muted-color: #94a3b8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: var(--container-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .logo-container img {
-            max-width: 200px;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        h1 {
-            color: #ffffff;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            font-size: 2rem;
-            letter-spacing: -0.025em;
-        }
-
-        h2 {
-            color: #f1f5f9;
-            margin-top: 32px;
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        p, ul {
-            margin-bottom: 16px;
-            color: #cbd5e1;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        strong {
-            color: #ffffff;
-        }
-
-        code {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: var(--accent-color);
-        }
-
-        .hero-box {
-            background-color: var(--accent-soft);
-            border: 1px solid var(--accent-color);
-            padding: 20px;
-            margin: 24px 0;
-            border-radius: 8px;
-        }
-
-        .hero-box p {
-            color: #e2e8f0;
-            font-size: 1.05rem;
-            margin-bottom: 0;
-        }
-
-        .highlight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .grid-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            border-radius: 8px;
-        }
-
-        .grid-card h3 {
-            color: var(--accent-color);
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-
-        .grid-card p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-            color: var(--muted-color);
-        }
-
-        .last-updated {
-            font-size: 0.85rem;
-            color: var(--muted-color);
-            margin-top: 8px;
-            margin-bottom: 24px;
-        }
-
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            margin-top: 48px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--muted-color);
-            text-align: center;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#4f46e5">
+<title>Informativa sulla privacy – Vault</title>
+<link rel="icon" href="icons/favicon.png">
+<style>
+  :root{--bg:#f8fafc;--card:#fff;--text:#0f172a;--muted:#475569;--line:#e2e8f0;--accent:#4f46e5;--ok:#047857}
+  @media (prefers-color-scheme:dark){:root{--bg:#0f172a;--card:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#a5b4fc;--ok:#34d399}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  header img{width:44px;height:44px;border-radius:12px}
+  h1{font-size:1.5rem;margin:0;line-height:1.2}
+  .upd{color:var(--muted);font-size:.85rem;margin:0 0 20px}
+  .summary{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:12px;padding:14px 16px;margin-bottom:20px}
+  .summary strong{color:var(--ok)}
+  h2{font-size:1.1rem;margin:28px 0 6px;color:var(--accent)}
+  p,li{color:var(--text)}
+  li{margin:4px 0}
+  .muted{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0}
+  .tw{overflow-x:auto}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600}
+  a{color:var(--accent)}
+  .back{display:inline-block;margin-top:28px;padding:10px 16px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+  @media (prefers-color-scheme:dark){.back{color:#0f172a}}
+</style>
 </head>
 <body>
+<main>
+  <header>
+    <img src="icons/icon-192x192.png" alt="" width="44" height="44">
+    <h1>Informativa sulla privacy</h1>
+  </header>
+  <p class="upd">Vault · versione 4.4 · aggiornata il 6 novembre 2026</p>
 
-<div class="container">
+  <div class="summary">
+    <strong>In sintesi:</strong> Vault non ha server, account, cookie di tracciamento né statistiche d’uso.
+    Le tue credenziali restano sul tuo dispositivo, cifrate con la tua password principale. Nessuno, nemmeno chi ha creato l’app, può leggerle.
+  </div>
 
-    <div class="logo-container">
-        <img src="Vortex Digital Logo Bicolore.jpeg" alt="Vortex Digital Logo">
-    </div>
+  <h2>1. Chi tratta i dati</h2>
+  <p>Vault è un’applicazione che funziona interamente nel tuo browser o sul tuo dispositivo. Il titolare dei dati sei tu: non esiste un servizio centrale che li raccoglie o li conserva.</p>
 
-    <h1>Informativa sulla Privacy e Architettura Dati</h1>
-    <p class="last-updated">Ultimo aggiornamento: 6 Novembre 2026</p>
+  <h2>2. Quali dati vengono memorizzati e dove</h2>
+  <ul>
+    <li><b>Credenziali e note</b> (servizi, username, password, categorie, ecc.): salvate solo nella memoria locale del dispositivo, cifrate con AES-GCM a 256 bit. La chiave deriva dalla password principale, che non viene mai salvata né inviata altrove.</li>
+    <li><b>Password principale</b>: non è recuperabile. Se la dimentichi, i dati non possono essere ripristinati da nessuno.</li>
+    <li><b>Preferenze</b> (tema, categorie, colori, tempo di blocco automatico): salvate in locale sul dispositivo.</li>
+    <li><b>Backup locali</b>: le ultime revisioni cifrate vengono conservate sul dispositivo per poter tornare indietro.</li>
+  </ul>
 
-    <div class="hero-box">
-        <p><strong>Controllo Esclusivo dell'Utente:</strong> <strong>Vault</strong> è un'applicazione <em>Local-First / Offline-First</em>[cite: 1]. Nessun dato personale, credenziale o file di backup viene trattenuto, utilizzato, tracciato o visionato da noi o da terzi. <strong>Tutte le informazioni risiedono ed esistono esclusivamente nelle mani dell'utente finale[cite: 1].</strong></p>
-    </div>
+  <h2>3. Sblocco biometrico</h2>
+  <p>Se lo attivi, Vault usa lo standard WebAuthn del tuo dispositivo (Face ID, Touch ID, impronta, Windows Hello). I dati biometrici restano nel sistema operativo: Vault non li vede, non li legge e non li memorizza. L’app riceve solo la conferma che la verifica è riuscita. Per consentire lo sblocco, la password principale viene conservata <b>cifrata con una chiave non estraibile</b> legata al dispositivo. Puoi disattivare la funzione in ogni momento dalle impostazioni di sicurezza; se cambi la password principale, la biometria va registrata di nuovo.</p>
+  <p>All’apertura dell’app, se la biometria è attiva, Vault richiede automaticamente la verifica. Se la annulli, puoi sempre sbloccare con la password.</p>
 
-    <div class="highlight-grid">
-        <div class="grid-card">
-            <h3>Zero Server</h3>
-            <p>I dati, le credenziali e i backup non lasciano mai il tuo dispositivo. Nessun database remoto[cite: 1].</p>
-        </div>
-        <div class="grid-card">
-            <h3>Zero Telemetria</h3>
-            <p>Nessun tracciamento del comportamento, nessun cookie analitico o di profilazione[cite: 1].</p>
-        </div>
-        <div class="grid-card">
-            <h3>Backup Sovrani</h3>
-            <p>Le copie di sicurezza sono gestite e conservate unicamente dall'utente dove desidera[cite: 1].</p>
-        </div>
-    </div>
+  <h2>4. Ricerca vocale</h2>
+  <p>La ricerca vocale è facoltativa e parte solo quando tocchi il microfono. Usa il riconoscimento vocale offerto dal tuo browser: in molti browser (ad esempio Chrome) l’audio viene inviato al fornitore del browser per essere trasformato in testo, secondo la sua informativa. Vault riceve solo il testo riconosciuto, che usa per filtrare l’elenco e non salva. Evita di pronunciare password o dati sensibili.</p>
 
-    <h2>1. Raccolta, Archiviazione e Visione dei Dati</h2>
-    <p>Vault opera interamente in ambiente locale sul tuo dispositivo[cite: 1]:</p>
-    <ul>
-        <li><strong>Nessun Trattenimento o Visione:</strong> Non raccogliamo, non memorizziamo, non usiamo e non possiamo visionare alcuna informazione o credenziale inserita[cite: 1].</li>
-        <li><strong>Archiviazione Locale:</strong> Tutti i dati vengono salvati esclusivamente nella memoria locale del tuo browser o dispositivo (tramite tecnologie sicure come <code>IndexedDB</code> o <code>localStorage</code>)[cite: 1].</li>
-        <li><strong>Nessuna Trasmissione Remota:</strong> L'applicazione non invia alcun dato a server remoti o di terze parti[cite: 1].</li>
-    </ul>
+  <h2>5. Servizi esterni usati dall’app</h2>
+  <p>Vault funziona anche offline. Alcune funzioni facoltative contattano servizi esterni, e solo quando le usi:</p>
+  <div class="tw">
+  <table>
+    <tr><th>Funzione</th><th>Servizio</th><th>Cosa viene inviato</th></tr>
+    <tr><td>Loghi dei servizi</td><td>Google (favicon), DuckDuckGo, icon.horse</td><td>Il dominio del sito (non le credenziali)</td></tr>
+    <tr><td>Ricerca automatica del dominio dal nome</td><td>Wikidata</td><td>Il nome del servizio che digiti</td></tr>
+    <tr><td>Controllo password compromesse</td><td>Have I Been Pwned</td><td>Solo i primi 5 caratteri dell’impronta SHA-1 (k-anonymity): la password non viene mai inviata</td></tr>
+    <tr><td>Backup su Google Drive</td><td>Google</td><td>Il file di backup <b>cifrato</b>, nella tua area dell’app (permesso “drive.file”)</td></tr>
+    <tr><td>Importazione/esportazione Excel</td><td>CDN di librerie (cdnjs, jsDelivr)</td><td>Solo il download della libreria, nessun tuo dato</td></tr>
+  </table>
+  </div>
+  <p class="muted">Questi servizi hanno proprie informative sulla privacy. Il backup su Google Drive è disattivato finché non lo configuri tu con il tuo Client ID.</p>
 
-    <h2>2. Gestione Esclusiva dei Backup</h2>
-    <p>La creazione, la conservazione e il ripristino delle copie di sicurezza sono interamente sotto il controllo dell'utente[cite: 1]:</p>
-    <ul>
-        <li>I file di backup vengono generati ed elaborati esclusivamente sul tuo hardware[cite: 1].</li>
-        <li>Non disponiamo di server cloud o sistemi proprietari per archiviare i tuoi backup[cite: 1].</li>
-        <li>La sicurezza e la custodia dei file di salvataggio dipendono unicamente dalle scelte e dalle precauzioni adottate dall'utente[cite: 1].</li>
-    </ul>
+  <h2>6. Assistente IA</h2>
+  <p>Le funzioni dell’assistente IA di Vault vengono eseguite sul dispositivo. I contenuti del caveau non vengono inviati a servizi di intelligenza artificiale esterni.</p>
 
-    <h2>3. Cookie e Hosting</h2>
-    <p>L'applicazione non utilizza cookie di profilazione o strumenti di tracciamento commerciale[cite: 1]. Eventuali log tecnici standard legati all'hosting o alla distribuzione sono gestiti secondo le policy dell'infrastruttura di pubblicazione[cite: 1].</p>
+  <h2>7. Cookie e tracciamento</h2>
+  <p>Vault non usa cookie, pubblicità, strumenti di analisi o profilazione.</p>
 
-    <h2>4. Diritti dell'Utente</h2>
-    <p>Non essendoci alcun server o intermediario che tratti i tuoi dati, eserciti il pieno controllo su cancellazione, modifica e portabilità in modo diretto: eliminare l'applicazione o i dati locali comporta la rimozione immediata e definitiva di ogni informazione[cite: 1].</p>
+  <h2>8. Sicurezza</h2>
+  <ul>
+    <li>Blocco automatico per inattività e quando l’app resta in background a lungo.</li>
+    <li>Limite ai tentativi di sblocco errati.</li>
+    <li>Gli appunti vengono svuotati dopo la copia di una password.</li>
+  </ul>
 
-    <h2>5. Contatti</h2>
-    <p>Per chiarimenti relativi all'architettura o a questa informativa, è possibile fare riferimento ai canali ufficiali del progetto.</p>
+  <h2>9. I tuoi diritti e il controllo dei dati</h2>
+  <p>Poiché i dati sono solo sul tuo dispositivo, puoi esportarli, modificarli o cancellarli in qualsiasi momento dall’app. Cancellare i dati del sito o disinstallare l’app elimina definitivamente la copia locale. I backup su Google Drive vanno rimossi dal tuo account Google.</p>
 
-    <div class="footer">
-        &copy; 2026 Vortex Digital — Vault (Architettura Client-Side a Controllo Esclusivo dell'Utente)[cite: 1]
-    </div>
-</div>
+  <h2>10. Modifiche</h2>
+  <p>Eventuali aggiornamenti di questa informativa saranno pubblicati in questa pagina, con la data di revisione in alto.</p>
 
+  <a class="back" href="./" onclick="if(history.length>1&&document.referrer){history.back();return false;}">← Torna a Vault</a>
+</main>
 </body>
 </html>

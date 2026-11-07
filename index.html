@@ -91,9 +91,100 @@
             #masterLockOverlay { align-items: center; overflow-y: auto; }
         }
 
+    @keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,.5)}50%{box-shadow:0 0 0 8px rgba(244,63,94,0)}}
+        #voiceSearchBtn.listening{background:#f43f5e;color:#fff;animation:micPulse 1.2s infinite}
+    </style>
+
+    <style id="vx-ui">
+        /* ===== v4.5: barra inferiore, menu a schede, backup locale ===== */
+        body { padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important; }
+        #toast { bottom: calc(96px + env(safe-area-inset-bottom)) !important; pointer-events: none; }
+        .vx-off { display: none !important; }
+        .vx-sub { font-size: 11px; color: #64748b; font-weight: 500; line-height: 1.2; }
+        .dark .vx-sub { color: #94a3b8; }
+        .vx-lock { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 12px; background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; font-size: 14px; font-weight: 700; cursor: pointer; }
+        .vx-lock:active { transform: scale(.96); }
+        .dark .vx-lock { background: #4c0519; color: #fecdd3; border-color: #881337; }
+        .vx-lock i { font-size: 15px; }
+        .vx-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: space-around; gap: 2px; padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.97); backdrop-filter: blur(10px); border-top: 1px solid #e2e8f0; box-shadow: 0 -6px 20px rgba(15,23,42,.08); }
+        .dark .vx-bar { background: rgba(30,41,59,.97); border-color: #334155; }
+        .vx-tab { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 7px 2px 5px; border-radius: 14px; background: none; border: 0; color: #475569; font-size: 11px; font-weight: 700; line-height: 1.1; cursor: pointer; white-space: nowrap; }
+        .vx-tab i { font-size: 21px; }
+        .vx-tab:active { background: rgba(99,102,241,.14); }
+        .dark .vx-tab { color: #cbd5e1; }
+        .vx-tab.vx-new { color: #4338ca; }
+        .dark .vx-tab.vx-new { color: #c7d2fe; }
+        .vx-plus { width: 54px; height: 54px; margin-top: -30px; border-radius: 50%; background: linear-gradient(135deg,#4f46e5,#7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; border: 4px solid #f8fafc; box-shadow: 0 8px 18px rgba(79,70,229,.45); }
+        .dark .vx-plus { border-color: #1e293b; }
+        .vx-plus i { font-size: 22px; }
+        @media (min-width: 640px) {
+            .vx-bar { left: 50%; right: auto; transform: translateX(-50%); bottom: 14px; width: min(560px, calc(100% - 24px)); border: 1px solid #e2e8f0; border-radius: 22px; }
+            .dark .vx-bar { border-color: #334155; }
+            #toast { bottom: 110px !important; }
+        }
+        .vx-overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 12px; background: rgba(15,23,42,.6); backdrop-filter: blur(4px); transition: opacity .18s; }
+        .vx-overlay.vx-fade { opacity: 0; }
+        .vx-sheet { background: #fff; color: #0f172a; border-radius: 22px; width: 100%; max-width: 30rem; max-height: 90dvh; overflow-y: auto; padding: 16px; box-shadow: 0 25px 50px rgba(0,0,0,.35); overscroll-behavior: contain; }
+        .dark .vx-sheet { background: #1e293b; color: #f1f5f9; }
+        .vx-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+        .vx-h h3 { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .vx-x { padding: 9px 11px; border-radius: 12px; background: #f1f5f9; color: #475569; border: 0; cursor: pointer; }
+        .dark .vx-x { background: #334155; color: #cbd5e1; }
+        .vx-sec { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #64748b; margin: 14px 4px 6px; }
+        .vx-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 16px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 7px; color: inherit; cursor: pointer; }
+        .vx-row:active { transform: scale(.985); }
+        .dark .vx-row { background: #0f172a; border-color: #334155; }
+        .vx-row[hidden] { display: none !important; }
+        .vx-ic { flex: 0 0 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 19px; }
+        .vx-row b { display: block; font-size: 14px; font-weight: 700; }
+        .vx-row small { display: block; font-size: 12px; color: #64748b; line-height: 1.3; margin-top: 1px; }
+        .dark .vx-row small { color: #94a3b8; }
+        .ic-indigo { background: #e0e7ff; color: #4338ca; } .dark .ic-indigo { background: #312e81; color: #c7d2fe; }
+        .ic-sky { background: #e0f2fe; color: #0369a1; } .dark .ic-sky { background: #0c4a6e; color: #bae6fd; }
+        .ic-emerald { background: #d1fae5; color: #047857; } .dark .ic-emerald { background: #064e3b; color: #a7f3d0; }
+        .ic-amber { background: #fef3c7; color: #b45309; } .dark .ic-amber { background: #78350f; color: #fde68a; }
+        .ic-violet { background: #ede9fe; color: #6d28d9; } .dark .ic-violet { background: #4c1d95; color: #ddd6fe; }
+        .ic-slate { background: #e2e8f0; color: #334155; } .dark .ic-slate { background: #334155; color: #e2e8f0; }
+        .vx-card { padding: 12px; border-radius: 16px; background: #f1f5f9; border: 1px solid #e2e8f0; margin: 8px 0; }
+        .dark .vx-card { background: #0f172a; border-color: #334155; }
+        .vx-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #64748b; }
+        .vx-val { font-size: 14px; font-weight: 700; margin-top: 2px; word-break: break-word; }
+        .vx-small { font-size: 12px; color: #64748b; line-height: 1.4; margin-top: 4px; }
+        .dark .vx-small { color: #94a3b8; }
+        .vx-warn { margin-top: 8px; padding: 8px 10px; border-radius: 10px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600; }
+        .dark .vx-warn { background: #78350f; color: #fde68a; }
+        .vx-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+        .vx-btn, .vx-btn2 { flex: 1 1 140px; padding: 12px 14px; border-radius: 14px; font-size: 14px; font-weight: 700; border: 0; cursor: pointer; text-align: center; }
+        .vx-btn { background: #4f46e5; color: #fff; }
+        .vx-btn2 { background: #e0e7ff; color: #3730a3; }
+        .dark .vx-btn2 { background: #312e81; color: #e0e7ff; }
+        .vx-btn:active, .vx-btn2:active { transform: scale(.97); }
+        .vx-link { background: none; border: 0; color: #6366f1; font-size: 12px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px; }
+        .vx-toggle { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 14px; background: #f1f5f9; border: 1px solid #e2e8f0; margin: 8px 0; cursor: pointer; }
+        .dark .vx-toggle { background: #0f172a; border-color: #334155; }
+        .vx-toggle input { width: 20px; height: 20px; margin-top: 2px; accent-color: #4f46e5; flex: 0 0 auto; }
+        .vx-toggle b { display: block; font-size: 13px; }
+        .vx-toggle small { display: block; font-size: 12px; color: #64748b; line-height: 1.3; }
+        .vx-field { margin: 10px 0; }
+        .vx-field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+        .vx-field select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; background: #fff; color: inherit; font-size: 14px; }
+        .dark .vx-field select { background: #0f172a; border-color: #475569; }
+        .vx-file { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 10px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 6px; }
+        .dark .vx-file { background: #0f172a; border-color: #334155; }
+        .vx-file > span:last-child { display: flex; gap: 6px; flex: 0 0 auto; }
+        .vx-file > span:first-child { min-width: 0; word-break: break-all; }
+        .vx-file b { display: block; font-size: 13px; }
+        .vx-file small { font-size: 11px; color: #64748b; }
+        .vx-file button { padding: 7px 10px; border-radius: 10px; font-size: 12px; font-weight: 700; border: 0; cursor: pointer; }
+        .vx-file .f-r { background: #e0e7ff; color: #4338ca; } .vx-file .f-d { background: #ffe4e6; color: #be123c; }
+        .dark .vx-file .f-r { background: #312e81; color: #c7d2fe; } .dark .vx-file .f-d { background: #4c0519; color: #fecdd3; }
+        .vx-bigic { width: 64px; height: 64px; margin: 4px auto 10px; border-radius: 20px; background: #e0e7ff; color: #4338ca; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+        .dark .vx-bigic { background: #312e81; color: #c7d2fe; }
     </style>
     <style id="icons-inline">
 .fa-solid,.fa-regular,.fa-brands{display:inline-block;width:1em;height:1em;vertical-align:-.125em;background-color:currentColor;-webkit-mask:var(--fa) center/contain no-repeat;mask:var(--fa) center/contain no-repeat;flex-shrink:0}
+.fa-microphone{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect x=%229%22 y=%222%22 width=%226%22 height=%2212%22 rx=%223%22/%3E%3Cpath d=%22M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8%22 fill=%22none%22 stroke=%22black%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E")}
+
 .fa-book-open{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Cpath d=%22M256 141.3v309.3l.5-.2A449 449 0 0 1 428.8 416H448V96h-19.2c-42.2 0-84.1 8.4-123.1 24.6-16.8 7-33.4 13.9-49.7 20.7m-25.1-79.8L256 72l25.1-10.5C327.9 42 378.1 32 428.8 32H464c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48h-35.2c-50.7 0-100.9 10-147.7 29.5l-12.8 5.3c-7.9 3.3-16.7 3.3-24.6 0l-12.8-5.3C184.1 490 133.9 480 83.2 480H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h35.2c50.7 0 100.9 10 147.7 29.5%22/%3E%3C/svg%3E")}
 .fa-brain{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Cpath d=%22M120 56c0-30.9 25.1-56 56-56h24c17.7 0 32 14.3 32 32v448c0 17.7-14.3 32-32 32h-32c-29.8 0-54.9-20.4-62-48h-2c-44.2 0-80-35.8-80-80 0-18 6-34.6 16-48-19.4-14.6-32-37.8-32-64 0-30.9 17.6-57.8 43.2-71.1-7.1-12-11.2-26-11.2-40.9 0-44.2 35.8-80 80-80zm272 0v24c44.2 0 80 35.8 80 80 0 15-4.1 29-11.2 40.9C486.5 214.2 504 241 504 272c0 26.2-12.6 49.4-32 64 10 13.4 16 30 16 48 0 44.2-35.8 80-80 80h-2c-7.1 27.6-32.2 48-62 48h-32c-17.7 0-32-14.3-32-32V32c0-17.7 14.3-32 32-32h24c30.9 0 56 25.1 56 56%22/%3E%3C/svg%3E")}
 .fa-briefcase{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Cpath d=%22M200 48h112c4.4 0 8 3.6 8 8v40H192V56c0-4.4 3.6-8 8-8m-56 8v40H64c-35.3 0-64 28.7-64 64v96h512v-96c0-35.3-28.7-64-64-64h-80V56c0-30.9-25.1-56-56-56H200c-30.9 0-56 25.1-56 56m368 248H320v16c0 17.7-14.3 32-32 32h-64c-17.7 0-32-14.3-32-32v-16H0v112c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64z%22/%3E%3C/svg%3E")}
@@ -147,97 +238,19 @@
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
     
-    <!-- Header / Navbar -->
+    <!-- Header: logo + Blocca (le altre azioni sono nella barra inferiore) -->
     <header class="sticky top-0 z-30 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 py-2.5 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
             <div class="flex items-center gap-2.5">
                 <div onclick="showAppVersion()" title="Informazioni sulla versione" role="button" class="p-2 bg-indigo-600 text-white rounded-xl shadow-md shadow-indigo-500/20 shrink-0 cursor-pointer">
                     <i class="fa-solid fa-vault text-base sm:text-xl"></i>
                 </div>
-                <div class="brand-text">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                        <h1 class="text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">Vault</h1>
-                        <span class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                            <i class="fa-solid fa-brain text-[8px]"></i> AI & HD Logos
-                        </span>
-                    </div>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Gestione Sicura Account & Assistente Intelligente</p>
+                <div>
+                    <h1 class="text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">Vault</h1>
+                    <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
-
-            <!-- Top Actions -->
-            <div class="hdr-actions flex items-center gap-1.5 sm:gap-2 flex-wrap justify-end">
-                <button onclick="openModal()" class="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all shadow-sm active:scale-95">
-                    <i class="fa-solid fa-plus"></i>
-                    <span class="hidden sm:inline">Nuova Voce</span><span class="m-lbl">Nuova</span>
-                </button>
-
-                <!-- AI Assistant Trigger Button -->
-                <button onclick="openAiAssistantModal()" title="Vault AI: chiedi all'assistente (cerca, statistiche, audit password)" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span class="hidden md:inline">Vault AI</span><span class="m-lbl">Vault AI</span>
-                </button>
-
-                <!-- Guida Rapida (PDF) -->
-                <button onclick="openGuideModal()" id="guideBtn" title="Guida Rapida (PDF)" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60 text-xs font-medium transition-colors flex items-center gap-1">
-                    <i class="fa-solid fa-book-open"></i>
-                    <span class="hidden md:inline">Guida</span><span class="m-lbl">Guida</span>
-                </button>
-
-                <button onclick="openSecurityModal()" title="Sicurezza: biometria, blocco automatico, audit password" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 text-xs font-medium transition-colors flex items-center gap-1" aria-label="Sicurezza">
-                    <i class="fa-solid fa-shield-halved"></i><span class="hidden md:inline">Sicurezza</span><span class="m-lbl">Sicurezza</span>
-                </button>
-                <button onclick="lockVaultManual()" title="Blocca subito il caveau" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-medium transition-colors flex items-center gap-1" aria-label="Blocca il caveau">
-                    <i class="fa-solid fa-lock"></i><span class="hidden md:inline">Blocca</span><span class="m-lbl">Blocca</span>
-                </button>
-                <div id="secActions" class="sec-actions">
-                <div class="menu-head">Google Drive</div>
-                <button onclick="syncWithGoogleDrive()" title="Sincronizza ora il caveau con Google Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60">
-                    <i class="fa-solid fa-cloud-arrow-up" id="syncCloudIcon"></i>
-                    <span class="hidden md:inline lbl-short">Sync</span><span class="lbl-long">Sincronizza ora con Drive</span>
-                </button>
-                <button onclick="openDriveBackupsModal()" title="Vedi, ripristina o elimina i backup su Google Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span class="hidden md:inline lbl-short">Backup Drive</span><span class="lbl-long">Backup su Drive (vedi / ripristina / elimina)</span>
-                </button>
-                <div class="menu-head">Backup su file</div>
-                <button onclick="exportData()" title="Crea un backup cifrato: scarica il file e lo salva su Drive" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">
-                    <i class="fa-solid fa-file-export"></i>
-                    <span class="hidden md:inline lbl-short">Backup</span><span class="lbl-long">Crea backup cifrato (file + Drive)</span>
-                </button>
-                <button onclick="triggerImport()" title="Ripristina il caveau da un file di backup sul dispositivo" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">
-                    <i class="fa-solid fa-file-import"></i>
-                    <span class="hidden md:inline lbl-short">Ripristina</span><span class="lbl-long">Ripristina da file sul dispositivo</span>
-                </button>
-                <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="handleFileImport(event)">
-                <div class="menu-head">Excel</div>
-                <button onclick="exportExcel()" title="Esporta le voci in un file Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
-                    <i class="fa-solid fa-file-excel"></i>
-                    <span class="hidden md:inline lbl-short">Excel</span><span class="lbl-long">Esporta in Excel</span>
-                </button>
-                <button onclick="triggerExcelImport()" title="Importa voci da un file Excel" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
-                    <i class="fa-solid fa-file-arrow-up"></i>
-                    <span class="hidden md:inline lbl-short">Imp.</span><span class="lbl-long">Importa da Excel</span>
-                </button>
-                <input type="file" id="importExcelFileInput" accept=".xlsx,.xls,.enc" class="hidden" onchange="handleExcelFileImport(event)">
-                <div class="menu-head">Impostazioni</div>
-                <button onclick="openManagerModal()" title="Categorie, titolari e colori" class="p-2 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 bg-violet-50 dark:bg-violet-950/40 hover:bg-violet-100 dark:hover:bg-violet-900/50 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800/60">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span class="hidden md:inline lbl-short">Opzioni</span><span class="lbl-long">Categorie, titolari e colori</span>
-                </button>
-                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                    <i class="fa-solid fa-moon dark:hidden"></i>
-                    <i class="fa-solid fa-sun hidden dark:inline"></i>
-                </button>
-                <button hidden id="installBtn" onclick="installApp()" title="Installa l'app" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors shadow-sm flex items-center gap-1">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                    <span class="hidden md:inline">Installa</span>
-                </button>
-                </div>
-                <button id="moreMenuBtn" onclick="toggleMoreMenu(event)" title="Altro: Drive, backup, Excel, opzioni, tema" aria-label="Altre azioni" aria-expanded="false" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-ellipsis"></i><span class="m-lbl">Altro</span>
-                </button>
-            </div>
+            <button onclick="lockVaultManual()" class="vx-lock" title="Blocca subito il caveau" aria-label="Blocca il caveau"><i class="fa-solid fa-lock"></i><span>Blocca</span></button>
         </div>
     </header>
 
@@ -301,7 +314,10 @@
             <div class="relative w-full">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                 <input type="text" id="searchInput" placeholder="Cerca servizio, username, note..." 
-                    class="w-full pl-10 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium text-slate-900 dark:text-slate-100 transition-all shadow-inner">
+                    class="w-full pl-10 pr-12 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium text-slate-900 dark:text-slate-100 transition-all shadow-inner">
+                <button type="button" id="voiceSearchBtn" onclick="toggleVoiceSearch()" title="Ricerca vocale" aria-label="Ricerca vocale" class="hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
             </div>
 
             <div class="flex items-center justify-between gap-2 flex-wrap">
@@ -489,6 +505,81 @@
     </div>
 
     <!-- Toast Notification -->
+    <!-- Barra inferiore -->
+    <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="handleFileImport(event)">
+    <input type="file" id="importExcelFileInput" accept=".xlsx,.xls,.enc" class="hidden" onchange="handleExcelFileImport(event)">
+    <nav class="vx-bar" aria-label="Azioni principali">
+        <button class="vx-tab" onclick="openAiAssistantModal()" title="Chiedi all'assistente: cerca, statistiche, audit password"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Vault AI</span></button>
+        <button class="vx-tab" onclick="vxOpen('backupMenuModalOverlay')" title="Backup su telefono, Drive, file ed Excel"><i class="fa-solid fa-clock-rotate-left"></i><span>Backup</span></button>
+        <button class="vx-tab vx-new" onclick="openModal()" title="Aggiungi una nuova credenziale"><span class="vx-plus"><i class="fa-solid fa-plus"></i></span><span>Nuova</span></button>
+        <button class="vx-tab" onclick="openSecurityModal()" title="Biometria, blocco automatico, password master"><i class="fa-solid fa-shield-halved"></i><span>Sicurezza</span></button>
+        <button class="vx-tab" onclick="vxOpen('moreMenuModalOverlay')" title="Guida, categorie, tema, informazioni"><i class="fa-solid fa-ellipsis"></i><span>Altro</span></button>
+    </nav>
+    <div id="backupMenuModalOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('backupMenuModalOverlay')">
+        <div class="vx-sheet">
+            <div class="vx-h"><h3><i class="fa-solid fa-clock-rotate-left"></i> Backup e dati</h3><button class="vx-x" onclick="vxClose('backupMenuModalOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="vx-sec">Su questo telefono</div>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');vxLbBackupNow()"><span class="vx-ic ic-amber"><i class="fa-solid fa-folder-open"></i></span><span><b>Salva backup nella cartella locale</b><small><span id="vxLbSub">Copia cifrata nella cartella scelta</span></small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');vxOpenLocalBackup()"><span class="vx-ic ic-slate"><i class="fa-solid fa-sliders"></i></span><span><b>Cartella, copie e ripristino</b><small>Scegli o cambia la cartella, vedi e ripristina le copie</small></span></button>
+            <div class="vx-sec">Google Drive</div>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');syncWithGoogleDrive()"><span class="vx-ic ic-sky"><i class="fa-solid fa-cloud-arrow-up" id="syncCloudIcon"></i></span><span><b>Sincronizza ora con Drive</b><small>Allinea il caveau cifrato con Google Drive</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');openDriveBackupsModal()"><span class="vx-ic ic-sky"><i class="fa-solid fa-clock-rotate-left"></i></span><span><b>Copie su Drive</b><small>Vedi, ripristina o elimina i backup su Drive</small></span></button>
+            <div class="vx-sec">File</div>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');exportData()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-file-export"></i></span><span><b>Crea backup cifrato</b><small>Scarica un file cifrato (e lo invia a Drive se attivo)</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');triggerImport()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-file-import"></i></span><span><b>Ripristina da file</b><small>Carica un backup .json dal telefono</small></span></button>
+            <div class="vx-sec">Excel</div>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');exportExcel()"><span class="vx-ic ic-emerald"><i class="fa-solid fa-file-excel"></i></span><span><b>Esporta in Excel</b><small>Tutte le voci in un file Excel</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');triggerExcelImport()"><span class="vx-ic ic-emerald"><i class="fa-solid fa-file-arrow-up"></i></span><span><b>Importa da Excel</b><small>Aggiungi voci da un file Excel</small></span></button>
+        </div>
+    </div>
+    <div id="moreMenuModalOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('moreMenuModalOverlay')">
+        <div class="vx-sheet">
+            <div class="vx-h"><h3><i class="fa-solid fa-ellipsis"></i> Altro</h3><button class="vx-x" onclick="vxClose('moreMenuModalOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openGuideModal()" id="guideBtn"><span class="vx-ic ic-amber"><i class="fa-solid fa-book-open"></i></span><span><b>Guida rapida</b><small>Come si usa Vault (PDF)</small></span></button>
+            <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openManagerModal()"><span class="vx-ic ic-violet"><i class="fa-solid fa-sliders"></i></span><span><b>Categorie, titolari e colori</b><small>Personalizza come ordini le voci</small></span></button>
+            <button class="vx-row" id="themeToggleBtn" onclick="toggleTheme()"><span class="vx-ic ic-slate"><i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:inline"></i></span><span><b>Tema chiaro / scuro</b><small>Cambia l'aspetto dell'app</small></span></button>
+            <button class="vx-row" id="installBtn" hidden onclick="vxClose('moreMenuModalOverlay');installApp()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-mobile-screen-button"></i></span><span><b>Installa l'app</b><small>Aggiungi Vault alla schermata Home</small></span></button>
+            <button class="vx-row" onclick="showAppVersion()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-vault"></i></span><span><b>Informazioni su Vault</b><small>Versione e ultimo backup su Drive</small></span></button>
+        </div>
+    </div>
+    <div id="localBackupModalOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('localBackupModalOverlay')">
+        <div class="vx-sheet">
+            <div class="vx-h"><h3><i class="fa-solid fa-folder-open"></i> Backup nella cartella locale</h3><button class="vx-x" onclick="vxClose('localBackupModalOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <p class="vx-small" style="margin-top:0">Vault crea da solo la cartella <b>Vault Backups</b> e ci salva copie cifrate del caveau. Raggiunto il numero massimo, la copia più vecchia viene sostituita dalla nuova.</p>
+            <div class="vx-card">
+                <div class="vx-lbl">Cartella attuale</div>
+                <div class="vx-val" id="lbFolder">…</div>
+                <div class="vx-small" id="lbLast"></div>
+                <div class="vx-warn vx-off" id="lbWarn"></div>
+            </div>
+            <div class="vx-btns">
+                <button class="vx-btn" onclick="vxLbBackupNow()">Salva backup ora</button>
+                <button class="vx-btn2" id="lbChooseBtn" onclick="vxLbChoose()">Scegli / cambia cartella</button>
+            </div>
+            <label class="vx-toggle"><input type="checkbox" id="lbAuto" onchange="vxLbSetAuto(this.checked)"><span><b>Backup automatico</b><small>Salva una copia quando modifichi le voci (al massimo ogni 10 minuti) e quando blocchi il caveau.</small></span></label>
+            <div class="vx-field"><label for="lbMax">Copie da conservare</label>
+                <select id="lbMax" onchange="vxLbSetMax(this.value)"><option>3</option><option>5</option><option>10</option><option>20</option></select></div>
+            <div class="vx-sec">Copie salvate</div>
+            <div id="lbList"></div>
+            <div class="vx-btns">
+                <button class="vx-btn2" onclick="vxLbShare()">Salva una copia altrove…</button>
+                <button class="vx-btn2" id="lbInternalBtn" onclick="vxLbUseInternal()">Torna alla cartella interna</button>
+            </div>
+            <p class="vx-small" id="lbNote"></p>
+        </div>
+    </div>
+    <div id="bioOfferModalOverlay" class="vx-overlay vx-off vx-fade">
+        <div class="vx-sheet" style="text-align:center">
+            <div class="vx-bigic"><i class="fa-solid fa-fingerprint"></i></div>
+            <h3 style="font-size:17px;font-weight:800;display:block">Aprire Vault con impronta o volto?</h3>
+            <p class="vx-small" style="margin:8px 0 12px">Da ora il caveau si sblocca da solo appena apri l'app, senza scrivere la password master. La password resta necessaria se cambi telefono o se la biometria non risponde.</p>
+            <div class="vx-btns" style="flex-direction:column">
+                <button class="vx-btn" onclick="vxClose('bioOfferModalOverlay');registerBiometricCredential()">Attiva sblocco automatico</button>
+                <button class="vx-btn2" onclick="vxClose('bioOfferModalOverlay')">Più tardi</button>
+                <button class="vx-link" onclick="localStorage.setItem('vault_bio_declined','1');vxClose('bioOfferModalOverlay')">Non chiedermelo più</button>
+            </div>
+        </div>
+    </div>
     <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-700 dark:border-slate-300 flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 text-xs font-medium">
         <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600 text-base" id="toastIcon"></i>
         <span id="toastMessage">Operazione completata!</span>
@@ -539,6 +630,7 @@
             <div class="mt-2 flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
                 <i class="fa-solid fa-shield-halved text-emerald-500"></i> Client-Side Zero-Knowledge + WebAuthn
             </div>
+            <a href="privacy.html" target="_blank" rel="noopener" class="mt-2 inline-block text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">Informativa sulla privacy</a>
         </div>
     </div>
 
@@ -712,6 +804,8 @@
                         Registra
                     </button>
                 </div>
+                <label class="vx-toggle"><input type="checkbox" id="bioAutoToggle" onchange="localStorage.setItem('vault_bio_auto', this.checked ? '1' : '0')"><span><b>Sblocca da solo all'apertura</b><small>Appena apri l'app compare la richiesta di impronta o volto. Serve aver premuto "Registra".</small></span></label>
+                <button type="button" class="vx-link" onclick="bioReset();showToast('Sblocco biometrico rimosso.')">Rimuovi sblocco biometrico</button>
 
                 <div>
                     <h4 class="font-semibold text-slate-600 dark:text-slate-400 uppercase mb-1.5">Cambia Password Master</h4>
@@ -762,6 +856,10 @@
                 </div>
 
                 <div id="securityError" class="text-[11px] text-rose-500 font-medium hidden"></div>
+
+                <div class="pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <a href="privacy.html" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fa-solid fa-shield-halved"></i> Informativa sulla privacy</a>
+                </div>
 
                 <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-700">
                     <button type="button" onclick="closeSecurityModal()" class="px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium">Annulla</button>
@@ -871,6 +969,7 @@
                 if (!bioUnavailableReason() && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
                     && localStorage.getItem('vault_biometric_id') && localStorage.getItem('vault_bio_blob')) {
                     document.getElementById('biometricLoginBtn').classList.remove('hidden');
+                    autoBiometricUnlock(400); // sblocco automatico all'apertura
                 }
             } catch (e) {}
         }
@@ -902,6 +1001,7 @@
                     timeout: 60000
                 }});
                 localStorage.setItem('vault_biometric_id', b64e(credential.rawId));
+                localStorage.setItem('vault_bio_auto', '1'); localStorage.removeItem('vault_bio_declined');
                 await bioWrap();
                 document.getElementById('biometricLoginBtn').classList.remove('hidden');
                 showToast("Sblocco biometrico registrato!");
@@ -910,17 +1010,32 @@
                 alert("Registrazione biometrica annullata o fallita: " + err.message);
             }
         }
-        async function attemptBiometricUnlock() {
+        let bioBusy = false;
+        function autoBiometricUnlock(delay) {
+            if (localStorage.getItem('vault_bio_auto') === '0') return;
+            setTimeout(() => {
+                const ov = document.getElementById('masterLockOverlay');
+                const btn = document.getElementById('biometricLoginBtn');
+                if (activePassword || bioBusy || document.hidden || ov.classList.contains('hidden') || btn.classList.contains('hidden')) return;
+                attemptBiometricUnlock(true);
+            }, delay || 0);
+        }
+        async function attemptBiometricUnlock(auto) {
+            if (bioBusy) return;
             const idB64 = localStorage.getItem('vault_biometric_id');
             const blob = JSON.parse(localStorage.getItem('vault_bio_blob') || 'null');
             if (!idB64 || !blob) return;
+            bioBusy = true;
+            try { await bioUnlockFlow(idB64, blob, auto === true); } finally { bioBusy = false; }
+        }
+        async function bioUnlockFlow(idB64, blob, auto) {
             try {
                 await navigator.credentials.get({ publicKey: {
                     challenge: crypto.getRandomValues(new Uint8Array(32)),
                     allowCredentials: [{ id: b64d(idB64), type: "public-key" }],
                     userVerification: "required"
                 }});
-            } catch (err) { return showToast("Autenticazione biometrica annullata."); }
+            } catch (err) { if (!auto) showToast("Autenticazione biometrica annullata."); return; }
             try {
                 const key = await bioKeyGet();
                 const pass = new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(blob.iv) }, key, b64d(blob.ct)));
@@ -930,6 +1045,40 @@
                 bioReset();
                 alert("La password master è cambiata o i dati biometrici non sono più validi. Accedi con la password e registra di nuovo la biometria dalle impostazioni.");
             }
+        }
+
+
+        // --- RICERCA VOCALE (Web Speech API, italiano) ---
+        let voiceRec = null, voiceActive = false;
+        function initVoiceSearch() {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const btn = document.getElementById('voiceSearchBtn');
+            if (!SR || !btn) return;
+            btn.classList.remove('hidden');
+            voiceRec = new SR();
+            voiceRec.lang = 'it-IT';
+            voiceRec.interimResults = true;
+            voiceRec.continuous = false;
+            voiceRec.maxAlternatives = 1;
+            const input = document.getElementById('searchInput');
+            voiceRec.onstart = () => { voiceActive = true; btn.classList.add('listening'); input.placeholder = 'Sto ascoltando…'; };
+            voiceRec.onresult = ev => {
+                let t = '';
+                for (let i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript;
+                input.value = t.replace(/[.。]+$/, '').trim();
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            };
+            voiceRec.onerror = ev => {
+                const m = { 'not-allowed': 'Permesso al microfono negato.', 'service-not-allowed': 'Riconoscimento vocale non consentito.',
+                    'no-speech': 'Non ho sentito nulla, riprova.', 'audio-capture': 'Microfono non disponibile.', 'network': 'Serve la connessione per il riconoscimento vocale.' };
+                showToast(m[ev.error] || 'Ricerca vocale interrotta.');
+            };
+            voiceRec.onend = () => { voiceActive = false; btn.classList.remove('listening'); input.placeholder = 'Cerca servizio, username, note...'; };
+        }
+        function toggleVoiceSearch() {
+            if (!voiceRec) return;
+            if (voiceActive) { try { voiceRec.stop(); } catch (e) {} return; }
+            try { voiceRec.start(); } catch (e) { showToast('Ricerca vocale non disponibile.'); }
         }
 
         // --- APP STATE ---
@@ -992,6 +1141,7 @@
             setupEventListeners();
             resetInactivityTimer();
             checkBiometricSupport();
+            initVoiceSearch();
         });
 
         function initTheme() {
@@ -1012,6 +1162,7 @@
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) { hiddenAt = Date.now(); return; }
                 if (activePassword && hiddenAt && Date.now() - hiddenAt > 60000) lockVaultManual();
+                if (!activePassword) autoBiometricUnlock(350);
             });
         }
         function throttledReset() { const n = Date.now(); if (n - lastActivity > 1000) { lastActivity = n; resetInactivityTimer(); } }
@@ -1030,6 +1181,8 @@
             document.getElementById('masterPasswordInput').value = '';
             document.getElementById('masterConfirmInput').value = '';
             hideLockOverlay(); refreshUIState(); showToast(msg);
+            setTimeout(() => { if (window.vxBioOffer) vxBioOffer(); }, 1300);
+            setTimeout(() => { if (window.vxOnUnlock) vxOnUnlock(); }, 3800);
         }
         async function unlockVault(e) {
             if (e) e.preventDefault();
@@ -1075,6 +1228,9 @@
         }
 
         function lockVaultManual() {
+            if (window.vxLockFlush) vxLockFlush();
+            if (window.vxCloseAll) vxCloseAll();
+            if (voiceActive && voiceRec) { try { voiceRec.abort(); } catch (e) {} }
             if (clipboardTimer) { clearTimeout(clipboardTimer); clipboardTimer = null; navigator.clipboard.writeText('').catch(() => {}); }
             activePassword = null; credentials = []; selectedIndices.clear();
             ['masterPasswordInput', 'masterConfirmInput'].forEach(id => document.getElementById(id).value = '');
@@ -1107,6 +1263,7 @@
             updateStats();
             runPasswordAudit();
             scheduleAutoDriveSync();
+            if (window.vxAfterSave) vxAfterSave();
         }
 
         function resetInactivityTimer() {
@@ -1115,6 +1272,7 @@
                 autoLockTimer = setTimeout(() => {
                     lockVaultManual();
                     showToast("Caveau bloccato per inattività.");
+                    autoBiometricUnlock(800);
                 }, inactivityTimeoutMinutes * 60 * 1000);
             }
         }
@@ -1290,20 +1448,8 @@
             a.href = u; a.download = 'Guida_Rapida_Vault.pdf';
             document.body.appendChild(a); a.click(); a.remove();
         }
-        function toggleMoreMenu(ev) {
-            if (ev) ev.stopPropagation();
-            const m = document.getElementById('secActions'), open = !m.classList.contains('open');
-            m.classList.toggle('open', open);
-            document.getElementById('moreMenuBtn').setAttribute('aria-expanded', open);
-        }
-        function closeMoreMenu() {
-            document.getElementById('secActions').classList.remove('open');
-            document.getElementById('moreMenuBtn').setAttribute('aria-expanded', 'false');
-        }
-        document.addEventListener('click', ev => {
-            const m = document.getElementById('secActions');
-            if (m.classList.contains('open') && (!m.contains(ev.target) || ev.target.closest('#secActions button'))) closeMoreMenu();
-        });
+        function toggleMoreMenu() { vxOpen("moreMenuModalOverlay"); }
+        function closeMoreMenu() { vxClose("moreMenuModalOverlay"); }
 
         // --- AI ASSISTANT CHAT ENGINE (AUDIT EURISTICO AVANZATO) ---
         function openAiAssistantModal() {
@@ -1464,8 +1610,8 @@
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.3.0';
-        const APP_BUILD = '2026-11-06';
+        const APP_VERSION = '4.5.0';
+        const APP_BUILD = '2026-11-07';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
             alert('Vault\nVersione ' + APP_VERSION + ' (build ' + APP_BUILD + ')\n\nUltimo backup su Google Drive: ' +
@@ -2334,6 +2480,7 @@
             document.getElementById('autoLockTimeout').value = String(inactivityTimeoutMinutes);
             document.getElementById('newMasterPass').value = ''; document.getElementById('confirmMasterPass').value = '';
             document.getElementById('securityError').classList.add('hidden');
+            document.getElementById('bioAutoToggle').checked = localStorage.getItem('vault_bio_auto') !== '0';
             document.getElementById('securityModalOverlay').classList.remove('hidden');
             setTimeout(() => document.getElementById('securityModalOverlay').classList.remove('opacity-0'), 10);
         }
@@ -2821,6 +2968,223 @@
     };
 })();
 
+</script>
+<script>
+/* ===== Vault 4.5 — backup in cartella locale a rotazione, offerta biometria, menu ===== */
+(function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const FOLDER = 'Vault Backups', PREFIX = 'Vault_backup_';
+    const K = { max: 'vault_lb_max', auto: 'vault_lb_auto', label: 'vault_lb_label', last: 'vault_lb_last' };
+    const getMax = () => { const n = parseInt(localStorage.getItem(K.max) || '5', 10); return n >= 1 && n <= 50 ? n : 5; };
+    const autoOn = () => localStorage.getItem(K.auto) !== '0';
+    const hasPicker = () => typeof window.showDirectoryPicker === 'function';
+    const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const pad = n => String(n).padStart(2, '0');
+    const stamp = (d = new Date()) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + '_' + pad(d.getHours()) + '-' + pad(d.getMinutes()) + '-' + pad(d.getSeconds());
+    const fmt = ms => new Date(ms).toLocaleString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const toast = m => { try { showToast(m); } catch (e) { } };
+
+    /* ---- schede (sheet) ---- */
+    window.vxOpen = id => { const o = $(id); if (!o) return; o.classList.remove('vx-off'); setTimeout(() => o.classList.remove('vx-fade'), 10); };
+    window.vxClose = id => { const o = $(id); if (!o) return; o.classList.add('vx-fade'); setTimeout(() => o.classList.add('vx-off'), 180); };
+    window.vxCloseAll = () => document.querySelectorAll('.vx-overlay').forEach(o => o.classList.add('vx-off', 'vx-fade'));
+
+    /* ---- handle della cartella scelta (IndexedDB) ---- */
+    const fsDb = () => new Promise((res, rej) => { const r = indexedDB.open('vault_fs', 1); r.onupgradeneeded = () => r.result.createObjectStore('h'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+    async function hGet() { try { const db = await fsDb(); return await new Promise(res => { const q = db.transaction('h').objectStore('h').get('dir'); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); } catch (e) { return null; } }
+    async function hPut(h) { const db = await fsDb(); return new Promise((res, rej) => { const t = db.transaction('h', 'readwrite'); t.objectStore('h').put(h, 'dir'); t.oncomplete = res; t.onerror = () => rej(t.error); }); }
+    async function hDel() { try { const db = await fsDb(); await new Promise(res => { const t = db.transaction('h', 'readwrite'); t.objectStore('h').delete('dir'); t.oncomplete = res; t.onerror = res; }); } catch (e) { } }
+
+    let needPerm = false;
+    /* Cartella di destinazione: quella scelta dall'utente; se non ne ha scelta una, la cartella interna dell'app (OPFS). */
+    async function getDir(interactive) {
+        const h = await hGet();
+        if (h) {
+            try {
+                let p = await h.queryPermission({ mode: 'readwrite' });
+                if (p !== 'granted' && interactive) p = await h.requestPermission({ mode: 'readwrite' });
+                if (p === 'granted') { needPerm = false; return { dir: h, kind: 'user' }; }
+            } catch (e) { }
+            needPerm = true; return null;
+        }
+        if (navigator.storage && navigator.storage.getDirectory) {
+            try { const root = await navigator.storage.getDirectory(); return { dir: await root.getDirectoryHandle(FOLDER, { create: true }), kind: 'internal' }; } catch (e) { }
+        }
+        return null;
+    }
+    async function writeFile(dir, name, text) {
+        const fh = await dir.getFileHandle(name, { create: true });
+        const w = await fh.createWritable(); await w.write(text); await w.close();
+    }
+    async function listBackups(dir) {
+        const out = [];
+        for await (const [name, h] of dir.entries()) {
+            if (h.kind === 'file' && name.startsWith(PREFIX) && name.endsWith('.json')) {
+                try { const f = await h.getFile(); out.push({ name, h, size: f.size, mod: f.lastModified }); } catch (e) { }
+            }
+        }
+        out.sort((a, b) => a.name < b.name ? 1 : -1); // dalla più recente
+        return out;
+    }
+    async function prune(dir) {
+        const l = await listBackups(dir);
+        for (const f of l.slice(getMax())) { try { await dir.removeEntry(f.name); } catch (e) { } }
+    }
+    function snapshot() {
+        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors } };
+    }
+
+    let busy = false, dirty = false, timer = null;
+    async function backupNow(interactive) {
+        if (!activePassword || busy) return false;
+        const snap = snapshot();            // copia dei dati PRIMA di qualsiasi attesa (il blocco svuota la memoria)
+        busy = true;
+        try {
+            const target = await getDir(interactive);
+            if (!target) {
+                if (interactive) toast(needPerm ? 'Serve il permesso per la cartella: riprova.' : 'Nessuna cartella disponibile: scegline una.');
+                else if (needPerm) toast('Backup locale in pausa: apri Backup › Cartella, copie e ripristino.');
+                return false;
+            }
+            const payload = await encryptData(snap.data, snap.pw);
+            const name = PREFIX + stamp() + '.json';
+            await writeFile(target.dir, name, JSON.stringify(payload));
+            await prune(target.dir);
+            localStorage.setItem(K.last, new Date().toISOString());
+            dirty = false;
+            if (interactive) toast('Backup salvato: ' + name);
+            render();
+            return true;
+        } catch (e) {
+            console.warn('Backup locale non riuscito', e);
+            if (interactive) toast('Backup locale non riuscito: ' + ((e && e.message) || e));
+            return false;
+        } finally { busy = false; }
+    }
+    window.vxLbBackupNow = () => backupNow(true);
+
+    /* ---- backup automatico ---- */
+    window.vxAfterSave = function () {
+        if (!autoOn()) return;
+        dirty = true; clearTimeout(timer);
+        timer = setTimeout(() => {
+            const last = Date.parse(localStorage.getItem(K.last) || '') || 0;
+            if (dirty && Date.now() - last > 10 * 60 * 1000) backupNow(false);
+        }, 6000);
+    };
+    window.vxLockFlush = function () { if (dirty && activePassword && autoOn()) backupNow(false); };
+    document.addEventListener('visibilitychange', () => { if (document.hidden && dirty && activePassword && autoOn()) backupNow(false); });
+    window.vxOnUnlock = async function () {
+        if (!autoOn() || !(await hGet())) return;
+        await getDir(false);
+        if (needPerm) toast('Cartella backup da riautorizzare: apri Backup › Cartella, copie e ripristino.');
+    };
+
+    /* ---- scelta / cambio cartella ---- */
+    window.vxLbChoose = async function () {
+        if (!hasPicker()) { toast('Questo browser non permette di scegliere la cartella.'); return; }
+        if (!activePassword) { toast('Sblocca prima il caveau.'); return; }
+        let parent;
+        try { parent = await window.showDirectoryPicker({ id: 'vault-backups', mode: 'readwrite', startIn: 'documents' }); }
+        catch (e) {
+            if (e && e.name === 'AbortError') return;
+            try { parent = await window.showDirectoryPicker({ mode: 'readwrite' }); }
+            catch (e2) { if (e2 && e2.name === 'AbortError') return; toast('Cartella non consentita dal telefono: scegline un\'altra (es. dentro Documenti).'); return; }
+        }
+        try {
+            const old = await getDir(false);
+            const sub = await parent.getDirectoryHandle(FOLDER, { create: true });
+            let p = await sub.queryPermission({ mode: 'readwrite' });
+            if (p !== 'granted') p = await sub.requestPermission({ mode: 'readwrite' });
+            if (p !== 'granted') throw new Error('permesso di scrittura negato');
+            let moved = 0;
+            if (old && !(await old.dir.isSameEntry(sub))) {
+                for (const f of (await listBackups(old.dir)).slice(0, getMax()).reverse()) {
+                    try { await writeFile(sub, f.name, await (await f.h.getFile()).text()); moved++; } catch (e) { }
+                }
+            }
+            await hPut(sub);
+            localStorage.setItem(K.label, parent.name + ' / ' + FOLDER);
+            needPerm = false;
+            await prune(sub);
+            await backupNow(true);
+            if (moved) toast('Cartella cambiata: copiate ' + moved + ' copie. Quelle nella vecchia cartella restano lì.');
+            render();
+        } catch (e) { toast('Non riesco a usare quella cartella: ' + ((e && e.message) || e)); }
+    };
+    window.vxLbUseInternal = async function () {
+        if (!confirm('Tornare alla cartella interna dell\'app? Le copie nella cartella scelta non vengono cancellate.')) return;
+        await hDel(); localStorage.removeItem(K.label); needPerm = false; render();
+    };
+    window.vxLbSetMax = v => { localStorage.setItem(K.max, v); getDir(false).then(t => t && prune(t.dir)).then(render); };
+    window.vxLbSetAuto = v => localStorage.setItem(K.auto, v ? '1' : '0');
+
+    /* ---- copia da mettere dove vuoi (menu Condividi / download) ---- */
+    window.vxLbShare = async function () {
+        if (!activePassword) return;
+        const snap = snapshot(), payload = await encryptData(snap.data, snap.pw);
+        const name = PREFIX + stamp() + '.json';
+        const file = new File([JSON.stringify(payload)], name, { type: 'application/json' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try { await navigator.share({ files: [file], title: 'Backup Vault' }); return; }
+            catch (e) { if (e && e.name === 'AbortError') return; }
+        }
+        const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name;
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        toast('Copia scaricata.');
+    };
+
+    /* ---- schermata cartella ---- */
+    window.vxOpenLocalBackup = function () { render(); vxOpen('localBackupModalOverlay'); };
+    async function render() {
+        const h = await hGet(), label = localStorage.getItem(K.label);
+        const last = Date.parse(localStorage.getItem(K.last) || '') || 0;
+        const folderEl = $('lbFolder'); if (!folderEl) return;
+        folderEl.textContent = h ? (label || FOLDER) : (hasPicker() ? 'Cartella interna dell\'app (non ancora scelta)' : 'Cartella interna dell\'app');
+        $('lbLast').textContent = last ? 'Ultima copia: ' + fmt(last) : 'Nessuna copia ancora salvata.';
+        $('lbAuto').checked = autoOn();
+        $('lbMax').value = String(getMax());
+        $('lbInternalBtn').classList.toggle('vx-off', !h);
+        $('lbChooseBtn').classList.toggle('vx-off', !hasPicker());
+        $('lbNote').textContent = hasPicker()
+            ? (h ? 'Puoi cambiare cartella in qualsiasi momento: le copie recenti vengono copiate nella nuova posizione.' : 'Tocca "Scegli / cambia cartella" per scegliere dove salvare; Vault crea al suo interno la cartella "' + FOLDER + '".')
+            : 'Questo browser non permette di scegliere una cartella: le copie restano nella memoria interna dell\'app. Con "Salva una copia altrove" le metti dove vuoi (File, Drive…).';
+        $('vxLbSub').textContent = (last ? 'Ultima copia ' + fmt(last) + ' · ' : '') + 'max ' + getMax() + ' copie';
+        const warn = $('lbWarn'), list = $('lbList');
+        let t = null; try { t = await getDir(false); } catch (e) { }
+        if (needPerm) { warn.textContent = 'Il telefono chiede di riconfermare l\'accesso alla cartella: tocca "Salva backup ora" e consenti.'; warn.classList.remove('vx-off'); }
+        else warn.classList.add('vx-off');
+        if (!t) { list.innerHTML = '<p class="vx-small">' + (needPerm ? 'Elenco non disponibile finché non riautorizzi la cartella.' : 'Nessuna cartella disponibile.') + '</p>'; return; }
+        try {
+            const files = await listBackups(t.dir);
+            list.innerHTML = files.length ? files.map(f => '<div class="vx-file"><span><b>' + esc(fmt(f.mod)) + '</b><small>' + esc(f.name) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' KB</small></span><span><button class="f-r" data-act="r" data-n="' + esc(f.name) + '">Ripristina</button> <button class="f-d" data-act="d" data-n="' + esc(f.name) + '">Elimina</button></span></div>').join('') : '<p class="vx-small">Nessuna copia salvata.</p>';
+        } catch (e) { list.innerHTML = '<p class="vx-small">Impossibile leggere la cartella.</p>'; }
+    }
+    document.addEventListener('click', async ev => {
+        const b = ev.target.closest && ev.target.closest('#lbList button[data-act]'); if (!b) return;
+        const name = b.dataset.n, t = await getDir(true); if (!t) return;
+        if (b.dataset.act === 'd') { if (!confirm('Eliminare questa copia?')) return; try { await t.dir.removeEntry(name); } catch (e) { } render(); return; }
+        try {
+            const payload = JSON.parse(await (await (await t.dir.getFileHandle(name)).getFile()).text());
+            vxClose('localBackupModalOverlay');
+            await restoreFromPayload(payload);
+        } catch (e) { alert('File di backup non valido.'); }
+    });
+    document.addEventListener('DOMContentLoaded', () => { render(); });
+
+    /* ---- proposta di attivare la biometria dopo lo sblocco con password ---- */
+    let offered = false;
+    window.vxBioOffer = async function () {
+        if (offered || !activePassword) return;
+        try {
+            if (localStorage.getItem('vault_biometric_id') || localStorage.getItem('vault_bio_declined') === '1') return;
+            if (bioUnavailableReason()) return;
+            if (!(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())) return;
+            offered = true; vxOpen('bioOfferModalOverlay');
+        } catch (e) { }
+    };
+})();
 </script>
 </body>
 </html>

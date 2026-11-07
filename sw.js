@@ -1,7 +1,7 @@
 /* Vault – Service Worker (offline + installabilità PWA) */
-const VERSION = 'vault-v4-3-0';
+const VERSION = 'vault-v4-5-0';
 const SHELL = [
-  './', './index.html', './manifest.webmanifest',
+  './', './index.html', './privacy.html', './manifest.webmanifest',
   './icons/icon-192x192.png', './icons/icon-512x512.png',
   './icons/maskable-192x192.png', './icons/maskable-512x512.png',
   './icons/apple-touch-icon.png', './icons/favicon.png'
@@ -48,6 +48,17 @@ self.addEventListener('fetch', e => {
 
   // Pagina: prima la rete (per ricevere gli aggiornamenti), se offline la copia salvata
   if (req.mode === 'navigate') {
+    // Informativa privacy: pagina separata, non va salvata al posto di index.html
+    if (url.pathname.endsWith('/privacy.html')) {
+      e.respondWith(
+        fetch(req).then(res => {
+          const copy = res.clone();
+          caches.open(VERSION).then(c => c.put('./privacy.html', copy));
+          return res;
+        }).catch(() => caches.match('./privacy.html'))
+      );
+      return;
+    }
     e.respondWith(
       fetch(req).then(res => {
         const copy = res.clone();
