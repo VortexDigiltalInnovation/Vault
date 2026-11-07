@@ -2,14 +2,14 @@
  "id": "./",
  "name": "Vault",
  "short_name": "Vault",
- "description": "Gestore di credenziali cifrato, offline, con assistente IA",
+ "description": "Gestore di credenziali cifrato, offline, con assistente vocale",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "orientation": "portrait",
  "lang": "it",
- "background_color": "#0f172a",
- "theme_color": "#4f46e5",
+ "background_color": "#0b1116",
+ "theme_color": "#0b6a72",
  "categories": [
   "security",
   "productivity"

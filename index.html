@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#4f46e5">
+    <meta name="theme-color" content="#0b6a72">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" href="icons/favicon.png">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -83,7 +83,6 @@
             #aiChatInput { font-size: 16px !important; }
             /* Target touch piu' comodi */
             #credentialsGrid button { min-width: 38px; min-height: 38px; }
-            #quickPillsBarContainer button { min-height: 34px; padding-left: 12px; padding-right: 12px; }
             #btnSelectAll, #btnDeleteSelected, [onclick="deleteAllCredentials()"] { min-height: 38px; }
             #btnViewGrid, #btnViewTable { min-height: 34px; min-width: 40px; }
             #sortOrder { min-height: 38px; }
@@ -235,80 +234,241 @@
 .fa-mobile-screen-button{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 384 512%22%3E%3Cpath d=%22M16 64C16 28.7 44.7 0 80 0h224c35.3 0 64 28.7 64 64v384c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64zm64 0v304h224V64zm112 408c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32%22/%3E%3C/svg%3E")}
     </style>
     <style id="tailwind-inline">*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.\!container{width:100%!important}.container{width:100%}@media (min-width:640px){.\!container{max-width:640px!important}.container{max-width:640px}}@media (min-width:768px){.\!container{max-width:768px!important}.container{max-width:768px}}@media (min-width:1024px){.\!container{max-width:1024px!important}.container{max-width:1024px}}@media (min-width:1280px){.\!container{max-width:1280px!important}.container{max-width:1280px}}@media (min-width:1536px){.\!container{max-width:1536px!important}.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.bottom-4{bottom:1rem}.left-3\.5{left:.875rem}.right-3\.5{right:.875rem}.right-4{right:1rem}.top-0{top:0}.top-1\/2{top:50%}.z-30{z-index:30}.z-50{z-index:50}.z-\[60\]{z-index:60}.mx-auto{margin-left:auto;margin-right:auto}.my-2\.5{margin-top:.625rem;margin-bottom:.625rem}.-mr-2{margin-right:-.5rem}.mb-0\.5{margin-bottom:.125rem}.mb-1{margin-bottom:.25rem}.mb-1\.5{margin-bottom:.375rem}.mb-2{margin-bottom:.5rem}.mb-2\.5{margin-bottom:.625rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.ml-1{margin-left:.25rem}.ml-auto{margin-left:auto}.mr-1{margin-right:.25rem}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-1\.5{margin-top:.375rem}.mt-2{margin-top:.5rem}.mt-4{margin-top:1rem}.line-clamp-1{-webkit-line-clamp:1}.line-clamp-1,.line-clamp-2{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical}.line-clamp-2{-webkit-line-clamp:2}.block{display:block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.contents{display:contents}.hidden{display:none}.h-14{height:3.5rem}.h-16{height:4rem}.h-3\.5{height:.875rem}.h-4{height:1rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-9{height:2.25rem}.h-\[550px\]{height:550px}.h-\[85vh\]{height:85vh}.h-full{height:100%}.max-h-28{max-height:7rem}.max-h-\[90vh\]{max-height:90vh}.min-h-0{min-height:0}.min-h-full{min-height:100%}.w-14{width:3.5rem}.w-16{width:4rem}.w-28{width:7rem}.w-3\.5{width:.875rem}.w-4{width:1rem}.w-6{width:1.5rem}.w-7{width:1.75rem}.w-8{width:2rem}.w-9{width:2.25rem}.w-full{width:100%}.min-w-\[120px\]{min-width:120px}.max-w-2xl{max-width:42rem}.max-w-7xl{max-width:80rem}.max-w-\[100px\]{max-width:100px}.max-w-\[120px\]{max-width:120px}.max-w-\[85\%\]{max-width:85%}.max-w-\[90\%\]{max-width:90%}.max-w-lg{max-width:32rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.max-w-xs{max-width:20rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.border-collapse{border-collapse:collapse}.-translate-y-1\/2{--tw-translate-y:-50%}.-translate-y-1\/2,.translate-y-20{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-20{--tw-translate-y:5rem}.scale-95{--tw-scale-x:.95;--tw-scale-y:.95}.scale-95,.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}@keyframes spin{to{transform:rotate(1turn)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.select-all{-webkit-user-select:all;-moz-user-select:all;user-select:all}.resize-none{resize:none}.list-disc{list-style-type:disc}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-start{justify-content:flex-start}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:.125rem}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.space-y-1\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.375rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.375rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-3\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.875rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.875rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem*var(--tw-space-y-reverse))}.divide-y>:not([hidden])~:not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px*(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px*var(--tw-divide-y-reverse))}.divide-slate-100>:not([hidden])~:not([hidden]){--tw-divide-opacity:1;border-color:rgb(241 245 249/var(--tw-divide-opacity,1))}.divide-slate-200>:not([hidden])~:not([hidden]){--tw-divide-opacity:1;border-color:rgb(226 232 240/var(--tw-divide-opacity,1))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis}.truncate,.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-md{border-radius:.375rem}.rounded-xl{border-radius:.75rem}.rounded-tl-none{border-top-left-radius:0}.rounded-tr-none{border-top-right-radius:0}.border{border-width:1px}.border-0{border-width:0}.border-b{border-bottom-width:1px}.border-l-4{border-left-width:4px}.border-t{border-top-width:1px}.border-dashed{border-style:dashed}.border-amber-200{--tw-border-opacity:1;border-color:rgb(253 230 138/var(--tw-border-opacity,1))}.border-emerald-200{--tw-border-opacity:1;border-color:rgb(167 243 208/var(--tw-border-opacity,1))}.border-indigo-200{--tw-border-opacity:1;border-color:rgb(199 210 254/var(--tw-border-opacity,1))}.border-rose-200{--tw-border-opacity:1;border-color:rgb(254 205 211/var(--tw-border-opacity,1))}.border-sky-200{--tw-border-opacity:1;border-color:rgb(186 230 253/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-200\/80{border-color:rgba(226,232,240,.8)}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85/var(--tw-border-opacity,1))}.border-violet-200{--tw-border-opacity:1;border-color:rgb(221 214 254/var(--tw-border-opacity,1))}.border-violet-300{--tw-border-opacity:1;border-color:rgb(196 181 253/var(--tw-border-opacity,1))}.border-white\/20{border-color:hsla(0,0%,100%,.2)}.border-l-amber-500{--tw-border-opacity:1;border-left-color:rgb(245 158 11/var(--tw-border-opacity,1))}.border-l-blue-500{--tw-border-opacity:1;border-left-color:rgb(59 130 246/var(--tw-border-opacity,1))}.border-l-emerald-500{--tw-border-opacity:1;border-left-color:rgb(16 185 129/var(--tw-border-opacity,1))}.border-l-purple-500{--tw-border-opacity:1;border-left-color:rgb(168 85 247/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}.bg-blue-50{--tw-bg-opacity:1;background-color:rgb(239 246 255/var(--tw-bg-opacity,1))}.bg-emerald-100{--tw-bg-opacity:1;background-color:rgb(209 250 229/var(--tw-bg-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105/var(--tw-bg-opacity,1))}.bg-indigo-50{--tw-bg-opacity:1;background-color:rgb(238 242 255/var(--tw-bg-opacity,1))}.bg-indigo-50\/20{background-color:rgba(238,242,255,.2)}.bg-indigo-50\/30{background-color:rgba(238,242,255,.3)}.bg-indigo-50\/50{background-color:rgba(238,242,255,.5)}.bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229/var(--tw-bg-opacity,1))}.bg-purple-50{--tw-bg-opacity:1;background-color:rgb(250 245 255/var(--tw-bg-opacity,1))}.bg-rose-100{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}.bg-rose-50{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}.bg-rose-500\/10{background-color:rgba(244,63,94,.1)}.bg-rose-600{--tw-bg-opacity:1;background-color:rgb(225 29 72/var(--tw-bg-opacity,1))}.bg-sky-50{--tw-bg-opacity:1;background-color:rgb(240 249 255/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-slate-900\/60{background-color:rgba(15,23,42,.6)}.bg-slate-950\/90{background-color:rgba(2,6,23,.9)}.bg-transparent{background-color:transparent}.bg-violet-100{--tw-bg-opacity:1;background-color:rgb(237 233 254/var(--tw-bg-opacity,1))}.bg-violet-50{--tw-bg-opacity:1;background-color:rgb(245 243 255/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/80{background-color:hsla(0,0%,100%,.8)}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.bg-white\/95{background-color:hsla(0,0%,100%,.95)}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.bg-gradient-to-tr{background-image:linear-gradient(to top right,var(--tw-gradient-stops))}.from-indigo-600{--tw-gradient-from:#4f46e5 var(--tw-gradient-from-position);--tw-gradient-to:rgba(79,70,229,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-violet-600{--tw-gradient-from:#7c3aed var(--tw-gradient-from-position);--tw-gradient-to:rgba(124,58,237,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.to-indigo-600{--tw-gradient-to:#4f46e5 var(--tw-gradient-to-position)}.to-violet-600{--tw-gradient-to:#7c3aed var(--tw-gradient-to-position)}.object-contain{-o-object-fit:contain;object-fit:contain}.p-0\.5{padding:.125rem}.p-1{padding:.25rem}.p-1\.5{padding:.375rem}.p-2{padding:.5rem}.p-2\.5{padding:.625rem}.p-3{padding:.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-3\.5{padding-left:.875rem;padding-right:.875rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-1{padding-bottom:.25rem}.pb-2{padding-bottom:.5rem}.pb-3{padding-bottom:.75rem}.pl-10{padding-left:2.5rem}.pl-5{padding-left:1.25rem}.pr-1{padding-right:.25rem}.pr-10{padding-right:2.5rem}.pr-3{padding-right:.75rem}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.text-\[8px\]{font-size:8px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-.025em}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11/var(--tw-text-opacity,1))}.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6/var(--tw-text-opacity,1))}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235/var(--tw-text-opacity,1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153/var(--tw-text-opacity,1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129/var(--tw-text-opacity,1))}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-indigo-200{--tw-text-opacity:1;color:rgb(199 210 254/var(--tw-text-opacity,1))}.text-indigo-500{--tw-text-opacity:1;color:rgb(99 102 241/var(--tw-text-opacity,1))}.text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.text-indigo-700{--tw-text-opacity:1;color:rgb(67 56 202/var(--tw-text-opacity,1))}.text-indigo-900{--tw-text-opacity:1;color:rgb(49 46 129/var(--tw-text-opacity,1))}.text-purple-600{--tw-text-opacity:1;color:rgb(147 51 234/var(--tw-text-opacity,1))}.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94/var(--tw-text-opacity,1))}.text-rose-600{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60/var(--tw-text-opacity,1))}.text-rose-800{--tw-text-opacity:1;color:rgb(159 18 57/var(--tw-text-opacity,1))}.text-sky-500{--tw-text-opacity:1;color:rgb(14 165 233/var(--tw-text-opacity,1))}.text-sky-700{--tw-text-opacity:1;color:rgb(3 105 161/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.text-violet-600{--tw-text-opacity:1;color:rgb(124 58 237/var(--tw-text-opacity,1))}.text-violet-700{--tw-text-opacity:1;color:rgb(109 40 217/var(--tw-text-opacity,1))}.text-violet-900{--tw-text-opacity:1;color:rgb(76 29 149/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.accent-indigo-600{accent-color:#4f46e5}.opacity-0{opacity:0}.opacity-50{opacity:.5}.opacity-60{opacity:.6}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgba(0,0,0,.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color)}.shadow-2xl,.shadow-inner{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgba(0,0,0,.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-lg,.shadow-md{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-sm,.shadow-xl{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color)}.shadow-indigo-500\/20{--tw-shadow-color:rgba(99,102,241,.2);--tw-shadow:var(--tw-shadow-colored)}.shadow-indigo-500\/25{--tw-shadow-color:rgba(99,102,241,.25);--tw-shadow:var(--tw-shadow-colored)}.outline-none{outline:2px solid transparent;outline-offset:2px}.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.ring-indigo-500{--tw-ring-opacity:1;--tw-ring-color:rgb(99 102 241/var(--tw-ring-opacity,1))}.blur{--tw-blur:blur(8px)}.blur,.blur-lg{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-lg{--tw-blur:blur(16px)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur{--tw-backdrop-blur:blur(8px)}.backdrop-blur,.backdrop-blur-2xl{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-2xl{--tw-backdrop-blur:blur(40px)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px)}.backdrop-blur-md,.backdrop-blur-sm{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px)}.backdrop-blur-xl{--tw-backdrop-blur:blur(24px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.hover\:bg-amber-100:hover{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}.hover\:bg-amber-50:hover{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.hover\:bg-emerald-100:hover{--tw-bg-opacity:1;background-color:rgb(209 250 229/var(--tw-bg-opacity,1))}.hover\:bg-emerald-700:hover{--tw-bg-opacity:1;background-color:rgb(4 120 87/var(--tw-bg-opacity,1))}.hover\:bg-indigo-100:hover{--tw-bg-opacity:1;background-color:rgb(224 231 255/var(--tw-bg-opacity,1))}.hover\:bg-indigo-50:hover{--tw-bg-opacity:1;background-color:rgb(238 242 255/var(--tw-bg-opacity,1))}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202/var(--tw-bg-opacity,1))}.hover\:bg-rose-100:hover{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}.hover\:bg-rose-700:hover{--tw-bg-opacity:1;background-color:rgb(190 18 60/var(--tw-bg-opacity,1))}.hover\:bg-sky-100:hover{--tw-bg-opacity:1;background-color:rgb(224 242 254/var(--tw-bg-opacity,1))}.hover\:bg-slate-100:hover{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.hover\:bg-slate-200:hover{--tw-bg-opacity:1;background-color:rgb(226 232 240/var(--tw-bg-opacity,1))}.hover\:bg-slate-50\/80:hover{background-color:rgba(248,250,252,.8)}.hover\:bg-violet-100:hover{--tw-bg-opacity:1;background-color:rgb(237 233 254/var(--tw-bg-opacity,1))}.hover\:bg-violet-200:hover{--tw-bg-opacity:1;background-color:rgb(221 214 254/var(--tw-bg-opacity,1))}.hover\:from-indigo-700:hover{--tw-gradient-from:#4338ca var(--tw-gradient-from-position);--tw-gradient-to:rgba(67,56,202,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.hover\:from-violet-700:hover{--tw-gradient-from:#6d28d9 var(--tw-gradient-from-position);--tw-gradient-to:rgba(109,40,217,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.hover\:to-indigo-700:hover{--tw-gradient-to:#4338ca var(--tw-gradient-to-position)}.hover\:to-violet-700:hover{--tw-gradient-to:#6d28d9 var(--tw-gradient-to-position)}.hover\:text-indigo-600:hover{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.hover\:text-rose-600:hover{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.hover\:text-slate-600:hover{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.hover\:text-slate-900:hover{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.hover\:underline:hover{text-decoration-line:underline}.hover\:opacity-90:hover{opacity:.9}.hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus\:ring-indigo-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(99 102 241/var(--tw-ring-opacity,1))}.focus\:ring-violet-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(139 92 246/var(--tw-ring-opacity,1))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95}.active\:scale-95:active,.active\:scale-\[0\.98\]:active{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.active\:scale-\[0\.98\]:active{--tw-scale-x:0.98;--tw-scale-y:0.98}.group:focus-within .group-focus-within\:text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.dark\:inline:is(.dark *){display:inline}.dark\:hidden:is(.dark *){display:none}.dark\:divide-slate-700:is(.dark *)>:not([hidden])~:not([hidden]){--tw-divide-opacity:1;border-color:rgb(51 65 85/var(--tw-divide-opacity,1))}.dark\:divide-slate-700\/60:is(.dark *)>:not([hidden])~:not([hidden]){border-color:rgba(51,65,85,.6)}.dark\:border-amber-800\/60:is(.dark *){border-color:rgba(146,64,14,.6)}.dark\:border-emerald-800:is(.dark *){--tw-border-opacity:1;border-color:rgb(6 95 70/var(--tw-border-opacity,1))}.dark\:border-emerald-800\/60:is(.dark *){border-color:rgba(6,95,70,.6)}.dark\:border-emerald-900\/50:is(.dark *){border-color:rgba(6,78,59,.5)}.dark\:border-indigo-800\/50:is(.dark *){border-color:rgba(55,48,163,.5)}.dark\:border-indigo-800\/60:is(.dark *){border-color:rgba(55,48,163,.6)}.dark\:border-indigo-900\/50:is(.dark *){border-color:rgba(49,46,129,.5)}.dark\:border-rose-900:is(.dark *){--tw-border-opacity:1;border-color:rgb(136 19 55/var(--tw-border-opacity,1))}.dark\:border-rose-900\/50:is(.dark *){border-color:rgba(136,19,55,.5)}.dark\:border-rose-900\/60:is(.dark *){border-color:rgba(136,19,55,.6)}.dark\:border-sky-800\/60:is(.dark *){border-color:rgba(7,89,133,.6)}.dark\:border-sky-900\/50:is(.dark *){border-color:rgba(12,74,110,.5)}.dark\:border-slate-300:is(.dark *){--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.dark\:border-slate-600:is(.dark *){--tw-border-opacity:1;border-color:rgb(71 85 105/var(--tw-border-opacity,1))}.dark\:border-slate-600\/80:is(.dark *){border-color:rgba(71,85,105,.8)}.dark\:border-slate-700:is(.dark *){--tw-border-opacity:1;border-color:rgb(51 65 85/var(--tw-border-opacity,1))}.dark\:border-slate-700\/60:is(.dark *){border-color:rgba(51,65,85,.6)}.dark\:border-slate-700\/80:is(.dark *){border-color:rgba(51,65,85,.8)}.dark\:border-slate-800:is(.dark *){--tw-border-opacity:1;border-color:rgb(30 41 59/var(--tw-border-opacity,1))}.dark\:border-violet-700:is(.dark *){--tw-border-opacity:1;border-color:rgb(109 40 217/var(--tw-border-opacity,1))}.dark\:border-violet-800\/60:is(.dark *){border-color:rgba(91,33,182,.6)}.dark\:border-violet-900\/50:is(.dark *){border-color:rgba(76,29,149,.5)}.dark\:bg-amber-950\/40:is(.dark *){background-color:rgba(69,26,3,.4)}.dark\:bg-amber-950\/50:is(.dark *){background-color:rgba(69,26,3,.5)}.dark\:bg-blue-950\/50:is(.dark *){background-color:rgba(23,37,84,.5)}.dark\:bg-emerald-950\/30:is(.dark *){background-color:rgba(2,44,34,.3)}.dark\:bg-emerald-950\/40:is(.dark *){background-color:rgba(2,44,34,.4)}.dark\:bg-emerald-950\/50:is(.dark *){background-color:rgba(2,44,34,.5)}.dark\:bg-emerald-950\/80:is(.dark *){background-color:rgba(2,44,34,.8)}.dark\:bg-indigo-950\/20:is(.dark *){background-color:rgba(30,27,75,.2)}.dark\:bg-indigo-950\/30:is(.dark *){background-color:rgba(30,27,75,.3)}.dark\:bg-indigo-950\/40:is(.dark *){background-color:rgba(30,27,75,.4)}.dark\:bg-indigo-950\/50:is(.dark *){background-color:rgba(30,27,75,.5)}.dark\:bg-purple-950\/50:is(.dark *){background-color:rgba(59,7,100,.5)}.dark\:bg-rose-950\/30:is(.dark *){background-color:rgba(76,5,25,.3)}.dark\:bg-rose-950\/40:is(.dark *){background-color:rgba(76,5,25,.4)}.dark\:bg-rose-950\/50:is(.dark *){background-color:rgba(76,5,25,.5)}.dark\:bg-rose-950\/80:is(.dark *){background-color:rgba(76,5,25,.8)}.dark\:bg-sky-950\/30:is(.dark *){background-color:rgba(8,47,73,.3)}.dark\:bg-sky-950\/40:is(.dark *){background-color:rgba(8,47,73,.4)}.dark\:bg-slate-100:is(.dark *){--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.dark\:bg-slate-700:is(.dark *){--tw-bg-opacity:1;background-color:rgb(51 65 85/var(--tw-bg-opacity,1))}.dark\:bg-slate-700\/80:is(.dark *){background-color:rgba(51,65,85,.8)}.dark\:bg-slate-800:is(.dark *){--tw-bg-opacity:1;background-color:rgb(30 41 59/var(--tw-bg-opacity,1))}.dark\:bg-slate-800\/80:is(.dark *){background-color:rgba(30,41,59,.8)}.dark\:bg-slate-800\/90:is(.dark *){background-color:rgba(30,41,59,.9)}.dark\:bg-slate-800\/95:is(.dark *){background-color:rgba(30,41,59,.95)}.dark\:bg-slate-900:is(.dark *){--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.dark\:bg-slate-900\/60:is(.dark *){background-color:rgba(15,23,42,.6)}.dark\:bg-slate-900\/80:is(.dark *){background-color:rgba(15,23,42,.8)}.dark\:bg-slate-900\/90:is(.dark *){background-color:rgba(15,23,42,.9)}.dark\:bg-violet-950\/30:is(.dark *){background-color:rgba(46,16,101,.3)}.dark\:bg-violet-950\/40:is(.dark *){background-color:rgba(46,16,101,.4)}.dark\:bg-violet-950\/80:is(.dark *){background-color:rgba(46,16,101,.8)}.dark\:text-amber-400:is(.dark *){--tw-text-opacity:1;color:rgb(251 191 36/var(--tw-text-opacity,1))}.dark\:text-blue-400:is(.dark *){--tw-text-opacity:1;color:rgb(96 165 250/var(--tw-text-opacity,1))}.dark\:text-emerald-300:is(.dark *){--tw-text-opacity:1;color:rgb(110 231 183/var(--tw-text-opacity,1))}.dark\:text-emerald-400:is(.dark *){--tw-text-opacity:1;color:rgb(52 211 153/var(--tw-text-opacity,1))}.dark\:text-emerald-600:is(.dark *){--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.dark\:text-indigo-200:is(.dark *){--tw-text-opacity:1;color:rgb(199 210 254/var(--tw-text-opacity,1))}.dark\:text-indigo-300:is(.dark *){--tw-text-opacity:1;color:rgb(165 180 252/var(--tw-text-opacity,1))}.dark\:text-indigo-400:is(.dark *){--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity,1))}.dark\:text-purple-400:is(.dark *){--tw-text-opacity:1;color:rgb(192 132 252/var(--tw-text-opacity,1))}.dark\:text-rose-200:is(.dark *){--tw-text-opacity:1;color:rgb(254 205 211/var(--tw-text-opacity,1))}.dark\:text-rose-300:is(.dark *){--tw-text-opacity:1;color:rgb(253 164 175/var(--tw-text-opacity,1))}.dark\:text-rose-400:is(.dark *){--tw-text-opacity:1;color:rgb(251 113 133/var(--tw-text-opacity,1))}.dark\:text-sky-300:is(.dark *){--tw-text-opacity:1;color:rgb(125 211 252/var(--tw-text-opacity,1))}.dark\:text-sky-400:is(.dark *){--tw-text-opacity:1;color:rgb(56 189 248/var(--tw-text-opacity,1))}.dark\:text-slate-100:is(.dark *){--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.dark\:text-slate-200:is(.dark *){--tw-text-opacity:1;color:rgb(226 232 240/var(--tw-text-opacity,1))}.dark\:text-slate-300:is(.dark *){--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}.dark\:text-slate-400:is(.dark *){--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.dark\:text-slate-900:is(.dark *){--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.dark\:text-violet-200:is(.dark *){--tw-text-opacity:1;color:rgb(221 214 254/var(--tw-text-opacity,1))}.dark\:text-violet-300:is(.dark *){--tw-text-opacity:1;color:rgb(196 181 253/var(--tw-text-opacity,1))}.dark\:text-violet-400:is(.dark *){--tw-text-opacity:1;color:rgb(167 139 250/var(--tw-text-opacity,1))}.dark\:text-white:is(.dark *){--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.dark\:hover\:bg-amber-900\/50:hover:is(.dark *){background-color:rgba(120,53,15,.5)}.dark\:hover\:bg-amber-950\/40:hover:is(.dark *){background-color:rgba(69,26,3,.4)}.dark\:hover\:bg-emerald-900\/50:hover:is(.dark *){background-color:rgba(6,78,59,.5)}.dark\:hover\:bg-indigo-900\/50:hover:is(.dark *){background-color:rgba(49,46,129,.5)}.dark\:hover\:bg-indigo-950\/40:hover:is(.dark *){background-color:rgba(30,27,75,.4)}.dark\:hover\:bg-rose-900\/50:hover:is(.dark *){background-color:rgba(136,19,55,.5)}.dark\:hover\:bg-sky-900\/50:hover:is(.dark *){background-color:rgba(12,74,110,.5)}.dark\:hover\:bg-slate-600:hover:is(.dark *){--tw-bg-opacity:1;background-color:rgb(71 85 105/var(--tw-bg-opacity,1))}.dark\:hover\:bg-slate-700:hover:is(.dark *){--tw-bg-opacity:1;background-color:rgb(51 65 85/var(--tw-bg-opacity,1))}.dark\:hover\:bg-slate-700\/40:hover:is(.dark *){background-color:rgba(51,65,85,.4)}.dark\:hover\:bg-violet-900\/50:hover:is(.dark *){background-color:rgba(76,29,149,.5)}.dark\:hover\:text-indigo-400:hover:is(.dark *){--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity,1))}.dark\:hover\:text-slate-200:hover:is(.dark *){--tw-text-opacity:1;color:rgb(226 232 240/var(--tw-text-opacity,1))}.dark\:hover\:text-white:hover:is(.dark *){--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:block{display:block}.sm\:inline{display:inline}.sm\:inline-flex{display:inline-flex}.sm\:grid{display:grid}.sm\:w-auto{width:auto}.sm\:min-w-0{min-width:0}.sm\:flex-none{flex:none}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:gap-2{gap:.5rem}.sm\:px-3{padding-left:.75rem;padding-right:.75rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.sm\:pb-0{padding-bottom:0}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width:768px){.md\:inline{display:inline}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}}</style>
+    <style id="vx-theme">
+/* ===== Vault v4.6 — tema unificato =====
+   Idea: una cassaforte. Grafite freddo + verde petrolio, con l'ottone solo sul quadrante del pulsante "Nuova".
+   Tutti i colori passano da qui: una modifica, effetto ovunque. */
+:root{
+  --vx-bg:#e8ecef; --vx-surface:#fbfcfd; --vx-surface-2:#eff2f5; --vx-line:#d3dbe1;
+  --vx-ink:#101b24; --vx-mute:#53636f;
+  --vx-petrol:#0b6a72; --vx-petrol-strong:#07484f; --vx-petrol-text:#0b6a72; --vx-petrol-soft:#d8edee;
+  --vx-brass:#b4831f; --vx-danger:#b42a43; --vx-ok:#0f7a55; --vx-warn:#a8650d;
+  --vx-r-s:10px; --vx-r-m:14px; --vx-r-l:22px;
+  color-scheme: light;
+}
+html.dark{
+  --vx-bg:#0b1116; --vx-surface:#121a21; --vx-surface-2:#192430; --vx-line:#25333f;
+  --vx-ink:#e7edf1; --vx-mute:#8fa2b0;
+  --vx-petrol:#2fa9b4; --vx-petrol-strong:#1d8791; --vx-petrol-text:#63cbd4; --vx-petrol-soft:#12353a;
+  --vx-brass:#dcae52; --vx-danger:#f27a8d; --vx-ok:#4fd1a1; --vx-warn:#f0b35a;
+  color-scheme: dark;
+}
+[hidden]{display:none !important}
+html:root body{background:var(--vx-bg);color:var(--vx-ink);font-family:system-ui,-apple-system,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-feature-settings:"tnum" 1}
+html:root body h1,html:root body h2,html:root body h3,html:root body h4{letter-spacing:-.01em}
+html:root body button:focus-visible,html:root body a:focus-visible,html:root body select:focus-visible,html:root body summary:focus-visible{outline:2px solid var(--vx-petrol);outline-offset:2px}
+html:root body button:not(.vx-chip):not(.vx-tab):not(.vx-micbtn):hover{filter:brightness(.97)}
+html.dark body button:not(.vx-chip):not(.vx-tab):not(.vx-micbtn):hover{filter:brightness(1.12)}
+html:root body input[type=text],html:root body input[type=search],html:root body input[type=password],html:root body input[type=email],html:root body select,html:root body textarea{border-radius:var(--vx-r-m)}
+html:root body input[type=checkbox]{accent-color:var(--vx-petrol)}
+html:root body #toast{background:var(--vx-ink);color:var(--vx-bg);border-color:transparent;border-radius:var(--vx-r-m)}
+html:root body #toast i{color:var(--vx-ok)}
+html:root body .fixed.inset-0.z-50:not(#masterLockOverlay) > div{border-radius:var(--vx-r-l);border:1px solid var(--vx-line)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+
+/* ---- Icone aggiunte (maschere SVG, stessa tecnica delle altre) ---- */
+.fa-volume-high{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 4V5L7 9H3z'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7l-1.4-1.4a3 3 0 0 0 0-4.2zM18.4 5.6a9 9 0 0 1 0 12.8L17 17a7 7 0 0 0 0-10z'/%3E%3C/svg%3E")}
+.fa-volume-xmark{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 4V5L7 9H3z'/%3E%3Cpath d='m15.3 9.7 1.4-1.4 2.3 2.3 2.3-2.3 1.4 1.4-2.3 2.3 2.3 2.3-1.4 1.4-2.3-2.3-2.3 2.3-1.4-1.4 2.3-2.3z'/%3E%3C/svg%3E")}
+.fa-stop{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='5' width='14' height='14' rx='2.5'/%3E%3C/svg%3E")}
+.fa-user{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4.2'/%3E%3Cpath d='M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z'/%3E%3C/svg%3E")}
+
+/* ---- Testata + barra categorie FISSA ---- */
+body{padding-bottom:calc(92px + env(safe-area-inset-bottom)) !important}
+.vx-top{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top);background:var(--vx-surface);border-bottom:1px solid var(--vx-line)}
+@supports (background:color-mix(in srgb,red,blue)){.vx-top{background:color-mix(in srgb,var(--vx-surface) 93%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}}
+.vx-header{max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px max(12px,env(safe-area-inset-right)) 6px max(12px,env(safe-area-inset-left))}
+.vx-brand{display:flex;align-items:center;gap:10px;min-width:0}
+.vx-logo{width:38px;height:38px;border-radius:12px;background:var(--vx-petrol);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;border:0;cursor:pointer;flex:0 0 auto}
+.vx-brand h1{font-size:18px;line-height:1.1;font-weight:800;color:var(--vx-ink)}
+html:root body .vx-sub{font-size:11.5px;color:var(--vx-mute);font-weight:500;line-height:1.2;margin-top:1px}
+html:root body .vx-lock{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:999px;background:var(--vx-surface-2);color:var(--vx-ink);border:1px solid var(--vx-line);font-size:14px;font-weight:700}
+html:root body .vx-lock i{font-size:14px;color:var(--vx-petrol-text)}
+.vx-rail{max-width:80rem;margin:0 auto;padding:0 0 8px;display:flex;flex-direction:column;gap:6px}
+.vx-rowscroll{display:flex;align-items:center;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;padding:2px max(12px,env(safe-area-inset-right)) 2px max(12px,env(safe-area-inset-left));scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent 100%)}
+.vx-rowscroll::-webkit-scrollbar{display:none}
+.vx-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 6px 0 13px;border-radius:999px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:13.5px;font-weight:700;white-space:nowrap;cursor:pointer;transition:background-color .15s,color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.vx-chip i{font-size:13px;color:var(--c,var(--vx-mute))}
+.vx-chip-n{min-width:24px;height:24px;padding:0 7px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;background:var(--vx-surface);color:var(--vx-ink);border:1px solid var(--vx-line);font-variant-numeric:tabular-nums}
+.vx-chip:active{transform:scale(.97)}
+.vx-chip.is-on{background:var(--c,var(--vx-ink));border-color:var(--c,var(--vx-ink));color:var(--on,#fff)}
+.vx-chip.is-on i{color:var(--on,#fff)}
+.vx-chip.is-on .vx-chip-n{background:rgba(255,255,255,.22);border-color:transparent;color:var(--on,#fff)}
+.vx-chip.is-on[style*="--on:#0"] .vx-chip-n,.vx-chip.is-on[style*="--on:#1"] .vx-chip-n{background:rgba(0,0,0,.14)}
+.vx-chip.sm{height:32px;font-size:12.5px;padding:0 5px 0 11px;gap:6px}
+.vx-chip.sm .vx-chip-n{min-width:21px;height:20px;font-size:11px;padding:0 6px}
+.vx-dot{width:9px;height:9px;border-radius:50%;background:var(--c,var(--vx-mute));flex:0 0 auto}
+.vx-chip.is-on .vx-dot{background:var(--on,#fff)}
+.vx-result{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px;font-size:13px;color:var(--vx-mute);font-weight:600}
+.vx-result b{color:var(--vx-ink);font-variant-numeric:tabular-nums}
+html:root body .vx-link{color:var(--vx-petrol-text)}
+
+/* ---- Contenuto ---- */
+html:root body main{padding-top:14px}
+html:root body #credentialsGrid > div{--cat:#64748b;border-left:4px solid var(--cat);border-radius:var(--vx-r-m)}
+html:root body #searchInput{height:46px;border-radius:var(--vx-r-m);box-shadow:none}
+html:root body #emptyState{border-radius:var(--vx-r-m)}
+
+/* ---- Barra inferiore: il quadrante ---- */
+html:root body .vx-bar{background:var(--vx-surface);border-top:1px solid var(--vx-line);box-shadow:0 -10px 26px -22px rgba(0,0,0,.6);-webkit-backdrop-filter:none;backdrop-filter:none}
+html:root body .vx-tab{color:var(--vx-mute);font-size:11.5px;font-weight:700;border-radius:var(--vx-r-m)}
+html:root body .vx-tab i{font-size:20px}
+html:root body .vx-tab:active{background:var(--vx-petrol-soft);color:var(--vx-petrol-text)}
+html:root body .vx-tab.vx-new{color:var(--vx-ink)}
+html:root body .vx-plus{position:relative;width:58px;height:58px;margin-top:-30px;border-radius:50%;background:radial-gradient(circle at 32% 26%,#2a9aa3,var(--vx-petrol) 58%,var(--vx-petrol-strong));color:#fff;border:3px solid var(--vx-brass);box-shadow:0 0 0 5px var(--vx-surface),0 12px 22px -10px rgba(7,72,79,.8)}
+html:root body .vx-plus::before{content:"";position:absolute;inset:4px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.42) 0 1.6deg,transparent 1.6deg 15deg);-webkit-mask:radial-gradient(circle,transparent 62%,#000 64%);mask:radial-gradient(circle,transparent 62%,#000 64%);pointer-events:none}
+html:root body .vx-plus i{position:relative;font-size:22px}
+@media (min-width:640px){html:root body .vx-bar{border:1px solid var(--vx-line);border-radius:26px}}
+
+/* ---- Fogli (menu a schede) ---- */
+html:root body .vx-sheet{background:var(--vx-surface);color:var(--vx-ink);border:1px solid var(--vx-line);border-radius:var(--vx-r-l)}
+html:root body .vx-x{background:var(--vx-surface-2);color:var(--vx-mute);border-radius:var(--vx-r-m)}
+html:root body .vx-sec{color:var(--vx-mute);text-transform:none;letter-spacing:0;font-size:12px;font-weight:800}
+html:root body .vx-row,html:root body .vx-card,html:root body .vx-toggle,html:root body .vx-file{background:var(--vx-surface-2);border-color:var(--vx-line);border-radius:var(--vx-r-m)}
+html:root body .vx-row small,html:root body .vx-small,html:root body .vx-toggle small,html:root body .vx-file small{color:var(--vx-mute)}
+html:root body .vx-lbl{color:var(--vx-mute);text-transform:none;letter-spacing:0;font-size:12px}
+html:root body .vx-btn{background:var(--vx-petrol);color:#fff;border-radius:var(--vx-r-m)}
+html:root body .vx-btn2{background:var(--vx-petrol-soft);color:var(--vx-petrol-text);border-radius:var(--vx-r-m)}
+html:root body .vx-toggle input{accent-color:var(--vx-petrol)}
+html:root body .vx-field select{background:var(--vx-surface-2);border-color:var(--vx-line);border-radius:var(--vx-r-m)}
+html:root body .vx-warn{background:color-mix(in srgb,var(--vx-warn) 16%,var(--vx-surface));color:var(--vx-warn);border-radius:var(--vx-r-s)}
+html:root body .vx-bigic{background:var(--vx-petrol-soft);color:var(--vx-petrol-text)}
+html:root body .vx-file .f-r,html:root body .ic-indigo,html:root body .ic-violet{background:var(--vx-petrol-soft);color:var(--vx-petrol-text)}
+html:root body .ic-slate{background:var(--vx-surface-2);color:var(--vx-ink);border:1px solid var(--vx-line)}
+
+/* ---- Assistente vocale ---- */
+.vx-ai-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--vx-line);margin-bottom:10px}
+.vx-ai-title{display:flex;align-items:center;gap:10px;min-width:0}
+.vx-ai-title h3{font-size:16px;font-weight:800;line-height:1.15;color:var(--vx-ink)}
+.vx-ai-badge{width:38px;height:38px;border-radius:12px;background:var(--vx-petrol);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto}
+.vx-ai-tools{display:flex;align-items:center;gap:6px}
+.vx-iconbtn{width:40px;height:40px;border-radius:var(--vx-r-m);border:0;background:var(--vx-surface-2);color:var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer}
+.vx-iconbtn[aria-pressed="true"]{color:var(--vx-petrol-text);background:var(--vx-petrol-soft)}
+.vx-mode{display:inline-flex;align-items:center;gap:6px;margin-top:3px;padding:0;border:0;background:none;color:var(--vx-mute);font-size:12px;font-weight:700;cursor:pointer;text-align:left}
+.vx-mode-dot{width:8px;height:8px;border-radius:50%;background:var(--vx-mute);flex:0 0 auto}
+.vx-mode[data-s="local"] .vx-mode-dot{background:var(--vx-ok)}
+.vx-mode[data-s="remote"] .vx-mode-dot{background:var(--vx-warn)}
+.vx-mode[data-s="local"]{color:var(--vx-ok)}
+.vx-mode[data-s="remote"]{color:var(--vx-warn)}
+.vx-vpanel{padding:12px;border-radius:var(--vx-r-m);background:var(--vx-surface-2);border:1px solid var(--vx-line);margin-bottom:10px;font-size:12.5px;line-height:1.45;color:var(--vx-ink)}
+.vx-vpanel p{margin:0 0 8px;color:var(--vx-mute)}
+.vx-vpanel .vx-btn2{width:100%;margin:2px 0 8px}
+.vx-vpanel .vx-toggle{margin:4px 0 0;background:var(--vx-surface)}
+.vx-live{min-height:20px;margin:0 2px 6px;font-size:13px;font-weight:600;color:var(--vx-petrol-text);font-style:italic}
+.vx-inputrow{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--vx-line)}
+.vx-inputrow input{flex:1 1 auto;min-width:0;height:46px;padding:0 14px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:14px}
+.vx-inputrow input:focus{outline:2px solid var(--vx-petrol);outline-offset:0}
+.vx-micbtn,.vx-sendbtn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.vx-micbtn{background:var(--vx-petrol-soft);color:var(--vx-petrol-text)}
+.vx-micbtn.listening{background:var(--vx-danger);color:#fff;animation:micPulse 1.2s infinite}
+.vx-micbtn[disabled]{opacity:.45;cursor:not-allowed}
+.vx-sendbtn{background:var(--vx-petrol);color:#fff;font-size:15px}
+html:root body #voiceSearchBtn{border-radius:12px;color:var(--vx-petrol-text)}
+html:root body #voiceSearchBtn.listening{background:var(--vx-danger);color:#fff}
+html:root body #aiChatMessages{font-size:13px;line-height:1.5}
+html:root body #aiChatMessages > div > div{border-radius:var(--vx-r-m)}
+
+.vx-rowscroll{position:relative}
+/* --- rimappatura palette (generata dai token Tailwind in uso) --- */
+html:root body [class~="bg-white"],
+html:root body [class~="bg-white/80"],
+html:root body [class~="bg-white/90"],
+html:root body [class~="bg-white/95"],
+html:root body [class~="dark:bg-slate-800"],
+html:root body [class~="dark:bg-slate-800/80"],
+html:root body [class~="dark:bg-slate-800/90"],
+html:root body [class~="dark:bg-slate-800/95"]{background-color:var(--vx-surface)}
+html:root body [class~="bg-slate-100"],
+html:root body [class~="bg-slate-50"],
+html:root body [class~="dark:bg-slate-700"],
+html:root body [class~="dark:bg-slate-700/80"],
+html:root body [class~="dark:bg-slate-900"],
+html:root body [class~="dark:bg-slate-900/60"],
+html:root body [class~="dark:bg-slate-900/80"],
+html:root body [class~="dark:bg-slate-900/90"]{background-color:var(--vx-surface-2)}
+html:root body [class~="bg-indigo-600"]{background-color:var(--vx-petrol);color:#fff}
+html:root body [class~="bg-gradient-to-r"],
+html:root body [class~="bg-gradient-to-tr"]{background-image:none;background-color:var(--vx-petrol)}
+html:root body [class~="bg-indigo-50"],
+html:root body [class~="bg-indigo-50/20"],
+html:root body [class~="bg-indigo-50/30"],
+html:root body [class~="bg-indigo-50/50"],
+html:root body [class~="bg-violet-100"],
+html:root body [class~="bg-violet-50"],
+html:root body [class~="dark:bg-indigo-950/20"],
+html:root body [class~="dark:bg-indigo-950/30"],
+html:root body [class~="dark:bg-indigo-950/50"],
+html:root body [class~="dark:bg-violet-950/30"],
+html:root body [class~="dark:bg-violet-950/40"],
+html:root body [class~="dark:bg-violet-950/80"]{background-color:var(--vx-petrol-soft)}
+html:root body [class~="border-slate-200"],
+html:root body [class~="border-slate-200/80"],
+html:root body [class~="border-slate-300"],
+html:root body [class~="border-slate-600"],
+html:root body [class~="border-slate-700"],
+html:root body [class~="dark:border-slate-300"],
+html:root body [class~="dark:border-slate-600"],
+html:root body [class~="dark:border-slate-600/80"],
+html:root body [class~="dark:border-slate-700"],
+html:root body [class~="dark:border-slate-700/60"],
+html:root body [class~="dark:border-slate-700/80"],
+html:root body [class~="dark:border-slate-800"]{border-color:var(--vx-line)}
+html:root body [class~="border-indigo-200"],
+html:root body [class~="border-indigo-800"],
+html:root body [class~="border-indigo-900"],
+html:root body [class~="border-violet-200"],
+html:root body [class~="border-violet-300"],
+html:root body [class~="border-violet-800"],
+html:root body [class~="border-violet-900"],
+html:root body [class~="dark:border-indigo-800/50"],
+html:root body [class~="dark:border-indigo-900/50"],
+html:root body [class~="dark:border-violet-700"],
+html:root body [class~="dark:border-violet-900/50"]{border-color:var(--vx-petrol)}
+html:root body [class~="dark:text-indigo-200"],
+html:root body [class~="dark:text-indigo-300"],
+html:root body [class~="dark:text-indigo-400"],
+html:root body [class~="dark:text-violet-200"],
+html:root body [class~="dark:text-violet-300"],
+html:root body [class~="dark:text-violet-400"],
+html:root body [class~="text-indigo-200"],
+html:root body [class~="text-indigo-500"],
+html:root body [class~="text-indigo-600"],
+html:root body [class~="text-indigo-700"],
+html:root body [class~="text-indigo-900"],
+html:root body [class~="text-violet-600"],
+html:root body [class~="text-violet-700"],
+html:root body [class~="text-violet-900"]{color:var(--vx-petrol-text)}
+html:root body [class~="dark:hover:text-indigo-400"]:hover,
+html:root body [class~="hover:text-indigo-600"]:hover,
+html:root body [class~="hover:text-indigo-800"]:hover{color:var(--vx-petrol-text)}
+html:root body [class~="dark:hover:bg-indigo-950/40"]:hover,
+html:root body [class~="hover:bg-indigo-50"]:hover,
+html:root body [class~="hover:bg-violet-200"]:hover{background-color:var(--vx-petrol-soft)}
+html:root body [class~="hover:bg-indigo-700"]:hover{background-color:var(--vx-petrol-strong)}
+html:root body [class~="accent-indigo-600"]{accent-color:var(--vx-petrol)}
+html:root body [class~="ring-indigo-500"]{--tw-ring-color:var(--vx-petrol)}
+html:root body [class~="focus:ring-indigo-500"]:focus,
+html:root body [class~="focus:ring-violet-500"]:focus{--tw-ring-color:var(--vx-petrol)}
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
     
-    <!-- Header: logo + Blocca (le altre azioni sono nella barra inferiore) -->
-    <header class="sticky top-0 z-30 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 py-2.5 shadow-sm">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5">
-                <div onclick="showAppVersion()" title="Informazioni sulla versione" role="button" class="p-2 bg-indigo-600 text-white rounded-xl shadow-md shadow-indigo-500/20 shrink-0 cursor-pointer">
-                    <i class="fa-solid fa-vault text-base sm:text-xl"></i>
-                </div>
+    <!-- Testata + categorie: un unico blocco fisso in alto -->
+    <div class="vx-top">
+        <header class="vx-header">
+            <div class="vx-brand">
+                <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><i class="fa-solid fa-vault"></i></button>
                 <div>
-                    <h1 class="text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">Vault</h1>
+                    <h1>Vault</h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
             <button onclick="lockVaultManual()" class="vx-lock" title="Blocca subito il caveau" aria-label="Blocca il caveau"><i class="fa-solid fa-lock"></i><span>Blocca</span></button>
-        </div>
-    </header>
+        </header>
+        <div id="quickPillsBarContainer" class="vx-rail" role="toolbar" aria-label="Filtri per categoria e proprietario"></div>
+    </div>
 
     <!-- Main Content Container -->
     <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 flex-1 w-full">
-        <!-- Stats Overview Cards -->
-        <div class="flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-4 overflow-x-auto pb-2 sm:pb-0">
-            <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between min-w-[120px] sm:min-w-0 flex-1">
-                <div>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase">Totale</p>
-                    <p id="statTotal" class="text-xl font-bold text-slate-900 dark:text-white">0</p>
-                </div>
-                <div class="p-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg">
-                    <i class="fa-solid fa-layer-group text-sm"></i>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border-l-4 border-l-emerald-500 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between min-w-[120px] sm:min-w-0 flex-1">
-                <div>
-                    <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium uppercase">Banche</p>
-                    <p id="statBanche" class="text-xl font-bold text-slate-900 dark:text-white">0</p>
-                </div>
-                <div class="p-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-lg">
-                    <i class="fa-solid fa-building-columns text-sm"></i>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border-l-4 border-l-blue-500 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between min-w-[120px] sm:min-w-0 flex-1">
-                <div>
-                    <p class="text-[10px] text-blue-600 dark:text-blue-400 font-medium uppercase">Ufficio</p>
-                    <p id="statUfficio" class="text-xl font-bold text-slate-900 dark:text-white">0</p>
-                </div>
-                <div class="p-2 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 rounded-lg">
-                    <i class="fa-solid fa-briefcase text-sm"></i>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border-l-4 border-l-purple-500 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between min-w-[120px] sm:min-w-0 flex-1">
-                <div>
-                    <p class="text-[10px] text-purple-600 dark:text-purple-400 font-medium uppercase">Personale</p>
-                    <p id="statNunzia" class="text-xl font-bold text-slate-900 dark:text-white">0</p>
-                </div>
-                <div class="p-2 bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 rounded-lg">
-                    <i class="fa-solid fa-user-gear text-sm"></i>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border-l-4 border-l-amber-500 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between min-w-[120px] sm:min-w-0 flex-1">
-                <div>
-                    <p class="text-[10px] text-amber-600 dark:text-amber-400 font-medium uppercase">Siti / Altri</p>
-                    <p id="statSiti" class="text-xl font-bold text-slate-900 dark:text-white">0</p>
-                </div>
-                <div class="p-2 bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 rounded-lg">
-                    <i class="fa-solid fa-globe text-sm"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Filter Pills Bar -->
-        <div id="quickPillsBarContainer" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-2.5 mb-4 shadow-sm flex flex-col gap-2">
-        </div>
-
         <!-- Search & Batch Actions Toolbar -->
         <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-700/80 p-3 mb-4 shadow-sm flex flex-col gap-3">
             <div class="relative w-full">
@@ -357,6 +517,8 @@
                 </div>
             </div>
         </div>
+
+        <div id="vxResultLine" class="vx-result" aria-live="polite"></div>
 
         <!-- Credentials Container -->
         <div id="credentialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
@@ -461,26 +623,34 @@
         </div>
     </div>
 
-    <!-- AI Assistant Chat Modal -->
+    <!-- Assistente Vault: voce (offline se il browser lo permette) + testo -->
     <div id="aiModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden opacity-0 transition-opacity duration-200">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200 flex flex-col h-[550px]" id="aiModalContainer">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700 mb-3">
-                <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
-                        <i class="fa-solid fa-brain text-xs"></i>
+            <div class="vx-ai-head">
+                <div class="vx-ai-title">
+                    <span class="vx-ai-badge"><i class="fa-solid fa-microphone"></i></span>
+                    <div>
+                        <h3>Assistente Vault</h3>
+                        <button type="button" id="vxMode" class="vx-mode" data-s="none" onclick="vxToggleVoicePanel()" aria-label="Stato della voce"><span class="vx-mode-dot"></span><span id="vxModeTxt">Controllo la voce…</span></button>
                     </div>
-                    Assistente IA Caveau (Audit Euristico)
-                </h3>
-                <button onclick="closeAiAssistantModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                </div>
+                <div class="vx-ai-tools">
+                    <button type="button" id="vxSpeakBtn" class="vx-iconbtn" onclick="vxToggleSpeak()" aria-pressed="true" aria-label="Disattiva le risposte a voce"><i class="fa-solid fa-volume-high"></i></button>
+                    <button type="button" class="vx-iconbtn" onclick="closeAiAssistantModal()" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <div id="vxVoicePanel" class="vx-vpanel" hidden>
+                <p id="vxVoiceNote"></p>
+                <button type="button" id="vxInstallBtn" class="vx-btn2" onclick="vxVoiceInstallPack()" hidden>Scarica la voce italiana offline</button>
+                <button type="button" class="vx-link" onclick="sendAiPrompt('aiuto')">Cosa posso dire?</button>
             </div>
 
             <!-- Chat Messages Box -->
             <div id="aiChatMessages" class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs mb-3">
                 <div class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-900/50 text-violet-900 dark:text-violet-200">
-                    <p class="font-bold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-sparkles"></i> Ciao! Sono l'Ispettore IA per la Sicurezza.</p>
-                    <p class="text-[11px] leading-relaxed">Eseguo audit euristici avanzati sul tuo caveau: calcolo dell'entropia NIST, rilevamento di dizionari/pattern banali e analisi rigorosa delle password duplicate. Come posso aiutarti?</p>
+                    <p class="font-bold mb-1">Ciao! Sono l’assistente di Vault.</p>
+                    <p class="leading-relaxed">Funziono anche senza rete: scrivi o tocca il microfono. Prova “mostra banche”, “cerca amazon”, “copia la password di netflix” o “controlla la sicurezza”. Le password non vengono mai lette ad alta voce.</p>
                 </div>
             </div>
 
@@ -491,15 +661,14 @@
                 <button onclick="sendAiPrompt('Dammi consigli per migliorare la mia igiene digitale')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 whitespace-nowrap">💡 Consigli pratici</button>
                 <button onclick="sendAiPrompt('Controlla se le mie password sono state violate')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 whitespace-nowrap">🔎 Controlla violazioni</button>
                 <button onclick="sendAiPrompt('Mostrami le statistiche')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 whitespace-nowrap">📊 Statistiche</button>
+                <button onclick="sendAiPrompt('aiuto')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 whitespace-nowrap">🎙️ Cosa posso dire?</button>
             </div>
 
-            <!-- Chat Input Box -->
-            <div class="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <input type="text" id="aiChatInput" onkeydown="if(event.key === 'Enter') handleAiSend()" placeholder="Chiedi qualcosa all'Ispettore IA..." 
-                    class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-xs focus:ring-2 focus:ring-violet-500 outline-none">
-                <button onclick="handleAiSend()" class="p-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:opacity-90 shadow-sm transition-all">
-                    <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
+            <div id="aiVoiceLive" class="vx-live" aria-live="polite" hidden></div>
+            <div class="vx-inputrow">
+                <button type="button" id="aiMicBtn" class="vx-micbtn" onclick="toggleAiMic()" aria-label="Parla" title="Parla"><i class="fa-solid fa-microphone"></i></button>
+                <input type="text" id="aiChatInput" onkeydown="if(event.key === 'Enter') handleAiSend()" placeholder="Scrivi o tocca il microfono…" autocomplete="off">
+                <button type="button" class="vx-sendbtn" onclick="handleAiSend()" aria-label="Invia"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -509,7 +678,7 @@
     <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="handleFileImport(event)">
     <input type="file" id="importExcelFileInput" accept=".xlsx,.xls,.enc" class="hidden" onchange="handleExcelFileImport(event)">
     <nav class="vx-bar" aria-label="Azioni principali">
-        <button class="vx-tab" onclick="openAiAssistantModal()" title="Chiedi all'assistente: cerca, statistiche, audit password"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Vault AI</span></button>
+        <button class="vx-tab" onclick="openAiAssistantModal()" title="Assistente vocale: parla o scrivi, funziona anche offline"><i class="fa-solid fa-microphone"></i><span>Assistente</span></button>
         <button class="vx-tab" onclick="vxOpen('backupMenuModalOverlay')" title="Backup su telefono, Drive, file ed Excel"><i class="fa-solid fa-clock-rotate-left"></i><span>Backup</span></button>
         <button class="vx-tab vx-new" onclick="openModal()" title="Aggiungi una nuova credenziale"><span class="vx-plus"><i class="fa-solid fa-plus"></i></span><span>Nuova</span></button>
         <button class="vx-tab" onclick="openSecurityModal()" title="Biometria, blocco automatico, password master"><i class="fa-solid fa-shield-halved"></i><span>Sicurezza</span></button>
@@ -1048,39 +1217,6 @@
         }
 
 
-        // --- RICERCA VOCALE (Web Speech API, italiano) ---
-        let voiceRec = null, voiceActive = false;
-        function initVoiceSearch() {
-            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const btn = document.getElementById('voiceSearchBtn');
-            if (!SR || !btn) return;
-            btn.classList.remove('hidden');
-            voiceRec = new SR();
-            voiceRec.lang = 'it-IT';
-            voiceRec.interimResults = true;
-            voiceRec.continuous = false;
-            voiceRec.maxAlternatives = 1;
-            const input = document.getElementById('searchInput');
-            voiceRec.onstart = () => { voiceActive = true; btn.classList.add('listening'); input.placeholder = 'Sto ascoltando…'; };
-            voiceRec.onresult = ev => {
-                let t = '';
-                for (let i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript;
-                input.value = t.replace(/[.。]+$/, '').trim();
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-            };
-            voiceRec.onerror = ev => {
-                const m = { 'not-allowed': 'Permesso al microfono negato.', 'service-not-allowed': 'Riconoscimento vocale non consentito.',
-                    'no-speech': 'Non ho sentito nulla, riprova.', 'audio-capture': 'Microfono non disponibile.', 'network': 'Serve la connessione per il riconoscimento vocale.' };
-                showToast(m[ev.error] || 'Ricerca vocale interrotta.');
-            };
-            voiceRec.onend = () => { voiceActive = false; btn.classList.remove('listening'); input.placeholder = 'Cerca servizio, username, note...'; };
-        }
-        function toggleVoiceSearch() {
-            if (!voiceRec) return;
-            if (voiceActive) { try { voiceRec.stop(); } catch (e) {} return; }
-            try { voiceRec.start(); } catch (e) { showToast('Ricerca vocale non disponibile.'); }
-        }
-
         // --- APP STATE ---
         let credentials = [];
         let selectedIndices = new Set();
@@ -1230,7 +1366,7 @@
         function lockVaultManual() {
             if (window.vxLockFlush) vxLockFlush();
             if (window.vxCloseAll) vxCloseAll();
-            if (voiceActive && voiceRec) { try { voiceRec.abort(); } catch (e) {} }
+            if (window.vxStopAll) vxStopAll();
             if (clipboardTimer) { clearTimeout(clipboardTimer); clipboardTimer = null; navigator.clipboard.writeText('').catch(() => {}); }
             activePassword = null; credentials = []; selectedIndices.clear();
             ['masterPasswordInput', 'masterConfirmInput'].forEach(id => document.getElementById(id).value = '');
@@ -1453,10 +1589,13 @@
 
         // --- AI ASSISTANT CHAT ENGINE (AUDIT EURISTICO AVANZATO) ---
         function openAiAssistantModal() {
+            if (window.vxVoiceRefreshUI) vxVoiceRefreshUI();
             document.getElementById('aiModalOverlay').classList.remove('hidden');
             setTimeout(() => document.getElementById('aiModalOverlay').classList.remove('opacity-0'), 10);
         }
         function closeAiAssistantModal() {
+            if (window.vxStopListening) vxStopListening();
+            document.querySelectorAll('#aiMicBtn.listening').forEach(n => n.classList.remove('listening'));
             document.getElementById('aiModalOverlay').classList.add('opacity-0');
             setTimeout(() => document.getElementById('aiModalOverlay').classList.add('hidden'), 200);
         }
@@ -1580,11 +1719,14 @@
             box.insertAdjacentHTML('beforeend', `<div class="flex justify-end"><div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none max-w-[85%] text-xs shadow-sm">${escapeHtml(text)}</div></div>`);
             input.value = ''; box.scrollTop = box.scrollHeight;
             const l = text.toLowerCase();
-            let reply;
+            const viaVoice = VXV.fromVoice; VXV.fromVoice = false;
+            let reply, say = null, act = null;
+            try { act = vxActionIntent(text); } catch (e) { act = null; }
             try {
-                if (/violat|pwned|leak|compromess|hibp/.test(l)) reply = await checkBreaches();
+                if (act !== null) reply = act;
+                else if (/violat|pwned|leak|compromess|hibp/.test(l)) reply = await checkBreaches();
                 else if (/statistic|quante|riepilogo/.test(l)) reply = aiStats();
-                else if (/^(cerca|trova)\s+/.test(l)) reply = aiFind(text.replace(/^(cerca|trova)\s+/i, ''));
+                else if (/^(cerca|trova)\s+/.test(l)) { const fq = text.replace(/^(cerca|trova)\s+/i, ''); reply = aiFind(fq); say = vxFindSay(fq); }
                 else if (/sicurezza|analisi|vulnerabilit|audit|duplicat|debol|cort/.test(l)) reply = performRigorousVaultAudit();
                 else if (/\bgenera\b|nuova password/.test(l)) reply = `### 🔑 Password generata\n<code class="select-all font-mono">${escapeHtml(makeReadablePassword())}</code>\n\nCasuale, 20 caratteri, senza simboli ambigui.`;
                 else if (/consigli|igiene/.test(l)) reply = `### 💡 Direttive di Igiene Digitale:\n1. **Zero Riutilizzo**: una password diversa per ogni servizio.\n2. **Entropia Elevata**: 16+ caratteri casuali o passphrase di 4+ parole.\n3. **Isolamento**: separa credenziali bancarie/lavorative dai siti di svago.\n4. **Verifica**: usa "Controlla violazioni" periodicamente.`;
@@ -1596,6 +1738,7 @@
                 .replace(/\n/g, '<br>');
             box.insertAdjacentHTML('beforeend', `<div class="flex justify-start"><div class="bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-900/50 text-violet-900 dark:text-violet-200 p-3 rounded-2xl rounded-tl-none max-w-[90%] text-xs shadow-sm leading-relaxed"><p class="font-bold mb-1 flex items-center gap-1 text-[10px] text-violet-600 dark:text-violet-400"><i class="fa-solid fa-brain"></i> Vault AI Inspector</p><div>${formatted}</div></div></div>`);
             box.scrollTop = box.scrollHeight;
+            if (viaVoice && VXV.speakOn) vxSpeak(say !== null ? say : vxSpeakable(reply));
         }
 
         // --- GOOGLE DRIVE CLOUD SYNC BRIDGE ---
@@ -1610,7 +1753,7 @@
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.5.0';
+        const APP_VERSION = '4.6.0';
         const APP_BUILD = '2026-11-07';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
@@ -1816,6 +1959,7 @@
             const grid = document.getElementById('credentialsGrid');
             const emptyState = document.getElementById('emptyState');
             const filtered = getFilteredCredentials();
+            vxUpdateResultLine(filtered.length);
 
             grid.innerHTML = '';
 
@@ -1876,6 +2020,7 @@
                                 ${item.notes ? `<p class="text-[11px] text-slate-500 italic mt-1.5 line-clamp-2">${escapeHtml(item.notes)}</p>` : ''}
                             </div>
                         `;
+                        card.style.setProperty('--cat', categoryColors[item.category] || '#64748b');
                         grid.appendChild(card);
                     });
                 } else {
@@ -2313,13 +2458,7 @@
             }
         }
 
-        function updateStats() {
-            document.getElementById('statTotal').innerText = credentials.length;
-            document.getElementById('statBanche').innerText = credentials.filter(c => c.category === 'Banche').length;
-            document.getElementById('statUfficio').innerText = credentials.filter(c => c.category === 'Ufficio').length;
-            document.getElementById('statNunzia').innerText = credentials.filter(c => c.category === 'Personale').length;
-            document.getElementById('statSiti').innerText = credentials.filter(c => c.category === 'Siti/Altri').length;
-        }
+        function updateStats() { renderQuickPillsBar(); }
 
         function openModal(index = null) {
             const overlay = document.getElementById('modalOverlay');
@@ -2430,33 +2569,58 @@
             });
         }
 
+        function vxInk(hex) {
+            const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return '#fff';
+            const n = parseInt(m[1], 16);
+            const ch = [n >> 16 & 255, n >> 8 & 255, n & 255].map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+            const L = .2126 * ch[0] + .7152 * ch[1] + .0722 * ch[2];
+            return (1.05 / (L + .05)) >= ((L + .05) / .056) ? '#fff' : '#0b1116';
+        }
         function renderQuickPillsBar() {
-            const container = document.getElementById('quickPillsBarContainer');
-            if (!container) return;
-            
-            let catHTML = `<div class="flex items-center gap-1 overflow-x-auto pb-1 w-full"><span class="text-[10px] font-bold text-slate-500 uppercase shrink-0 mr-1">Categorie:</span>`;
-            catHTML += `<button onclick="setQuickCategory('ALL')" class="px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 ${currentCategoryFilter === 'ALL' ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'} transition-all">Tutte</button>`;
+            const c = document.getElementById('quickPillsBarContainer');
+            if (!c) return;
+            const prev = Array.from(c.querySelectorAll('.vx-rowscroll')).map(el => el.scrollLeft);
+            const inOwner = currentOwnerFilter === 'ALL' ? credentials : credentials.filter(x => x.owner === currentOwnerFilter);
+            const inCat = currentCategoryFilter === 'ALL' ? credentials : credentials.filter(x => x.category === currentCategoryFilter);
+            const mk = (call, label, n, col, lead, on, sm) => {
+                const st = col ? `--c:${col};--on:${vxInk(col)}` : '--c:var(--vx-ink);--on:var(--vx-bg)';
+                return `<button type="button" class="vx-chip${sm ? ' sm' : ''}${on ? ' is-on' : ''}" style="${st}" aria-pressed="${on ? 'true' : 'false'}" onclick="${call}">${lead}<span>${escapeHtml(label)}</span><span class="vx-chip-n">${n}</span></button>`;
+            };
+            let cats = mk("setQuickCategory('ALL')", 'Tutte', inOwner.length, '', '<i class="fa-solid fa-layer-group"></i>', currentCategoryFilter === 'ALL', false);
             categoriesList.forEach(cat => {
-                const isActive = currentCategoryFilter === cat;
                 const col = categoryColors[cat] || '#3b82f6';
-                const activeStyle = `background-color: ${col}; color: white; border-color: ${col}; box-shadow: 0 2px 4px rgba(0,0,0,0.1);`;
-                const styleAttr = isActive ? `style="${activeStyle}"` : '';
-                catHTML += `<button onclick="setQuickCategory('${escapeJs(cat)}')" ${styleAttr} class="px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 ${isActive ? '' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'} transition-all">${escapeHtml(cat)}</button>`;
+                cats += mk(`setQuickCategory('${escapeJs(cat)}')`, cat, inOwner.filter(x => x.category === cat).length, col, `<i class="fa-solid ${getCategoryStyle(cat).icon}"></i>`, currentCategoryFilter === cat, false);
             });
-            catHTML += `</div>`;
-
-            let ownerHTML = `<div class="flex items-center gap-1 overflow-x-auto pb-1 w-full"><span class="text-[10px] font-bold text-slate-500 uppercase shrink-0 mr-1">Proprietario:</span>`;
-            ownerHTML += `<button onclick="setQuickOwner('ALL')" class="px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 ${currentOwnerFilter === 'ALL' ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-sm' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'} transition-all">Tutti</button>`;
-            ownersList.forEach(owner => {
-                const isActive = currentOwnerFilter === owner;
-                const col = ownerColors[owner] || '#8b5cf6';
-                const activeStyle = `background-color: ${col}; color: white; border-color: ${col}; box-shadow: 0 2px 4px rgba(0,0,0,0.1);`;
-                const styleAttr = isActive ? `style="${activeStyle}"` : '';
-                ownerHTML += `<button onclick="setQuickOwner('${escapeJs(owner)}')" ${styleAttr} class="px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 ${isActive ? '' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'} transition-all">${escapeHtml(owner)}</button>`;
+            let owners = mk("setQuickOwner('ALL')", 'Tutti', inCat.length, '', '<i class="fa-solid fa-user"></i>', currentOwnerFilter === 'ALL', true);
+            ownersList.forEach(o => {
+                const col = ownerColors[o] || '#8b5cf6';
+                owners += mk(`setQuickOwner('${escapeJs(o)}')`, o, inCat.filter(x => x.owner === o).length, col, '<span class="vx-dot"></span>', currentOwnerFilter === o, true);
             });
-            ownerHTML += `</div>`;
-
-            container.innerHTML = catHTML + ownerHTML;
+            c.innerHTML = `<div class="vx-rowscroll" role="group" aria-label="Categorie">${cats}</div><div class="vx-rowscroll" role="group" aria-label="Proprietario">${owners}</div>`;
+            c.querySelectorAll('.vx-rowscroll').forEach((row, i) => {
+                row.scrollLeft = prev[i] || 0;
+                const on = row.querySelector('.is-on');
+                if (on) {
+                    const l = on.offsetLeft - 12, r = on.offsetLeft + on.offsetWidth + 24;
+                    if (l < row.scrollLeft) row.scrollLeft = Math.max(0, l);
+                    else if (r > row.scrollLeft + row.clientWidth) row.scrollLeft = r - row.clientWidth;
+                }
+            });
+        }
+        function vxUpdateResultLine(n) {
+            const el = document.getElementById('vxResultLine'); if (!el) return;
+            const q = (document.getElementById('searchInput').value || '').trim();
+            const where = [];
+            if (currentCategoryFilter !== 'ALL') where.push(currentCategoryFilter);
+            if (currentOwnerFilter !== 'ALL') where.push(currentOwnerFilter);
+            const active = where.length || q;
+            el.innerHTML = `<span><b>${n}</b> ${n === 1 ? 'credenziale' : 'credenziali'}${where.length ? ' in ' + escapeHtml(where.join(', ')) : ''}${q ? ' per “' + escapeHtml(q) + '”' : ''}</span>` +
+                (active ? `<button type="button" class="vx-link" onclick="vxClearFilters()">Mostra tutto</button>` : '');
+        }
+        function vxClearFilters() {
+            currentCategoryFilter = 'ALL'; currentOwnerFilter = 'ALL';
+            const s = document.getElementById('searchInput'); if (s) s.value = '';
+            renderQuickPillsBar(); renderGrid();
         }
 
         function populateModalSelects() {
@@ -3185,6 +3349,284 @@
         } catch (e) { }
     };
 })();
+</script>
+<script>
+/* ===== Assistente vocale Vault v4.6 =====
+   - Riconoscimento: sul dispositivo (offline) quando il browser lo offre, altrimenti servizio online del browser.
+   - Comprensione dei comandi: tutta locale, nessuna rete.
+   - Risposte a voce: voce italiana del dispositivo (preferita quella locale, che funziona offline).
+   - Le password non vengono mai lette ad alta voce. */
+const VX_LANG = 'it-IT';
+const VXV = {
+  SR: window.SpeechRecognition || window.webkitSpeechRecognition || null,
+  avail: 'unknown', mode: 'none', rec: null, active: false, installing: false,
+  speakOn: (function () { try { return localStorage.getItem('vault_voice_speak') !== '0'; } catch (e) { return true; } })(),
+  fromVoice: false, voice: null
+};
+function $v(id) { return document.getElementById(id); }
+
+/* ---------- Stato del motore ---------- */
+async function vxVoiceProbe() {
+  const SR = VXV.SR;
+  if (!SR) { VXV.avail = 'unsupported'; VXV.mode = 'none'; vxVoiceRefreshUI(); return; }
+  let a = 'unknown';
+  try { if (typeof SR.available === 'function') a = await SR.available({ langs: [VX_LANG], processLocally: true }); } catch (e) { a = 'unknown'; }
+  VXV.avail = a;
+  VXV.mode = a === 'available' ? 'local' : 'remote';
+  vxVoiceRefreshUI();
+}
+async function vxVoiceInstallPack() {
+  const SR = VXV.SR;
+  if (!SR || typeof SR.install !== 'function') { showToast('Questo browser non permette di scaricare la voce offline.'); return; }
+  if (navigator.onLine === false) { showToast('Per scaricare la voce serve la connessione.'); return; }
+  VXV.installing = true; VXV.avail = 'downloading'; vxVoiceRefreshUI();
+  try {
+    const ok = await SR.install({ langs: [VX_LANG], processLocally: true });
+    showToast(ok ? 'Voce offline pronta.' : 'Download non riuscito: riprova più tardi.');
+  } catch (e) { showToast('Download non riuscito: ' + ((e && e.message) || 'errore')); }
+  VXV.installing = false;
+  await vxVoiceProbe();
+}
+function vxVoiceRefreshUI() {
+  const online = navigator.onLine !== false;
+  let s = 'none', t = 'Voce non disponibile';
+  let n = 'Questo browser non ha il riconoscimento vocale. Puoi scrivere i comandi o usare la dettatura della tastiera del telefono.';
+  if (VXV.mode === 'local') {
+    s = 'local'; t = 'Voce offline, sul dispositivo';
+    n = 'Il riconoscimento avviene sul telefono: l’audio non esce dal dispositivo e funziona anche senza rete.';
+  } else if (VXV.mode === 'remote') {
+    if (online) {
+      s = 'remote'; t = 'Voce online';
+      n = VXV.avail === 'downloadable' ? 'Ora usa il servizio del browser: l’audio viene inviato online. Scarica la voce italiana per parlare anche offline e tenere l’audio sul dispositivo.'
+        : VXV.avail === 'downloading' ? 'Download della voce italiana in corso…'
+        : 'Questo browser usa il servizio vocale online (l’audio va al fornitore del browser). Offline puoi comunque scrivere i comandi.';
+    } else {
+      t = 'Offline: voce non pronta';
+      n = VXV.avail === 'downloadable' ? 'Sei offline e la voce italiana non è ancora sul telefono. Collegati una volta e scaricala da qui.'
+        : 'Offline il riconoscimento vocale non è disponibile su questo browser. Scrivi i comandi o usa la dettatura della tastiera.';
+    }
+  }
+  const chip = $v('vxMode'); if (chip) chip.dataset.s = s;
+  const txt = $v('vxModeTxt'); if (txt) txt.textContent = t;
+  const note = $v('vxVoiceNote'); if (note) note.textContent = n;
+  const ins = $v('vxInstallBtn');
+  if (ins) {
+    const can = VXV.SR && typeof VXV.SR.install === 'function' && (VXV.avail === 'downloadable' || VXV.avail === 'downloading');
+    ins.hidden = !can; ins.disabled = VXV.installing || VXV.avail === 'downloading';
+    ins.textContent = VXV.avail === 'downloading' ? 'Download in corso…' : 'Scarica la voce italiana offline';
+  }
+  const mic = $v('aiMicBtn');
+  if (mic) { mic.disabled = !VXV.SR; mic.title = !VXV.SR ? 'Voce non supportata' : 'Parla'; }
+  const sp = $v('vxSpeakBtn');
+  if (sp) {
+    sp.setAttribute('aria-pressed', VXV.speakOn ? 'true' : 'false');
+    sp.setAttribute('aria-label', VXV.speakOn ? 'Disattiva le risposte a voce' : 'Attiva le risposte a voce');
+    sp.innerHTML = '<i class="fa-solid ' + (VXV.speakOn ? 'fa-volume-high' : 'fa-volume-xmark') + '"></i>';
+  }
+}
+
+/* ---------- Ascolto ---------- */
+function vxListen(h) {
+  const SR = VXV.SR;
+  if (!SR) { showToast('Il riconoscimento vocale non è supportato da questo browser.'); return false; }
+  if (VXV.mode !== 'local' && navigator.onLine === false) { showToast('Offline: serve la voce italiana scaricata sul dispositivo (tocca lo stato voce nell’assistente).'); return false; }
+  vxStopSpeaking();
+  let rec;
+  try { rec = new SR(); } catch (e) { showToast('Microfono non disponibile.'); return false; }
+  rec.lang = VX_LANG; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
+  if (VXV.mode === 'local') { try { rec.processLocally = true; } catch (e) {} }
+  let text = '', delivered = false, failed = false;
+  rec.onstart = () => { VXV.active = true; if (h.onStart) h.onStart(); };
+  rec.onresult = ev => {
+    let t = '';
+    for (let i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript;
+    text = t.replace(/[.。]+$/, '').trim();
+    if (h.onInterim) h.onInterim(text);
+  };
+  rec.onerror = ev => {
+    failed = true;
+    const m = { 'not-allowed': 'Permesso al microfono negato.', 'service-not-allowed': 'Riconoscimento vocale non consentito.',
+      'no-speech': 'Non ho sentito nulla, riprova.', 'audio-capture': 'Microfono non disponibile.',
+      'network': 'Serve la connessione per il riconoscimento vocale.', 'language-not-supported': 'Voce italiana non installata sul dispositivo.' };
+    showToast(m[ev.error] || 'Voce interrotta.');
+    if (ev.error === 'language-not-supported' || ev.error === 'service-not-allowed') vxVoiceProbe();
+  };
+  rec.onend = () => {
+    VXV.active = false; VXV.rec = null;
+    if (h.onEnd) h.onEnd();
+    if (!delivered && !failed && text) { delivered = true; if (h.onFinal) h.onFinal(text); }
+  };
+  VXV.rec = rec;
+  try { rec.start(); } catch (e) { VXV.rec = null; showToast('Voce non disponibile ora.'); return false; }
+  return true;
+}
+function vxStop() { if (VXV.rec) { try { VXV.rec.stop(); } catch (e) {} } }
+function vxStopListening() { if (VXV.rec) { try { VXV.rec.abort(); } catch (e) {} VXV.rec = null; } VXV.active = false; }
+function vxStopAll() {
+  vxStopListening(); vxStopSpeaking();
+  document.querySelectorAll('.vx-micbtn.listening,#voiceSearchBtn.listening').forEach(n => n.classList.remove('listening'));
+  const l = $v('aiVoiceLive'); if (l) { l.hidden = true; l.textContent = ''; }
+}
+function initVoiceSearch() {
+  const btn = $v('voiceSearchBtn');
+  if (btn && VXV.SR) btn.classList.remove('hidden');
+  vxVoiceProbe(); vxPickVoice();
+  try { speechSynthesis.onvoiceschanged = vxPickVoice; } catch (e) {}
+  window.addEventListener('online', vxVoiceRefreshUI);
+  window.addEventListener('offline', vxVoiceRefreshUI);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) vxStopAll(); });
+}
+function toggleVoiceSearch() {
+  if (VXV.active) { vxStop(); return; }
+  const input = $v('searchInput'), btn = $v('voiceSearchBtn'), ph = 'Cerca servizio, username, note...';
+  vxListen({
+    onStart() { btn.classList.add('listening'); input.placeholder = 'Sto ascoltando…'; },
+    onInterim(t) { input.value = t; input.dispatchEvent(new Event('input', { bubbles: true })); },
+    onEnd() { btn.classList.remove('listening'); input.placeholder = ph; }
+  });
+}
+function toggleAiMic() {
+  if (VXV.active) { vxStop(); return; }
+  const input = $v('aiChatInput'), btn = $v('aiMicBtn'), live = $v('aiVoiceLive');
+  vxListen({
+    onStart() { btn.classList.add('listening'); btn.setAttribute('aria-label', 'Interrompi'); live.hidden = false; live.textContent = 'Sto ascoltando…'; },
+    onInterim(t) { live.textContent = t || 'Sto ascoltando…'; },
+    onEnd() { btn.classList.remove('listening'); btn.setAttribute('aria-label', 'Parla'); setTimeout(() => { if (!VXV.active) { live.hidden = true; live.textContent = ''; } }, 0); },
+    onFinal(t) { input.value = t; VXV.fromVoice = true; handleAiSend(); }
+  });
+}
+function vxToggleVoicePanel() { const p = $v('vxVoicePanel'); if (p) p.hidden = !p.hidden; vxVoiceRefreshUI(); }
+function vxToggleSpeak() {
+  VXV.speakOn = !VXV.speakOn;
+  try { localStorage.setItem('vault_voice_speak', VXV.speakOn ? '1' : '0'); } catch (e) {}
+  if (!VXV.speakOn) vxStopSpeaking();
+  vxVoiceRefreshUI();
+  showToast(VXV.speakOn ? 'Risposte a voce attive.' : 'Risposte a voce disattivate.');
+}
+
+/* ---------- Sintesi vocale ---------- */
+function vxPickVoice() {
+  if (!('speechSynthesis' in window)) return;
+  const vs = speechSynthesis.getVoices().filter(v => /^it/i.test(v.lang));
+  VXV.voice = vs.find(v => v.localService) || vs[0] || null;
+}
+function vxStopSpeaking() { try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {} }
+function vxSpeak(text) {
+  if (!VXV.speakOn || !text || !('speechSynthesis' in window)) return;
+  if (!VXV.voice) vxPickVoice();
+  if (VXV.voice && !VXV.voice.localService && navigator.onLine === false) return; // voce di rete: offline non parlerebbe
+  try {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = VX_LANG; if (VXV.voice) u.voice = VXV.voice; u.rate = 1;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function vxSpeakable(reply) {
+  let t = String(reply || '')
+    .replace(/<code[^>]*>[\s\S]*?<\/code>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/gi, ' ')
+    .replace(/#{1,6}\s*/g, '').replace(/\*\*/g, '').replace(/[`_]/g, '')
+    .replace(/\p{Extended_Pictographic}/gu, '').replace(/\s+/g, ' ').trim();
+  if (t.length > 420) { const cut = t.slice(0, 420), k = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? ')); t = k > 80 ? cut.slice(0, k + 1) : cut; }
+  return t;
+}
+function vxFindSay(q) {
+  const t = String(q || '').toLowerCase().trim();
+  const n = credentials.filter(c => [c.service, c.username, c.domain, c.category, c.owner].some(v => (v || '').toLowerCase().includes(t))).length;
+  return n ? 'Ho trovato ' + n + (n === 1 ? ' voce' : ' voci') + '. Le vedi sullo schermo.' : 'Non ho trovato nessuna voce.';
+}
+
+/* ---------- Comandi (tutto locale) ---------- */
+function vxNorm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[.,;:!?"“”«»()]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function vxFindCreds(q) {
+  const n = vxNorm(q); if (!n) return [];
+  const all = credentials.map((c, i) => ({ c, i }));
+  const exact = all.filter(x => vxNorm(x.c.service) === n);
+  if (exact.length) return exact;
+  const stop = new Set(['di', 'del', 'della', 'dello', 'dei', 'per', 'su', 'il', 'lo', 'la', 'le', 'un', 'una', 'sito', 'account', 'app']);
+  const toks = n.split(' ').filter(w => w && !stop.has(w));
+  if (!toks.length) return [];
+  return all.filter(x => { const hay = vxNorm([x.c.service, x.c.domain].join(' ')); return toks.every(w => hay.includes(w)); });
+}
+function vxSameStem(a, b) {
+  if (a.length < 4 || b.length < 4) return a === b;
+  const p = Math.min(a.length, b.length) >= 6 ? 4 : 3;
+  return a.slice(0, p) === b.slice(0, p) && Math.abs(a.length - b.length) <= 3;
+}
+function vxMatchName(list, phrase) {
+  const p = ' ' + phrase + ' ';
+  for (const name of list) { const nn = vxNorm(name); if (nn && p.includes(' ' + nn + ' ')) return name; }
+  const words = phrase.split(' ').filter(w => w.length >= 4);
+  for (const name of list) {
+    const toks = vxNorm(name).split(/[^a-z0-9]+/).filter(w => w.length >= 4);
+    if (toks.some(a => words.some(b => vxSameStem(a, b)))) return name;
+  }
+  return null;
+}
+function vxCloseAiSoon() { setTimeout(() => { try { closeAiAssistantModal(); } catch (e) {} }, 1100); }
+function vxHelpText() {
+  return '### 🎙️ Cosa puoi dire\n' +
+    '**cerca** amazon, **apri** netflix\n' +
+    '**mostra** banche, **filtra** per ufficio, **tutte le categorie**\n' +
+    '**copia la password di** netflix\n' +
+    '**nuova credenziale**, **backup**, **blocca il caveau**, **tema scuro**\n' +
+    '**controlla la sicurezza**, **statistiche**, **genera password**';
+}
+/* Restituisce il testo di risposta se riconosce un'azione, altrimenti null (si passa all'audit/ricerca classici). */
+function vxActionIntent(raw) {
+  const t = vxNorm(raw); if (!t) return null;
+  const has = re => re.test(t);
+  const esc = s => escapeHtml(String(s));
+  if (has(/\bgener/)) return null;
+  if (has(/\b(aiuto|cosa (puoi|sai|posso) (fare|dire)|comandi)\b/)) return vxHelpText();
+  if (has(/^(blocca|chiudi)\b.*\b(caveau|vault|app|tutto)\b|^blocca$/)) { setTimeout(() => { try { lockVaultManual(); } catch (e) {} }, 1500); return 'Blocco il caveau.'; }
+  if (has(/\b(tema|modalita)\b/)) {
+    const dark = document.documentElement.classList.contains('dark');
+    let want = dark ? 'light' : 'dark';
+    if (/scur|notte/.test(t)) want = 'dark'; else if (/chiar|giorno/.test(t)) want = 'light';
+    if ((want === 'dark') !== dark) toggleTheme();
+    return want === 'dark' ? 'Tema scuro attivo.' : 'Tema chiaro attivo.';
+  }
+  if (has(/\b(nuova|nuovo|aggiungi|crea|inserisci)\b.*\b(credenzial\w*|voce|account|login|accesso)\b/)) { closeAiAssistantModal(); setTimeout(() => openModal(), 250); return 'Apro il modulo per una nuova credenziale.'; }
+  if (has(/\bbackup\b/)) { closeAiAssistantModal(); setTimeout(() => vxOpen('backupMenuModalOverlay'), 250); return 'Apro il menu Backup.'; }
+  if (has(/\b(impostazioni|opzioni)\b.*\bsicurezza\b|\bbiometri\w*|\bpassword master\b|\bblocco automatico\b/)) { closeAiAssistantModal(); setTimeout(() => openSecurityModal(), 250); return 'Apro le impostazioni di sicurezza.'; }
+  let m = t.match(/^(?:copia|copiami|prendi)\s+(?:la |il |lo )?(password|pass|username|utente|nome utente|email|mail)\s+(?:di|del|della|dello|per|su|a)\s+(.+)$/);
+  if (m) {
+    const field = /^(pass|password)$/.test(m[1]) ? 'password' : 'username';
+    const hits = vxFindCreds(m[2]);
+    if (!hits.length) return 'Non trovo nessuna voce per “' + esc(m[2]) + '”.';
+    if (hits.length > 1) return 'Ho trovato più voci: ' + hits.slice(0, 4).map(h => '**' + esc(h.c.service) + '**').join(', ') + '. Ripeti con il nome completo.';
+    const h = hits[0];
+    if (!h.c[field]) return 'La voce **' + esc(h.c.service) + '** non ha ' + (field === 'password' ? 'una password salvata' : 'uno username salvato') + '.';
+    copyField(h.i, field, field === 'password' ? 'Password' : 'Username');
+    return 'Copio ' + (field === 'password' ? 'la password' : 'lo username') + ' di **' + esc(h.c.service) + '**: vedrai la conferma in basso.' + (field === 'password' ? ' Gli appunti si azzerano dopo 15 secondi.' : '');
+  }
+  if (has(/\b(statistic|riepilog|sicurezza|audit|violaz|consigli|duplicat|debol|vulnerab|quante)/)) return null;
+  if (has(/\b(tutte|tutto|tutti)\b.*\b(categorie|credenziali|voci|filtri)\b|\b(togli|rimuovi|azzera|pulisci|reset)\b.*\bfiltr\w*|^(mostra|mostrami) (tutto|tutte|tutti)$/)) {
+    vxClearFilters(); vxCloseAiSoon(); return 'Ho tolto tutti i filtri.';
+  }
+  if (has(/\b(mostra|mostrami|filtra|vedi|vedere|solo|categoria|proprietario|apri|vai)\b/)) {
+    const cat = vxMatchName(categoriesList, t), own = vxMatchName(ownersList, t);
+    if (cat || own) {
+      if (cat) currentCategoryFilter = cat;
+      if (own) currentOwnerFilter = own;
+      renderQuickPillsBar(); renderGrid(); vxCloseAiSoon();
+      const n = getFilteredCredentials().length;
+      return 'Mostro ' + [cat && 'la categoria **' + esc(cat) + '**', own && 'le voci di **' + esc(own) + '**'].filter(Boolean).join(' e ') + ': ' + n + (n === 1 ? ' voce.' : ' voci.');
+    }
+  }
+  m = t.match(/^(?:apri|mostrami|mostra|vai a|vai su)\s+(?:la voce |le voci |la credenziale |il sito |l )?(?:di |del |della |dello )?(.+)$/);
+  if (m) {
+    const hits = vxFindCreds(m[1]);
+    if (!hits.length) return 'Non trovo nessuna voce per “' + esc(m[1]) + '”.';
+    const si = $v('searchInput');
+    si.value = hits.length === 1 ? hits[0].c.service : m[1];
+    si.dispatchEvent(new Event('input', { bubbles: true }));
+    vxCloseAiSoon();
+    return 'Ho filtrato l’elenco: ' + hits.length + (hits.length === 1 ? ' voce' : ' voci') + ' per “' + esc(m[1]) + '”.';
+  }
+  return null;
+}
 </script>
 </body>
 </html>
