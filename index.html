@@ -268,6 +268,15 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 .fa-check{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.2 16.6 5.4 12.8a1.3 1.3 0 0 0-1.8 1.8l4.7 4.7a1.3 1.3 0 0 0 1.8 0L20.4 7.2a1.3 1.3 0 0 0-1.8-1.8z'/%3C/svg%3E")}
 .fa-users{--fa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='9' cy='8' r='3.6'/%3E%3Cpath d='M1.8 20c0-4.2 3.2-6.6 7.2-6.6s7.2 2.4 7.2 6.6z'/%3E%3Ccircle cx='17.4' cy='8.6' r='2.8'/%3E%3Cpath d='M17.6 13.6c3 .2 4.8 2.3 4.8 5.4h-4.3c0-2-.6-3.8-1.9-5z'/%3C/svg%3E")}
 
+
+/* ---- Loghi pulsanti Categoria / Proprietario + logo app ---- */
+.vx-badge{display:block;width:100%;height:100%;border-radius:inherit;background:center/cover no-repeat}
+.vx-badge-cat{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2338bdf8%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232563eb%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url%28%23a%29%22/%3E%3Crect%20x%3D%229%22%20y%3D%229%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22/%3E%3Crect%20x%3D%2221%22%20y%3D%229%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fde68a%22/%3E%3Crect%20x%3D%229%22%20y%3D%2221%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23a7f3d0%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2221%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20fill-opacity%3D%22.85%22/%3E%3C/svg%3E")}
+.vx-badge-own{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23c084fc%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237c3aed%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url%28%23b%29%22/%3E%3Ccircle%20cx%3D%2225%22%20cy%3D%2215%22%20r%3D%224.5%22%20fill%3D%22%23fff%22%20fill-opacity%3D%22.6%22/%3E%3Cpath%20d%3D%22M17.5%2031c0-5%203.3-8%207.5-8s7.5%203%207.5%208z%22%20fill%3D%22%23fff%22%20fill-opacity%3D%22.6%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2215.5%22%20r%3D%225.5%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M6.5%2032c0-6%204.2-9.5%209.5-9.5s9.5%203.5%209.5%209.5z%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E")}
+.vx-pick:not(.is-on) .vx-pick-ic,.vx-opt-ic:has(.vx-badge){background:none;padding:0;overflow:hidden}
+.vx-appicon{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.vx-logo:has(.vx-appicon){background:none;padding:0;overflow:hidden;box-shadow:0 6px 14px -6px rgba(0,0,0,.55)}
+
 /* ---- Testata + selettori FISSI ---- */
 .vx-top{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top);background:var(--vx-surface);border-bottom:1px solid var(--vx-line);box-shadow:var(--vx-sh)}
 @supports (background:color-mix(in srgb,red,blue)){.vx-top{background:color-mix(in srgb,var(--vx-surface) 94%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}}
@@ -351,7 +360,19 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .vx-micbtn.listening{background:var(--vx-danger);color:#fff;animation:micPulse 1.2s infinite}
 .vx-micbtn[disabled]{opacity:.45;cursor:not-allowed}
 .vx-sendbtn{background:var(--vx-accent);color:#fff;font-size:15px}
-#voiceSearchBtn{border-radius:12px}
+#voiceSearchBtn{border-radius:12px;position:absolute;left:auto;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;z-index:2}
+#searchInput{padding-left:40px!important;padding-right:48px!important;text-overflow:ellipsis}
+.vx-searchic{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none;z-index:1}
+.vx-ver{font-size:10px;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:var(--vx-surface-2);color:var(--vx-mute);vertical-align:middle;margin-left:6px;letter-spacing:.02em}
+/* Barra inferiore: un colore per pulsante */
+.vx-bar .vx-tab:nth-child(1){color:#0d9488}
+.vx-bar .vx-tab:nth-child(2){color:#0284c7}
+.vx-bar .vx-tab:nth-child(4){color:#059669}
+.vx-bar .vx-tab:nth-child(5){color:#d97706}
+.dark .vx-bar .vx-tab:nth-child(1){color:#2dd4bf}
+.dark .vx-bar .vx-tab:nth-child(2){color:#38bdf8}
+.dark .vx-bar .vx-tab:nth-child(4){color:#34d399}
+.dark .vx-bar .vx-tab:nth-child(5){color:#fbbf24}
 #aiChatMessages{font-size:13px;line-height:1.5}
 </style>
 </head>
@@ -361,9 +382,9 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
     <div class="vx-top">
         <header class="vx-header">
             <div class="vx-brand">
-                <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><i class="fa-solid fa-vault"></i></button>
+                <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault</h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.8.0</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -377,8 +398,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         <!-- Search & Batch Actions Toolbar -->
         <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-700/80 p-3 mb-4 shadow-sm flex flex-col gap-3">
             <div class="relative w-full">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" id="searchInput" placeholder="Cerca servizio, username, note..." 
+                <i class="fa-solid fa-magnifying-glass vx-searchic text-slate-400 text-sm"></i>
+                <input type="text" id="searchInput" placeholder="Cerca per nome servizio..." 
                     class="w-full pl-10 pr-12 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium text-slate-900 dark:text-slate-100 transition-all shadow-inner">
                 <button type="button" id="voiceSearchBtn" onclick="toggleVoiceSearch()" title="Ricerca vocale" aria-label="Ricerca vocale" class="hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
                     <i class="fa-solid fa-microphone"></i>
@@ -619,7 +640,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openManagerModal()"><span class="vx-ic ic-violet"><i class="fa-solid fa-sliders"></i></span><span><b>Categorie, titolari e colori</b><small>Personalizza come ordini le voci</small></span></button>
             <button class="vx-row" id="themeToggleBtn" onclick="toggleTheme()"><span class="vx-ic ic-slate"><i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:inline"></i></span><span><b>Tema chiaro / scuro</b><small>Cambia l'aspetto dell'app</small></span></button>
             <button class="vx-row" id="installBtn" hidden onclick="vxClose('moreMenuModalOverlay');installApp()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-mobile-screen-button"></i></span><span><b>Installa l'app</b><small>Aggiungi Vault alla schermata Home</small></span></button>
-            <button class="vx-row" onclick="showAppVersion()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-vault"></i></span><span><b>Informazioni su Vault</b><small>Versione e ultimo backup su Drive</small></span></button>
+            <button class="vx-row" onclick="showAppVersion()"><span class="vx-ic" style="padding:0;overflow:hidden;background:none"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></span><span><b>Informazioni su Vault</b><small>Versione e ultimo backup su Drive</small></span></button>
         </div>
     </div>
     <div id="localBackupModalOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('localBackupModalOverlay')">
@@ -669,10 +690,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
     <div id="masterLockOverlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-500">
         <div class="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-white/20 dark:border-slate-700/60 text-center">
             <div class="relative w-16 h-16 mx-auto mb-4">
-                <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-2xl blur-lg opacity-60 animate-pulse"></div>
-                <div class="relative w-16 h-16 bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-2xl flex items-center justify-center shadow-xl text-2xl">
-                    <i class="fa-solid fa-vault"></i>
-                </div>
+                <div class="relative w-16 h-16 rounded-2xl overflow-hidden shadow-xl"><img class="vx-appicon" src="icons/icon-512x512.png" alt="Vault"></div>
             </div>
 
             <h2 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-1">Vault</h2>
@@ -1619,7 +1637,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         }
         function aiFind(q) {
             const t = q.toLowerCase().trim();
-            const r = credentials.filter(c => [c.service, c.username, c.domain, c.category, c.owner].some(v => (v || '').toLowerCase().includes(t)));
+            const r = credentials.filter(c => (c.service || '').toLowerCase().includes(t));
             return r.length ? `### 🔍 Risultati per "${escapeHtml(q)}"\n` + aiList(r.slice(0, 15).map(c => `**${escapeHtml(c.service)}** — ${escapeHtml(c.username || '-')} (${escapeHtml(c.category)})`)) : `Nessuna voce trovata per "${escapeHtml(q)}".`;
         }
         async function handleAiSend() {
@@ -1632,7 +1650,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const l = text.toLowerCase();
             const viaVoice = VXV.fromVoice; VXV.fromVoice = false;
             let reply, say = null, act = null;
-            try { act = vxActionIntent(text); } catch (e) { act = null; }
+            try { act = vxExtraIntent(text); if (act === null) act = vxActionIntent(text); } catch (e) { act = null; }
             try {
                 if (act !== null) reply = act;
                 else if (/violat|pwned|leak|compromess|hibp/.test(l)) reply = await checkBreaches();
@@ -1641,7 +1659,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 else if (/sicurezza|analisi|vulnerabilit|audit|duplicat|debol|cort/.test(l)) reply = performRigorousVaultAudit();
                 else if (/\bgenera\b|nuova password/.test(l)) reply = `### 🔑 Password generata\n<code class="select-all font-mono">${escapeHtml(makeReadablePassword())}</code>\n\nCasuale, 20 caratteri, senza simboli ambigui.`;
                 else if (/consigli|igiene/.test(l)) reply = `### 💡 Direttive di Igiene Digitale:\n1. **Zero Riutilizzo**: una password diversa per ogni servizio.\n2. **Entropia Elevata**: 16+ caratteri casuali o passphrase di 4+ parole.\n3. **Isolamento**: separa credenziali bancarie/lavorative dai siti di svago.\n4. **Verifica**: usa "Controlla violazioni" periodicamente.`;
-                else reply = `Posso aiutarti con: **audit di sicurezza**, **controllo violazioni**, **statistiche**, **cerca <testo>**, **genera password**, **consigli**.`;
+                else reply = vxHelpText() + `\n\nOppure: **audit di sicurezza**, **controllo violazioni**, **statistiche**, **cerca <testo>**, **genera password**, **consigli**.`;
             } catch (e) { reply = "Errore durante l'elaborazione: " + escapeHtml(e.message); }
             const formatted = reply
                 .replace(/### (.*?)\n/g, '<strong class="block text-indigo-700 dark:text-indigo-300 font-bold mb-1">$1</strong>')
@@ -1664,7 +1682,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.7.0';
+        const APP_VERSION = '4.8.0';
         const APP_BUILD = '2026-11-07';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
@@ -1798,10 +1816,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const sortVal = document.getElementById('sortOrder').value;
 
             let filtered = credentials.map((item, originalIndex) => ({ ...item, originalIndex })).filter(item => {
-                const matchesSearch = (item.service || '').toLowerCase().includes(searchVal) ||
-                                      (item.username || '').toLowerCase().includes(searchVal) ||
-                                      (item.notes || '').toLowerCase().includes(searchVal) ||
-                                      (item.domain || '').toLowerCase().includes(searchVal);
+                const matchesSearch = !searchVal || (item.service || '').toLowerCase().includes(searchVal);
                 const matchesCat = currentCategoryFilter === 'ALL' || item.category === currentCategoryFilter;
                 const matchesOwner = currentOwnerFilter === 'ALL' || item.owner === currentOwnerFilter;
                 return matchesSearch && matchesCat && matchesOwner;
@@ -2494,7 +2509,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 const on = cur !== 'ALL';
                 const col = on ? (colors[cur] || fb) : '';
                 const st = col ? `--c:${col};--on:${vxInk(col)}` : '';
-                const lead = !on ? `<i class="fa-solid ${allIcon}"></i>`
+                const lead = !on ? `<span class="vx-badge vx-badge-${kind}"></span>`
                     : kind === 'own' ? escapeHtml((cur.trim().charAt(0) || '?').toUpperCase())
                     : `<i class="fa-solid ${getCategoryStyle(cur).icon}"></i>`;
                 const val = on ? cur : allLabel;
@@ -2522,7 +2537,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 const st = col ? `--c:${col};--on:${vxInk(col)}` : '';
                 return `<button type="button" role="radio" aria-checked="${on}" class="vx-opt${on ? ' is-on' : ''}${n ? '' : ' is-zero'}" style="${st}" onclick="vxPickSet('${escapeJs(v)}')"><span class="vx-opt-ck"><i class="fa-solid fa-check"></i></span><span class="vx-opt-ic">${lead}</span><span class="vx-opt-v">${escapeHtml(label)}</span><span class="vx-opt-n">${n} ${n === 1 ? 'voce' : 'voci'}</span></button>`;
             };
-            let h = tile('ALL', isCat ? 'Tutte' : 'Tutti', `<i class="fa-solid ${isCat ? 'fa-layer-group' : 'fa-users'}"></i>`, '');
+            let h = tile('ALL', isCat ? 'Tutte' : 'Tutti', `<span class="vx-badge vx-badge-${isCat ? 'cat' : 'own'}"></span>`, '');
             list.forEach(v => {
                 const col = colors[v] || fb;
                 h += tile(v, v, isCat ? `<i class="fa-solid ${getCategoryStyle(v).icon}"></i>` : escapeHtml((v.trim().charAt(0) || '?').toUpperCase()), col);
@@ -3407,7 +3422,7 @@ function initVoiceSearch() {
 }
 function toggleVoiceSearch() {
   if (VXV.active) { vxStop(); return; }
-  const input = $v('searchInput'), btn = $v('voiceSearchBtn'), ph = 'Cerca servizio, username, note...';
+  const input = $v('searchInput'), btn = $v('voiceSearchBtn'), ph = 'Cerca per nome servizio...';
   vxListen({
     onStart() { btn.classList.add('listening'); input.placeholder = 'Sto ascoltando…'; },
     onInterim(t) { input.value = t; input.dispatchEvent(new Event('input', { bubbles: true })); },
@@ -3493,13 +3508,82 @@ function vxMatchName(list, phrase) {
   return null;
 }
 function vxCloseAiSoon() { setTimeout(() => { try { closeAiAssistantModal(); } catch (e) {} }, 1100); }
+
+/* Funzioni aggiuntive dell'assistente (v4.8) */
+function vxExtraIntent(raw) {
+  const t = vxNorm(raw); if (!t) return null;
+  const esc = s => escapeHtml(String(s));
+  const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; };
+  const lst = arr => aiList(arr.slice(0, 20)) + (arr.length > 20 ? `\n…e altre ${arr.length - 20}.` : '');
+  const name = c => `**${esc(c.service || '-')}** (${esc(c.owner || '-')})`;
+  let m;
+  if ((m = t.match(/\bgener\w*\s+(?:una\s+)?pin(?:\s+(?:da\s+)?(\d{1,2}))?/))) {
+    const n = Math.min(Math.max(parseInt(m[1] || '6'), 4), 12);
+    return `### 🔢 PIN generato\n<code class="select-all font-mono">${Array.from({ length: n }, () => rnd(10)).join('')}</code>\n\n${n} cifre casuali.`;
+  }
+  if (/\bgener\w*\b.*\bpassphrase|\bfrase segreta/.test(t)) {
+    const w = ['sole','luna','mare','monte','fiume','vento','pane','gatto','cane','libro','treno','fiore','neve','fuoco','bosco','porta','tavolo','sedia','strada','ponte','nuvola','pietra','vela','campo','lampada','albero','tigre','aquila','pesca','limone','olivo','faro','torre','isola','sabbia','onda','stella','razzo','chiave','mela'];
+    const p = Array.from({ length: 5 }, () => w[rnd(w.length)]).join('-') + '-' + (10 + rnd(90));
+    return `### 🔐 Passphrase generata\n<code class="select-all font-mono">${p}</code>\n\n5 parole casuali più un numero: facile da ricordare, difficile da indovinare.`;
+  }
+  if ((m = t.match(/\bgener\w*\b.*\bpassword\b.*?(\d{1,3})|\bgener\w*\b.*?(\d{1,3})\s*caratteri/))) {
+    const n = Math.min(Math.max(parseInt(m[1] || m[2]), 8), 128);
+    const a = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?-_+=';
+    return `### 🔑 Password generata\n<code class="select-all font-mono">${esc(Array.from({ length: n }, () => a[rnd(a.length)]).join(''))}</code>\n\n${n} caratteri casuali, con simboli.`;
+  }
+  if ((m = t.match(/^copia\s+(?:l\s*)?(?:utente|username|nome utente|login|email)\s+(?:di|del|della|dello|per)?\s*(.+)$/))) {
+    const h = vxFindCreds(m[1]);
+    if (!h.length) return `Non trovo nessuna voce per “${esc(m[1])}”.`;
+    if (!h[0].c.username) return `${name(h[0].c)} non ha un nome utente salvato.`;
+    copyToClipboard(h[0].c.username, 'Nome utente');
+    return `Nome utente di ${name(h[0].c)} copiato negli appunti.`;
+  }
+  if ((m = t.match(/^(?:dettagli|info|informazioni|scheda)\s+(?:di|del|della|dello|su)?\s*(.+)$/))) {
+    const h = vxFindCreds(m[1]);
+    if (!h.length) return `Non trovo nessuna voce per “${esc(m[1])}”.`;
+    const c = h[0].c;
+    return `### 📄 ${esc(c.service)}\nUtente: **${esc(c.username || '-')}**\nCategoria: ${esc(c.category || '-')}\nProprietario: ${esc(c.owner || '-')}\nSito: ${esc(c.domain || '-')}\nPassword: ${c.password ? '•••••••• (' + c.password.length + ' caratteri)' : 'non salvata'}` + (c.notes ? `\nNote: ${esc(c.notes)}` : '') + (h.length > 1 ? `\n\n*Ci sono altre ${h.length - 1} voci simili.*` : '');
+  }
+  if (/\b(elenca|quali|mostra(mi)?)\b.*\bcategori/.test(t)) return `### 🗂️ Categorie\n` + aiList(categoriesList.map(k => `**${esc(k)}**: ${credentials.filter(c => c.category === k).length}`));
+  if (/\b(elenca|quali|mostra(mi)?)\b.*\b(proprietari|titolari)/.test(t)) return `### 👥 Proprietari\n` + aiList(ownersList.map(k => `**${esc(k)}**: ${credentials.filter(c => c.owner === k).length}`));
+  if ((m = t.match(/^(?:voci|account|credenziali)\s+(?:di|del|della)\s+(.+)$/))) {
+    const o = ownersList.find(x => vxNorm(x) === m[1]) || ownersList.find(x => vxNorm(x).includes(m[1]));
+    if (!o) return null;
+    const r = credentials.filter(c => c.owner === o);
+    return `### 👤 Voci di ${esc(o)} (${r.length})\n` + lst(r.map(c => `**${esc(c.service)}** — ${esc(c.category || '-')}`));
+  }
+  if (/\bsenza\s+password\b|password\s+vuot/.test(t)) { const r = credentials.filter(c => !c.password); return `### ⚠️ Voci senza password (${r.length})\n` + lst(r.map(name)); }
+  if (/\bsenza\s+(utente|username|nome utente)\b/.test(t)) { const r = credentials.filter(c => !c.username); return `### ⚠️ Voci senza nome utente (${r.length})\n` + lst(r.map(name)); }
+  if (/\bsenza\s+(sito|dominio|logo)\b/.test(t)) { const r = credentials.filter(c => !c.domain); return `### 🌐 Voci senza sito (${r.length})\n` + lst(r.map(name)) + (r.length ? '\n\n*Aggiungi il sito per vedere il logo originale.*' : ''); }
+  if (/\b(servizi|voci)\s+(doppi|doppie|duplicat\w*|ripetut\w*)\b/.test(t)) {
+    const g = {}; credentials.forEach(c => { const k = vxNorm(c.service); if (k) (g[k] = g[k] || []).push(c); });
+    const d = Object.values(g).filter(a => a.length > 1);
+    return `### 🔁 Servizi presenti più volte (${d.length})\n` + lst(d.map(a => `**${esc(a[0].service)}** × ${a.length} (${a.map(c => esc(c.owner || '-')).join(', ')})`));
+  }
+  if (/\b(riutilizzat\w*|stessa password|password uguali)\b/.test(t)) {
+    const g = {}; credentials.forEach(c => { if (c.password) (g[c.password] = g[c.password] || []).push(c); });
+    const d = Object.values(g).filter(a => a.length > 1);
+    return `### ♻️ Password usate su più servizi (${d.length} gruppi)\n` + (d.length ? lst(d.map(a => a.map(c => esc(c.service)).join(' · '))) + '\n\n*Usa una password diversa per ognuno.*' : 'Nessuna password riutilizzata. Ottimo!');
+  }
+  if (/\b(ultim\w*)\s+(aggiunt\w*|inserit\w*|voci)\b/.test(t)) {
+    const r = credentials.slice(-8).reverse();
+    return `### 🕒 Ultime voci aggiunte\n` + lst(r.map(c => `**${esc(c.service)}** — ${esc(c.owner || '-')}`));
+  }
+  if (/\b(versione|che versione)\b/.test(t)) return `Vault versione **${APP_VERSION}** (build ${APP_BUILD}).`;
+  return null;
+}
 function vxHelpText() {
   return '### 🎙️ Cosa puoi dire\n' +
     '**cerca** amazon, **apri** netflix\n' +
     '**mostra** banche, **filtra** per ufficio, **tutte le categorie**\n' +
     '**copia la password di** netflix\n' +
     '**nuova credenziale**, **backup**, **blocca il caveau**, **tema scuro**\n' +
-    '**controlla la sicurezza**, **statistiche**, **genera password**';
+    '**controlla la sicurezza**, **statistiche**, **genera password**\n' +
+    '**genera password 32**, **genera passphrase**, **genera pin 6**\n' +
+    '**copia utente di** amazon, **dettagli di** netflix\n' +
+    '**elenca categorie**, **elenca proprietari**, **voci di** Mario\n' +
+    '**senza password**, **senza utente**, **senza sito**, **servizi doppi**\n' +
+    '**ultime aggiunte**, **riutilizzate**, **controlla violazioni**, **consigli**';
 }
 /* Restituisce il testo di risposta se riconosce un'azione, altrimenti null (si passa all'audit/ricerca classici). */
 function vxActionIntent(raw) {
