@@ -384,7 +384,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.8.0</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.9.0</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -969,6 +969,35 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 
     <!-- JavaScript Logic with Web Crypto API, WebAuthn & AI Agent -->
     <script>
+/* v4.9 — icone per categorie e proprietari, immagine proprietario, condivisione carta */
+var catIcons = JSON.parse(localStorage.getItem('vault_cat_icons') || '{}');
+var ownerIcons = JSON.parse(localStorage.getItem('vault_owner_icons') || '{}');
+var ownerImgs = JSON.parse(localStorage.getItem('vault_owner_imgs') || '{}');
+var ICON_SET = 'fa-building-columns:Banca;fa-landmark:Istituzione;fa-wallet:Portafoglio;fa-credit-card:Carta;fa-coins:Monete;fa-chart-line:Investimenti;fa-hand-holding-dollar:Risparmi;fa-receipt:Fatture;fa-briefcase:Lavoro;fa-laptop:Computer;fa-envelope:Email;fa-cloud:Cloud;fa-shield-halved:Sicurezza;fa-key:Chiave;fa-lock:Lucchetto;fa-wifi:Internet;fa-phone:Telefono;fa-mobile-screen:Cellulare;fa-bolt:Energia;fa-house:Casa;fa-cart-shopping:Acquisti;fa-bag-shopping:Shopping;fa-utensils:Cibo;fa-gift:Regali;fa-plane:Viaggi;fa-car:Auto;fa-bus:Trasporti;fa-umbrella-beach:Vacanze;fa-film:Film;fa-tv:TV;fa-music:Musica;fa-gamepad:Giochi;fa-camera:Foto;fa-book:Libri;fa-newspaper:Notizie;fa-graduation-cap:Studio;fa-stethoscope:Salute;fa-heart-pulse:Benessere;fa-dumbbell:Sport;fa-paw:Animali;fa-tree:Natura;fa-user:Persona;fa-user-tie:Professionista;fa-user-gear:Personale;fa-users:Famiglia;fa-child:Bambino;fa-face-smile:Sorriso;fa-star:Preferito;fa-crown:Corona;fa-rocket:Razzo;fa-globe:Web'.split(';').map(function (x) { var p = x.split(':'); return { i: p[0], l: p[1] }; });
+function saveIconData() {
+  localStorage.setItem('vault_cat_icons', JSON.stringify(catIcons));
+  localStorage.setItem('vault_owner_icons', JSON.stringify(ownerIcons));
+  localStorage.setItem('vault_owner_imgs', JSON.stringify(ownerImgs));
+}
+function applyIconData(d) {
+  if (d.catIcons) catIcons = d.catIcons;
+  if (d.ownerIcons) ownerIcons = d.ownerIcons;
+  if (d.ownerImgs) ownerImgs = d.ownerImgs;
+  saveIconData();
+}
+function ownerGlyph(o) {
+  if (ownerImgs[o]) return '<img src="' + ownerImgs[o] + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block">';
+  if (ownerIcons[o]) return '<i class="fa-solid ' + ownerIcons[o] + '"></i>';
+  return escapeHtml((String(o).trim().charAt(0) || '?').toUpperCase());
+}
+function ownerChip(o) {
+  var g = '';
+  if (ownerImgs[o]) g = '<img src="' + ownerImgs[o] + '" alt="" style="width:14px;height:14px;border-radius:50%;object-fit:cover;flex:none">';
+  else if (ownerIcons[o]) g = '<i class="fa-solid ' + ownerIcons[o] + '" style="font-size:10px"></i>';
+  return '<span style="display:inline-flex;align-items:center;gap:4px">' + g + escapeHtml(o) + '</span>';
+}
+</script>
+<script>
         // --- CRYPTO HELPER FUNCTIONS (AES-256-GCM + PBKDF2 Zero-Knowledge) ---
         const KDF_ITER = 600000;
         let autoLockTimer = null;
@@ -1682,8 +1711,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.8.0';
-        const APP_BUILD = '2026-11-07';
+        const APP_VERSION = '4.9.0';
+        const APP_BUILD = '2026-11-08';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
             alert('Vault\nVersione ' + APP_VERSION + ' (build ' + APP_BUILD + ')\n\nUltimo backup su Google Drive: ' +
@@ -1913,11 +1942,12 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                                             <h4 class="font-bold text-slate-900 dark:text-white text-sm line-clamp-1">${escapeHtml(item.service)}</h4>
                                             <div class="flex items-center gap-1 mt-0.5 flex-wrap">
                                                 <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" style="${style.badgeStyle}">${escapeHtml(item.category)}</span>
-                                                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" style="${ownerStyle}">${escapeHtml(item.owner)}</span>
+                                                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" style="${ownerStyle}">${ownerChip(item.owner)}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-0.5">
+                                        <button onclick="shareCard(${item.originalIndex})" title="Condividi" aria-label="Condividi" class="p-1.5 text-slate-400 hover:text-emerald-600 rounded-md"><i class="fa-solid fa-share-nodes text-xs"></i></button>
                                         <button onclick="openModal(${item.originalIndex})" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md">
                                             <i class="fa-solid fa-pen-to-square text-xs"></i>
                                         </button>
@@ -1981,11 +2011,12 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                                     <span class="truncate">${escapeHtml(item.service)}</span>
                                 </td>
                                 <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded font-bold" style="${style.badgeStyle}">${escapeHtml(item.category)}</span></td>
-                                <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded font-medium" style="${ownerStyle}">${escapeHtml(item.owner)}</span></td>
+                                <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded font-medium" style="${ownerStyle}">${ownerChip(item.owner)}</span></td>
                                 <td class="p-3 font-mono cursor-pointer truncate max-w-[120px]" onclick="copyField(${item.originalIndex}, 'username', 'Username')">${escapeHtml(item.username || '-')}</td>
                                 <td class="p-3 font-mono cursor-pointer blur-password truncate max-w-[100px]" onclick="copyField(${item.originalIndex}, 'password', 'Password')">${escapeHtml(item.password || '-')}</td>
                                 <td class="p-3 text-right">
-                                    <button onclick="openModal(${item.originalIndex})" class="p-1 text-slate-400 hover:text-indigo-600"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button onclick="shareCard(${item.originalIndex})" title="Condividi" aria-label="Condividi" class="p-1.5 text-slate-400 hover:text-emerald-600 rounded-md"><i class="fa-solid fa-share-nodes text-xs"></i></button>
+                                        <button onclick="openModal(${item.originalIndex})" class="p-1 text-slate-400 hover:text-indigo-600"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button onclick="deleteCredential(${item.originalIndex})" class="p-1 text-slate-400 hover:text-rose-600 ml-1"><i class="fa-solid fa-trash-can"></i></button>
                                 </td>
                             </tr>
@@ -2097,7 +2128,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const pw = prompt("Password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master:");
             if (pw === null) return;
             if (pw && pw.length < 8) return alert("Password troppo corta.");
-            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors }, pw || activePassword);
+            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: window.catIcons, ownerIcons: window.ownerIcons, ownerImgs: window.ownerImgs }, pw || activePassword);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: 'application/json' }));
             a.download = `vault_backup_cifrato_${new Date().toISOString().slice(0,10)}.json`;
@@ -2143,7 +2174,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                     credentials = dec.credentials; selectedIndices.clear();
                     if (Array.isArray(dec.categories) && dec.categories.length) {
                         categoriesList = dec.categories; ownersList = dec.owners || ownersList;
-                        categoryColors = dec.catColors || categoryColors; ownerColors = dec.ownerColors || ownerColors;
+                        categoryColors = dec.catColors || categoryColors; ownerColors = dec.ownerColors || ownerColors; if (window.applyIconData) applyIconData(dec);
                         localStorage.setItem('vault_categories', JSON.stringify(categoriesList));
                         localStorage.setItem('vault_owners', JSON.stringify(ownersList));
                         localStorage.setItem('vault_cat_colors', JSON.stringify(categoryColors));
@@ -2362,6 +2393,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             else if (lowerCat.includes('ufficio') || lowerCat.includes('lavoro')) iconName = 'fa-briefcase';
             else if (lowerCat.includes('personale') || lowerCat.includes('privato')) iconName = 'fa-user-gear';
 
+            if ((window.catIcons || {})[cat]) iconName = window.catIcons[cat];
             return {
                 border: `border-l-4`,
                 badgeStyle: `background-color: ${col}20; color: ${col}; border: 1px solid ${col}40;`,
@@ -2540,7 +2572,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             let h = tile('ALL', isCat ? 'Tutte' : 'Tutti', `<span class="vx-badge vx-badge-${isCat ? 'cat' : 'own'}"></span>`, '');
             list.forEach(v => {
                 const col = colors[v] || fb;
-                h += tile(v, v, isCat ? `<i class="fa-solid ${getCategoryStyle(v).icon}"></i>` : escapeHtml((v.trim().charAt(0) || '?').toUpperCase()), col);
+                h += tile(v, v, isCat ? `<i class="fa-solid ${getCategoryStyle(v).icon}"></i>` : ownerGlyph(v), col);
             });
             document.getElementById('vxPickTitle').textContent = isCat ? 'Scegli la categoria' : 'Scegli il proprietario';
             document.getElementById('vxPickGrid').innerHTML = h;
@@ -3140,7 +3172,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         for (const f of l.slice(getMax())) { try { await dir.removeEntry(f.name); } catch (e) { } }
     }
     function snapshot() {
-        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors } };
+        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: window.catIcons, ownerIcons: window.ownerIcons, ownerImgs: window.ownerImgs } };
     }
 
     let busy = false, dirty = false, timer = null;
@@ -3639,6 +3671,113 @@ function vxActionIntent(raw) {
     return 'Ho filtrato l’elenco: ' + hits.length + (hits.length === 1 ? ' voce' : ' voci') + ' per “' + esc(m[1]) + '”.';
   }
   return null;
+}
+</script>
+<script>
+function iconBtnHTML(kind, name) {
+  var inner = kind === 'owner' ? ownerGlyph(name) : '<i class="fa-solid ' + (getCategoryStyle(name).icon) + '"></i>';
+  return '<button type="button" data-icon-kind="' + kind + '" data-icon-name="' + escapeHtml(name) + '" title="Scegli icona" aria-label="Scegli icona per ' + escapeHtml(name) + '" style="width:32px;height:32px;min-width:32px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#334155;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;font-size:13px;font-weight:700;cursor:pointer">' + inner + '</button>';
+}
+function decorateManagerLists() {
+  [['categoriesManagerList', 'cat'], ['ownersManagerList', 'owner']].forEach(function (p) {
+    var box = document.getElementById(p[0]); if (!box) return;
+    box.querySelectorAll(':scope > div').forEach(function (row) {
+      var span = row.querySelector('span'); var left = row.firstElementChild; if (!span || !left) return;
+      var tmp = document.createElement('span'); tmp.innerHTML = iconBtnHTML(p[1], span.textContent);
+      var b = tmp.firstChild; b.addEventListener('click', function () { openIconPicker(p[1], span.textContent); });
+      left.insertBefore(b, left.firstChild);
+    });
+  });
+}
+var _rml = renderManagerLists;
+renderManagerLists = function () { _rml(); decorateManagerLists(); };
+var _acp = addCategoryPrompt;
+addCategoryPrompt = function () { var n = categoriesList.length; _acp(); if (categoriesList.length > n) openIconPicker('cat', categoriesList[categoriesList.length - 1]); };
+var _aop = addOwnerPrompt;
+addOwnerPrompt = function () { var n = ownersList.length; _aop(); if (ownersList.length > n) openIconPicker('owner', ownersList[ownersList.length - 1]); };
+function wrapRename(fnName, list, icons, imgs) {
+  var orig = window[fnName];
+  window[fnName] = function (old) {
+    var i = list().indexOf(old); orig(old); var nw = list()[i];
+    if (i >= 0 && nw && nw !== old) {
+      [icons, imgs].forEach(function (m) { var o = m(); if (o && o[old] !== undefined) { o[nw] = o[old]; delete o[old]; } });
+      saveIconData(); renderManagerLists(); refreshUIState();
+    }
+  };
+}
+wrapRename('renameCategoryPrompt', function () { return categoriesList; }, function () { return catIcons; });
+wrapRename('renameOwnerPrompt', function () { return ownersList; }, function () { return ownerIcons; }, function () { return ownerImgs; });
+
+function closeIconPicker() { var e = document.getElementById('iconPickerOverlay'); if (e) e.remove(); document.removeEventListener('keydown', iconPickerKey); }
+function iconPickerKey(ev) { if (ev.key === 'Escape') closeIconPicker(); }
+function openIconPicker(kind, name) {
+  closeIconPicker();
+  var isOwner = kind === 'owner';
+  var cur = isOwner ? ownerIcons[name] : catIcons[name];
+  var o = document.createElement('div'); o.id = 'iconPickerOverlay';
+  o.style.cssText = 'position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.65);display:flex;align-items:center;justify-content:center;padding:12px';
+  o.addEventListener('click', function (e) { if (e.target === o) closeIconPicker(); });
+  var grid = ICON_SET.map(function (x) {
+    return '<button type="button" data-ic="' + x.i + '" title="' + x.l + '" aria-label="' + x.l + '" aria-pressed="' + (cur === x.i) + '" style="min-height:44px;border-radius:10px;border:2px solid ' + (cur === x.i ? '#4f46e5' : '#e2e8f0') + ';background:' + (cur === x.i ? '#eef2ff' : '#fff') + ';color:#1e293b;font-size:17px;cursor:pointer"><i class="fa-solid ' + x.i + '"></i></button>';
+  }).join('');
+  var sb = 'min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#1e293b;font-weight:600;font-size:13px;cursor:pointer';
+  o.innerHTML = '<div role="dialog" aria-modal="true" aria-labelledby="ipTitle" style="background:#fff;color:#0f172a;border-radius:18px;max-width:440px;width:100%;max-height:92vh;overflow:auto;padding:16px;box-shadow:0 20px 50px rgba(0,0,0,.35)">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px"><h2 id="ipTitle" style="font-size:16px;font-weight:800;margin:0">Icona di ' + escapeHtml(name) + '</h2><button type="button" id="ipClose" aria-label="Chiudi" style="' + sb + ';padding:8px 12px">Chiudi</button></div>' +
+    (isOwner ? '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><span id="ipPrev" style="width:48px;height:48px;border-radius:50%;overflow:hidden;background:#eef2ff;color:#4338ca;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:18px">' + ownerGlyph(name) + '</span><label style="' + sb + ';display:inline-flex;align-items:center;gap:6px">Carica immagine<input id="ipFile" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0"></label><button type="button" id="ipNoImg" style="' + sb + '">Rimuovi immagine</button></div><p style="font-size:12px;color:#475569;margin:0 0 10px">L\'immagine viene ritagliata al centro e ridimensionata per entrare nel pulsante.</p>' : '') +
+    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px">' + grid + '</div>' +
+    '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button type="button" id="ipReset" style="' + sb + '">Icona predefinita</button></div></div>';
+  document.body.appendChild(o);
+  document.addEventListener('keydown', iconPickerKey);
+  function done() { saveIconData(); renderManagerLists(); refreshUIState(); }
+  o.querySelector('#ipClose').addEventListener('click', closeIconPicker);
+  o.querySelectorAll('[data-ic]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (isOwner) { ownerIcons[name] = b.dataset.ic; delete ownerImgs[name]; } else { catIcons[name] = b.dataset.ic; }
+      done(); closeIconPicker();
+    });
+  });
+  o.querySelector('#ipReset').addEventListener('click', function () {
+    if (isOwner) { delete ownerIcons[name]; delete ownerImgs[name]; } else { delete catIcons[name]; }
+    done(); closeIconPicker();
+  });
+  if (isOwner) {
+    o.querySelector('#ipNoImg').addEventListener('click', function () { delete ownerImgs[name]; done(); closeIconPicker(); });
+    o.querySelector('#ipFile').addEventListener('change', function (e) {
+      var f = e.target.files && e.target.files[0]; if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function () {
+        var im = new Image();
+        im.onload = function () {
+          var S = 128, c = document.createElement('canvas'); c.width = c.height = S;
+          var m = Math.min(im.width, im.height), sx = (im.width - m) / 2, sy = (im.height - m) / 2;
+          c.getContext('2d').drawImage(im, sx, sy, m, m, 0, 0, S, S);
+          try { ownerImgs[name] = c.toDataURL('image/jpeg', 0.85); delete ownerIcons[name]; done(); closeIconPicker(); showToast('Immagine impostata'); }
+          catch (err) { showToast('Impossibile salvare l\'immagine'); }
+        };
+        im.onerror = function () { showToast('Immagine non valida'); };
+        im.src = rd.result;
+      };
+      rd.readAsDataURL(f);
+    });
+  }
+  var first = o.querySelector('#ipClose'); if (first) first.focus();
+}
+
+async function shareCard(i) {
+  var c = credentials[i]; if (!c) return;
+  var withPw = c.password ? confirm('Vuoi includere la password nel messaggio?\n\nOK = includi la password\nAnnulla = condividi senza password') : false;
+  var lines = [c.service];
+  if (c.category) lines.push('Categoria: ' + c.category);
+  if (c.owner) lines.push('Proprietario: ' + c.owner);
+  if (c.domain) lines.push('Sito: ' + c.domain);
+  if (c.username) lines.push('Utente: ' + c.username);
+  if (withPw) lines.push('Password: ' + c.password);
+  if (c.notes) lines.push('Note: ' + c.notes);
+  var text = lines.join('\n');
+  try {
+    if (navigator.share) { await navigator.share({ title: c.service, text: text }); return; }
+    await navigator.clipboard.writeText(text); showToast('Copiato: incollalo dove vuoi condividerlo');
+  } catch (err) { if (err && err.name !== 'AbortError') showToast('Condivisione non riuscita'); }
 }
 </script>
 </body>
