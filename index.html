@@ -905,7 +905,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                         <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Vault AI</p><p class="text-xs">Assistente euristico: scansione entropia, password deboli o duplicate.</p></div>
                         <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Sync Cloud</p><p class="text-xs">Sincronizza su Google Drive. Richiede l'ID Client OAuth configurato nelle opzioni.</p></div>
                         <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Backup / Ripristina</p><p class="text-xs">Export/Import in JSON cifrato: copie di sicurezza offline del vault.</p></div>
-                        <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Excel / Imp. Excel</p><p class="text-xs">Esportazione e importazione tabellare, con file cifrati (.enc) o in chiaro.</p></div>
+                        <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Excel / Imp. Excel</p><p class="text-xs">Esportazione e importazione tabellare, con file sempre cifrati (.enc).</p></div>
                         <div class="p-3"><p class="font-bold text-slate-900 dark:text-white">Impostazioni</p><p class="text-xs">Categorie, colori e biometria (Touch ID, Face ID, Windows Hello).</p></div>
                     </div>
                 </section>
@@ -1146,6 +1146,21 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 iterations: KDF_ITER,
                 timestamp: new Date().toISOString()
             };
+        }
+
+        // Guardia anti-chiaro: ogni backup (Drive, cartella locale, download, condivisione) deve passare di qui.
+        // Accetta solo il formato prodotto da encryptData(); qualsiasi altro campo o formato viene rifiutato.
+        const ENC_ALLOWED_KEYS = ['salt', 'iv', 'ciphertext', 'iterations', 'timestamp', 'backupTimestamp', 'backupTimestampLocal', 'vaultCard'];
+        function assertEncrypted(p) {
+            const ok = p && typeof p === 'object' && !Array.isArray(p)
+                && Array.isArray(p.salt) && p.salt.length === 16
+                && Array.isArray(p.iv) && p.iv.length === 12
+                && Array.isArray(p.ciphertext) && p.ciphertext.length >= 16
+                && p.ciphertext.every(n => Number.isInteger(n) && n >= 0 && n <= 255)
+                && Number.isInteger(p.iterations) && p.iterations >= 100000
+                && Object.keys(p).every(k => ENC_ALLOWED_KEYS.includes(k));
+            if (!ok) throw new Error('Backup bloccato: i dati non risultano cifrati.');
+            return p;
         }
 
         async function decryptData(encryptedPayload, password) {
@@ -1867,6 +1882,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             return created.id;
         }
         async function driveUpload(name, data, interactive, unique = false, tokPromise = null) {
+            assertEncrypted(data);
             const clientId = (localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID);
             if (!clientId || location.protocol === 'file:') return false;
             if (!interactive && !(gTok && Date.now() < gTokExp)) return false;
@@ -1874,7 +1890,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const folderId = await getVaultDriveFolder(tok);
             const now = new Date();
             const iso = now.toISOString();
-            const stamped = { ...data, timestamp: Date.now(), backupTimestamp: iso, backupTimestampLocal: now.toLocaleString('it-IT') };
+            const stamped = assertEncrypted({ ...data, timestamp: Date.now(), backupTimestamp: iso, backupTimestampLocal: now.toLocaleString('it-IT') });
             const finalName = unique
                 ? name.replace(/\.json$/i, '') + '_' + now.toISOString().replace(/[:.]/g, '-') + '.json'
                 : name;
@@ -1931,7 +1947,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                     }
                 }
                 const stamp = new Date();
-                const cloudData = { ...local, timestamp: Date.now(), backupTimestamp: stamp.toISOString(), backupTimestampLocal: stamp.toLocaleString('it-IT') };
+                const cloudData = assertEncrypted({ ...local, timestamp: Date.now(), backupTimestamp: stamp.toISOString(), backupTimestampLocal: stamp.toLocaleString('it-IT') });
                 const bd = 'vsync' + Date.now();
                 const meta = id ? {} : { name: 'vault_sync.json', parents: [folderId] };
                 const body = `--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(cloudData)}\r\n--${bd}--`;
@@ -2237,6 +2253,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             if (pw === null) return;
             if (pw && pw.length < 8) return alert("Password troppo corta.");
             const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons }, pw || activePassword);
+            assertEncrypted(payload);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: 'application/json' }));
             a.download = `vault_backup_cifrato_${new Date().toISOString().slice(0,10)}.json`;
@@ -2380,10 +2397,9 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 
         async function exportExcel() {
             if (!(await ensureExcelLib('exceljs'))) return;
-            let encPw = prompt("Scegli una password per CIFRARE l'export Excel (min. 8 caratteri).\nLascia vuoto per esportare IN CHIARO:");
+            const encPw = prompt("Scegli una password per CIFRARE l'export Excel (min. 8 caratteri).\nL'export viene sempre cifrato:");
             if (encPw === null) return;
-            if (encPw && encPw.length < 8) return alert("Password troppo corta.");
-            if (!encPw && !confirm("Il file conterrà le password IN CHIARO. Continuare?")) return;
+            if (!encPw || encPw.length < 8) return alert("Password troppo corta: servono almeno 8 caratteri. L'export Excel viene sempre cifrato.");
             const workbook = new ExcelJS.Workbook();
             
             const dataByOwner = [...credentials].sort((a, b) => (a.owner || '').localeCompare(b.owner || ''));
@@ -2429,10 +2445,10 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             });
 
             const buffer = await workbook.xlsx.writeBuffer();
-            const blob = encPw ? new Blob([await encryptBytes(new Uint8Array(buffer), encPw)]) : new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const blob = new Blob([await encryptBytes(new Uint8Array(buffer), encPw)]);
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Vault_Credenziali_${new Date().toISOString().slice(0,10)}.xlsx${encPw ? '.enc' : ''}`;
+            link.download = `Vault_Credenziali_${new Date().toISOString().slice(0,10)}.xlsx.enc`;
             link.click();
             showToast("File Excel esportato!");
         }
@@ -3266,6 +3282,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         return null;
     }
     async function writeFile(dir, name, text) {
+        assertEncrypted(JSON.parse(text));
         const fh = await dir.getFileHandle(name, { create: true });
         const w = await fh.createWritable(); await w.write(text); await w.close();
     }
@@ -3375,7 +3392,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
     /* ---- copia da mettere dove vuoi (menu Condividi / download) ---- */
     window.vxLbShare = async function () {
         if (!activePassword) return;
-        const snap = snapshot(), payload = await encryptData(snap.data, snap.pw);
+        const snap = snapshot(), payload = assertEncrypted(await encryptData(snap.data, snap.pw));
         const name = PREFIX + stamp() + '.json';
         const file = new File([JSON.stringify(payload)], name, { type: 'application/json' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
