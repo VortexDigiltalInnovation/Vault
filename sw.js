@@ -1,5 +1,5 @@
 /* Vault – Service Worker (offline + installabilità PWA) */
-const VERSION = 'vault-v4-11-0';
+const VERSION = 'vault-v4-11-1';  // cambia questo valore a OGNI nuova versione pubblicata
 const SHELL = [
   './', './index.html', './privacy.html', './manifest.webmanifest',
   './icons/icon-192x192.png', './icons/icon-512x512.png',
@@ -12,7 +12,8 @@ const LOGO_HOSTS = ['www.google.com', 'icons.duckduckgo.com', 'icon.horse'];
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(VERSION)
-      .then(c => Promise.all(SHELL.map(u => c.add(u).catch(() => null))))
+      // cache:'reload' = scarica sempre dal server, mai dalla memoria del browser (altrimenti si salverebbe la versione vecchia)
+      .then(c => Promise.all(SHELL.map(u => c.add(new Request(u, { cache: 'reload' })).catch(() => null))))
       .then(() => self.skipWaiting())
   );
 });
@@ -51,18 +52,18 @@ self.addEventListener('fetch', e => {
     // Informativa privacy: pagina separata, non va salvata al posto di index.html
     if (url.pathname.endsWith('/privacy.html')) {
       e.respondWith(
-        fetch(req).then(res => {
+        fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(res => {
           const copy = res.clone();
-          caches.open(VERSION).then(c => c.put('./privacy.html', copy));
+          if (res.ok) caches.open(VERSION).then(c => c.put('./privacy.html', copy));
           return res;
         }).catch(() => caches.match('./privacy.html'))
       );
       return;
     }
     e.respondWith(
-      fetch(req).then(res => {
+      fetch(req.url, { cache: 'no-store', credentials: 'same-origin' }).then(res => {
         const copy = res.clone();
-        caches.open(VERSION).then(c => c.put('./index.html', copy));
+        if (res.ok) caches.open(VERSION).then(c => c.put('./index.html', copy));
         return res;
       }).catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
     );
