@@ -1163,6 +1163,64 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             return p;
         }
 
+        // Finestra password: campo mascherato (con occhio), conferma opzionale, nessun prompt() del browser.
+        function vxAskPassword(opts) {
+            opts = opts || {};
+            const min = opts.min || 0;
+            if (!document.getElementById('vxpwStyle')) {
+                const st = document.createElement('style'); st.id = 'vxpwStyle';
+                st.textContent = '.vxpw-ov{position:fixed;inset:0;z-index:2147483000;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;padding:16px}'
+                    + '.vxpw-box{background:#fff;color:#0f172a;width:100%;max-width:380px;border-radius:16px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.35);font-family:inherit}'
+                    + '.dark .vxpw-box{background:#1e293b;color:#f1f5f9}'
+                    + '.vxpw-box h3{margin:0 0 6px;font-size:17px;font-weight:700}.vxpw-box p{margin:0 0 12px;font-size:13px;line-height:1.4;opacity:.8;white-space:pre-line}'
+                    + '.vxpw-row{display:flex;gap:6px;margin-bottom:8px}.vxpw-row input{flex:1;min-width:0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;background:#fff;color:#0f172a}'
+                    + '.dark .vxpw-row input{background:#0f172a;color:#f1f5f9;border-color:#475569}'
+                    + '.vxpw-eye{border:1px solid #cbd5e1;background:transparent;color:inherit;border-radius:10px;padding:0 12px;font-size:13px;cursor:pointer}'
+                    + '.vxpw-err{min-height:18px;margin:0 0 8px;font-size:12px;color:#e11d48}'
+                    + '.vxpw-btns{display:flex;gap:8px;justify-content:flex-end}.vxpw-btns button{padding:10px 16px;border-radius:10px;border:0;font-size:14px;font-weight:600;cursor:pointer}'
+                    + '.vxpw-cancel{background:#e2e8f0;color:#0f172a}.dark .vxpw-cancel{background:#334155;color:#f1f5f9}.vxpw-ok{background:#4f46e5;color:#fff}';
+                document.head.appendChild(st);
+            }
+            return new Promise(resolve => {
+                const ov = document.createElement('div'); ov.className = 'vxpw-ov';
+                const form = document.createElement('form'); form.className = 'vxpw-box'; form.setAttribute('autocomplete', 'off');
+                const h = document.createElement('h3'); h.textContent = opts.title || 'Password';
+                const p = document.createElement('p'); p.textContent = opts.message || '';
+                const row1 = document.createElement('div'); row1.className = 'vxpw-row';
+                const i1 = document.createElement('input'); i1.type = 'password'; i1.placeholder = 'Password'; i1.autocomplete = 'new-password'; i1.setAttribute('autocapitalize', 'off'); i1.spellcheck = false;
+                const eye = document.createElement('button'); eye.type = 'button'; eye.className = 'vxpw-eye'; eye.textContent = 'Mostra'; eye.setAttribute('aria-label', 'Mostra o nascondi password');
+                row1.append(i1, eye);
+                let i2 = null, row2 = null;
+                if (opts.confirm) {
+                    row2 = document.createElement('div'); row2.className = 'vxpw-row';
+                    i2 = document.createElement('input'); i2.type = 'password'; i2.placeholder = 'Ripeti la password'; i2.autocomplete = 'new-password'; i2.setAttribute('autocapitalize', 'off'); i2.spellcheck = false;
+                    row2.append(i2);
+                }
+                const err = document.createElement('div'); err.className = 'vxpw-err'; err.setAttribute('role', 'alert');
+                const btns = document.createElement('div'); btns.className = 'vxpw-btns';
+                const cancel = document.createElement('button'); cancel.type = 'button'; cancel.className = 'vxpw-cancel'; cancel.textContent = 'Annulla';
+                const ok = document.createElement('button'); ok.type = 'submit'; ok.className = 'vxpw-ok'; ok.textContent = opts.okLabel || 'OK';
+                btns.append(cancel, ok);
+                form.append(h, p, row1); if (row2) form.append(row2); form.append(err, btns);
+                ov.appendChild(form); document.body.appendChild(ov);
+                const done = v => { document.removeEventListener('keydown', onKey, true); i1.value = ''; if (i2) i2.value = ''; ov.remove(); resolve(v); };
+                const onKey = e => { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); done(null); } };
+                document.addEventListener('keydown', onKey, true);
+                eye.onclick = () => { const show = i1.type === 'password'; i1.type = show ? 'text' : 'password'; if (i2) i2.type = i1.type; eye.textContent = show ? 'Nascondi' : 'Mostra'; };
+                cancel.onclick = () => done(null);
+                form.onsubmit = e => {
+                    e.preventDefault();
+                    const v = i1.value;
+                    if (!v && opts.allowEmpty) return done('');
+                    if (!v) { err.textContent = 'Inserisci la password.'; i1.focus(); return; }
+                    if (v.length < min) { err.textContent = 'Password troppo corta: servono almeno ' + min + ' caratteri.'; i1.focus(); return; }
+                    if (i2 && i2.value !== v) { err.textContent = 'Le due password non coincidono.'; i2.focus(); return; }
+                    done(v);
+                };
+                setTimeout(() => i1.focus(), 30);
+            });
+        }
+
         async function decryptData(encryptedPayload, password) {
             try {
                 const salt = new Uint8Array(encryptedPayload.salt);
@@ -1896,16 +1954,33 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 : name;
             const q = encodeURIComponent("name='" + finalName.replace(/'/g, "\\'") + "' and '" + folderId + "' in parents and trashed=false");
             const list = await (await driveRequest(tok,
-                `https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id,name)`)).json();
-            const id = list.files && list.files[0] && list.files[0].id;
+                `https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id,name,version)`)).json();
+            const remoteFile = list.files && list.files[0];
+            const id = remoteFile && remoteFile.id;
+            // Sincronizzazione automatica: non sovrascrivere una versione caricata da un altro dispositivo.
+            const isSync = !unique && name === 'vault_sync.json';
+            if (isSync && id) {
+                const seen = localStorage.getItem('vault_drive_seen') || '';
+                if (String(remoteFile.version) !== seen) {
+                    let same = false;
+                    if (!seen) { // primo controllo: se il contenuto cifrato coincide con quello locale, adotta la versione
+                        try {
+                            const r = await (await driveRequest(tok, `https://www.googleapis.com/drive/v3/files/${id}?alt=media`)).json();
+                            same = JSON.stringify(r.ciphertext) === JSON.stringify(data.ciphertext);
+                        } catch (_) {}
+                    }
+                    if (!same) { const ce = new Error('Su Google Drive c’è una versione diversa da quella di questo dispositivo.'); ce.code = 'DRIVE_CONFLICT'; throw ce; }
+                }
+            }
             const boundary = 'vault' + Date.now();
             const metadata = id ? {} : { name: finalName, parents: [folderId] };
             const body = `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(stamped)}\r\n--${boundary}--`;
             const uploaded = await driveRequest(tok,
-                `https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id,name,webViewLink`,
+                `https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id,name,webViewLink,version`,
                 { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + boundary }, body });
             const confirmation = await uploaded.json();
             if (!confirmation.id) throw new Error('Caricamento non confermato da Google Drive.');
+            if (isSync && confirmation.version) localStorage.setItem('vault_drive_seen', String(confirmation.version));
             return confirmation;
         }
         let __autoDriveT = null;
@@ -1915,7 +1990,11 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 try {
                     const local = JSON.parse(localStorage.getItem('vault_encrypted_store') || 'null');
                     if (local && await driveUpload('vault_sync.json', local, false)) localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
-                } catch (e) { console.warn('Backup automatico Drive non riuscito', e); }
+                } catch (e) {
+                    if (e && e.code === 'DRIVE_CONFLICT') {
+                        if (!window.__driveConflictWarned) { window.__driveConflictWarned = true; showToast('Su Drive c’è una versione diversa: apri Sincronizza Cloud e scegli quale tenere.'); }
+                    } else console.warn('Backup automatico Drive non riuscito', e);
+                }
             }, 3000);
         }
         async function syncWithGoogleDrive() {
@@ -1930,20 +2009,26 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 const gf = (u, o = {}) => fetch(u, { ...o, headers: { ...(o.headers || {}), Authorization: 'Bearer ' + tok } }).then(r => { if (!r.ok) throw new Error('Drive ' + r.status); return r; });
                 const folderId = await getVaultDriveFolder(tok);
                 const q = encodeURIComponent("name='vault_sync.json' and '" + folderId + "' in parents and trashed=false");
-                const list = await (await gf(`https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id)`)).json();
-                const id = list.files && list.files[0] && list.files[0].id;
+                const list = await (await gf(`https://www.googleapis.com/drive/v3/files?q=${q}&spaces=drive&fields=files(id,version)`)).json();
+                const rf = list.files && list.files[0];
+                const id = rf && rf.id;
                 const local = JSON.parse(localStorage.getItem('vault_encrypted_store') || 'null');
                 if (id) {
                     const remote = await (await gf(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`)).json();
-                    if (remote.timestamp && (!local || remote.timestamp > local.timestamp)) {
+                    const sameAsLocal = !!local && JSON.stringify(remote.ciphertext) === JSON.stringify(local.ciphertext);
+                    if (!sameAsLocal && String(rf.version) !== (localStorage.getItem('vault_drive_seen') || '')) {
                         const data = await decryptData(remote, activePassword);
                         if (!Array.isArray(data)) throw new Error("La copia cloud è cifrata con un'altra password master.");
-                        if (confirm("La copia su Drive è più recente. Sostituire i dati locali?")) {
+                        const dRemote = remote.backupTimestampLocal || (remote.timestamp ? new Date(remote.timestamp).toLocaleString('it-IT') : 'data non disponibile');
+                        const dLocal = local && local.timestamp ? new Date(local.timestamp).toLocaleString('it-IT') : 'data non disponibile';
+                        if (confirm(`Su Drive c'è una versione diversa da quella di questo dispositivo.\n\nDrive: ${dRemote} · ${data.length} voci\nQuesto dispositivo: ${dLocal} · ${credentials.length} voci\n\nOK = usa la versione di Drive (sostituisce i dati locali)\nAnnulla = tieni quella di questo dispositivo`)) {
+                            localStorage.setItem('vault_drive_seen', String(rf.version));
                             credentials = data; selectedIndices.clear();
                             await saveToLocalStorage(); refreshUIState();
                             showToast("Dati aggiornati dal cloud.");
+                            return;
                         }
-                        return;
+                        if (!confirm("Sovrascrivere la copia su Drive con quella di questo dispositivo?")) return;
                     }
                 }
                 const stamp = new Date();
@@ -1951,7 +2036,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 const bd = 'vsync' + Date.now();
                 const meta = id ? {} : { name: 'vault_sync.json', parents: [folderId] };
                 const body = `--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(cloudData)}\r\n--${bd}--`;
-                await gf(`https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body });
+                const up = await (await gf(`https://www.googleapis.com/upload/drive/v3/files${id ? '/' + id : ''}?uploadType=multipart&fields=id,version`, { method: id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + bd }, body })).json();
+                if (up && up.version) localStorage.setItem('vault_drive_seen', String(up.version));
                 localStorage.setItem('vault_last_drive_backup', new Date().toISOString());
                 showToast("Caveau cifrato sincronizzato su Google Drive!");
             } catch (e) {
@@ -2249,9 +2335,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const driveClient = location.protocol !== 'file:' && (localStorage.getItem('vault_gdrive_client_id') || DEFAULT_GDRIVE_CLIENT_ID);
             let tokPromise = null;
             if (driveClient) { tokPromise = gAuth(driveClient); tokPromise.catch(() => {}); }
-            const pw = prompt("Password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master:");
+            const pw = await vxAskPassword({ title: 'Password del backup', message: 'Scegli una password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master.', confirm: true, min: 8, allowEmpty: true, okLabel: 'Crea backup' });
             if (pw === null) return;
-            if (pw && pw.length < 8) return alert("Password troppo corta.");
             const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons }, pw || activePassword);
             assertEncrypted(payload);
             const a = document.createElement('a');
@@ -2292,7 +2377,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                     const norm = d => Array.isArray(d) ? { credentials: d } : (d && Array.isArray(d.credentials) ? d : null);
                     let dec = norm(await decryptData(payload, activePassword));
                     if (!dec) {
-                        const p = prompt("Il backup è cifrato con un'altra password. Inseriscila:");
+                        const p = await vxAskPassword({ title: 'Backup cifrato', message: "Il backup è cifrato con un'altra password. Inseriscila:", okLabel: 'Ripristina' });
                         if (p) dec = norm(await decryptData(payload, p));
                     }
                     if (!dec) return alert("Impossibile decifrare il file di backup.");
@@ -2397,9 +2482,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 
         async function exportExcel() {
             if (!(await ensureExcelLib('exceljs'))) return;
-            const encPw = prompt("Scegli una password per CIFRARE l'export Excel (min. 8 caratteri).\nL'export viene sempre cifrato:");
+            const encPw = await vxAskPassword({ title: 'Password export Excel', message: "Scegli una password per cifrare l'export (min. 8 caratteri).\nL'export viene sempre cifrato.", confirm: true, min: 8, okLabel: 'Esporta' });
             if (encPw === null) return;
-            if (!encPw || encPw.length < 8) return alert("Password troppo corta: servono almeno 8 caratteri. L'export Excel viene sempre cifrato.");
             const workbook = new ExcelJS.Workbook();
             
             const dataByOwner = [...credentials].sort((a, b) => (a.owner || '').localeCompare(b.owner || ''));
@@ -2462,7 +2546,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 try {
                     let data = new Uint8Array(e.target.result);
                     if (/\.enc$/i.test(file.name)) {
-                        const pw = prompt("Password del file Excel cifrato:");
+                        const pw = await vxAskPassword({ title: 'File Excel cifrato', message: 'Inserisci la password del file:', okLabel: 'Apri' });
                         if (!pw) return;
                         try { data = await decryptBytes(data, pw); } catch (x) { return alert("Password errata o file non valido."); }
                     }
@@ -4207,7 +4291,7 @@ window.vxShSendFile = async function () {
 };
 window.vxShCopyCode = function () { if (S && S.code) copyToClipboard(S.code, 'Codice'); };
 window.vxImportSharedCard = async function (pl) {
-  const code = prompt('Questa è una carta condivisa e cifrata.\nInserisci il codice che ti ha dato il mittente:');
+  const code = await vxAskPassword({ title: 'Carta condivisa', message: 'Questa è una carta condivisa e cifrata.\nInserisci il codice che ti ha dato il mittente:', okLabel: 'Apri' });
   if (!code) return;
   const dec = await decryptData(pl, code.toUpperCase().replace(/[^A-Z0-9]/g, ''));
   if (!dec || !dec.card) return alert('Codice errato o file non valido.');
