@@ -375,6 +375,87 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .dark .vx-bar .vx-tab:nth-child(5){color:#fbbf24}
 #aiChatMessages{font-size:13px;line-height:1.5}
 </style>
+<style id="vx-icons-css">
+/* ===== v4.9: archivio icone, foto proprietario, condivisione, filtri a scorrimento ===== */
+.vx-svg{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;flex:0 0 auto}
+.vx-pick-ic,.vx-opt-ic{overflow:hidden}
+.vx-pick-ic .vx-svg,.vx-opt-ic .vx-svg{width:22px;height:22px;vertical-align:baseline}
+.vx-av{display:block;width:100%;height:100%;object-fit:cover}
+.vx-em{font-size:21px;line-height:1;font-weight:400}
+.vx-pick-ic:has(.vx-av),.vx-opt-ic:has(.vx-av),.vx-chip-ic:has(.vx-av),.vx-ed-prev:has(.vx-av),.vx-mrow-ic:has(.vx-av){background:none;padding:0}
+.vx-mini{display:inline-flex;align-items:center;gap:4px;vertical-align:middle}
+.vx-mini .vx-svg{width:11px;height:11px;vertical-align:baseline}
+.vx-mini .vx-av{width:14px;height:14px;border-radius:50%}
+.vx-mini .vx-em{font-size:11px}
+.vx-fbic{display:inline-flex;align-items:center;justify-content:center}
+.vx-fbic .vx-svg{width:1.2em;height:1.2em;vertical-align:baseline}
+
+/* Filtri a scorrimento */
+.vx-rail.vx-rail-chips{display:flex;flex-direction:column;gap:6px;padding-bottom:8px}
+.vx-chiprow{position:relative;display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px;margin:0 -2px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent)}
+.vx-chiprow::-webkit-scrollbar{display:none}
+.vx-chiprow::after{content:"";flex:0 0 16px}
+.vx-chip{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 13px 0 5px;border-radius:999px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer;transition:transform .12s}
+.vx-chip:active{transform:scale(.97)}
+.vx-chip-ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text));font-size:14px;font-weight:800;flex:0 0 auto}
+.vx-chip-ic .vx-svg{width:17px;height:17px;vertical-align:baseline}
+.vx-chip-ic .vx-em{font-size:17px}
+.vx-chip-n{font-size:12px;font-weight:700;color:var(--vx-mute);font-variant-numeric:tabular-nums}
+.vx-chip.is-zero{opacity:.5}
+.vx-chip.is-on{border-color:var(--c,var(--vx-accent));background:var(--vx-accent-soft)}
+@supports (background:color-mix(in srgb,red,blue)){.vx-chip.is-on{background:color-mix(in srgb,var(--c,var(--vx-accent)) 14%,var(--vx-surface))}}
+
+/* Editor icone */
+#vxEditOverlay,#vxShareOverlay{z-index:58}
+#vxCropOverlay{z-index:59}
+.vx-ed-top{display:flex;gap:12px;align-items:center;margin:8px 0 4px}
+.vx-ed-prev{flex:0 0 64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);font-size:26px;font-weight:800}
+.vx-ed-prev .vx-svg{width:34px;height:34px;vertical-align:baseline}
+.vx-ed-prev .vx-em{font-size:34px}
+.vx-ed-f{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:8px}
+.vx-ed-f input[type=text]{width:100%;height:44px;padding:0 12px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:15px;font-weight:600}
+.vx-ed-col{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--vx-mute)}
+.vx-ed-col input{width:48px;height:30px;border:0;padding:0;background:none;cursor:pointer}
+.vx-ig{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:4px 0 8px}
+@media (min-width:420px){.vx-ig{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.vx-ig button{aspect-ratio:1;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;overflow:hidden;padding:0}
+.vx-ig button .vx-svg{width:24px;height:24px;vertical-align:baseline}
+.vx-ig button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text);box-shadow:0 0 0 2px var(--vx-accent) inset}
+.vx-ig-tools{display:flex;gap:8px;margin:6px 0}
+.vx-ig-tools button{flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 10px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:13px;font-weight:700;cursor:pointer}
+.vx-ig-tools button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
+.vx-crop{position:relative;width:min(280px,100%);aspect-ratio:1;margin:12px auto;overflow:hidden;border-radius:30%;background:#0f172a;touch-action:none;cursor:grab;box-shadow:0 0 0 2px var(--vx-accent)}
+.vx-crop img{position:absolute;max-width:none!important;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;pointer-events:none}
+#vx-dummy{}
+.vx-crop::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(255,255,255,.8);pointer-events:none}
+#vxCropZoom{width:100%;accent-color:#4f46e5;margin:4px 0 6px}
+.vx-mrow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:14px;background:var(--vx-surface-2);border:1px solid var(--vx-line)}
+.vx-mrow-ic{flex:0 0 42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);border:0;cursor:pointer;font-size:17px;font-weight:800;padding:0}
+.vx-mrow-ic .vx-svg{width:22px;height:22px;vertical-align:baseline}
+.vx-mrow-ic .vx-em{font-size:22px}
+.vx-mrow-n{flex:1 1 auto;min-width:0;font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--vx-ink)}
+.vx-mb{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:0;background:none;color:var(--vx-mute);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.vx-mb:active{background:var(--vx-accent-soft)}
+.vx-seg{display:flex;gap:6px;margin:6px 0}
+.vx-seg button{flex:1 1 0;padding:11px 8px;border-radius:12px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-weight:700;font-size:13px;cursor:pointer}
+.vx-seg button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
+
+/* Condivisione */
+.vx-sh-head{display:flex;align-items:center;gap:10px;margin:4px 0 8px}
+.vx-sh-head b{font-size:15px}
+.vx-sh-tg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.vx-sh-tg button{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:13px;font-weight:700;text-align:left;cursor:pointer}
+.vx-sh-tg button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
+.vx-tgck{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+.is-on .vx-tgck{background:var(--vx-accent);border-color:var(--vx-accent);color:#fff}
+.vx-sh-pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;border-radius:14px;background:var(--vx-surface-2);border:1px dashed var(--vx-line);font-size:13px;line-height:1.5;margin:8px 0;color:var(--vx-ink)}
+.vx-sh-apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.vx-sh-app{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:14px;border:0;background:none;color:var(--vx-ink);font-size:12px;font-weight:700;cursor:pointer}
+.vx-sh-app:active{background:var(--vx-accent-soft)}
+.vx-sh-app .ic{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--c);color:#fff}
+.vx-sh-app .ic .vx-svg{width:25px;height:25px;vertical-align:baseline}
+.vx-code{font:800 20px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-align:center;padding:12px;border-radius:14px;background:var(--vx-accent-soft);color:var(--vx-accent-text);margin:8px 0;user-select:all;-webkit-user-select:all}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
     
@@ -384,7 +465,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.8.0</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.9.0</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -637,8 +718,9 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         <div class="vx-sheet">
             <div class="vx-h"><h3><i class="fa-solid fa-ellipsis"></i> Altro</h3><button class="vx-x" onclick="vxClose('moreMenuModalOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
             <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openGuideModal()" id="guideBtn"><span class="vx-ic ic-amber"><i class="fa-solid fa-book-open"></i></span><span><b>Guida rapida</b><small>Come si usa Vault (PDF)</small></span></button>
-            <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openManagerModal()"><span class="vx-ic ic-violet"><i class="fa-solid fa-sliders"></i></span><span><b>Categorie, titolari e colori</b><small>Personalizza come ordini le voci</small></span></button>
+            <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openManagerModal()"><span class="vx-ic ic-violet"><i class="fa-solid fa-sliders"></i></span><span><b>Categorie, titolari e icone</b><small>Personalizza come ordini le voci</small></span></button>
             <button class="vx-row" id="themeToggleBtn" onclick="toggleTheme()"><span class="vx-ic ic-slate"><i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:inline"></i></span><span><b>Tema chiaro / scuro</b><small>Cambia l'aspetto dell'app</small></span></button>
+                        <label class="vx-toggle" style="margin:8px 0"><input type="checkbox" id="vxHapticToggle" checked onchange="vxHapticSet(this.checked)"><span><b>Feedback aptico</b><small id="vxHapticNote"></small></span></label>
             <button class="vx-row" id="installBtn" hidden onclick="vxClose('moreMenuModalOverlay');installApp()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-mobile-screen-button"></i></span><span><b>Installa l'app</b><small>Aggiungi Vault alla schermata Home</small></span></button>
             <button class="vx-row" onclick="showAppVersion()"><span class="vx-ic" style="padding:0;overflow:hidden;background:none"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></span><span><b>Informazioni su Vault</b><small>Versione e ultimo backup su Drive</small></span></button>
         </div>
@@ -679,6 +761,49 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 <button class="vx-btn2" onclick="vxClose('bioOfferModalOverlay')">Più tardi</button>
                 <button class="vx-link" onclick="localStorage.setItem('vault_bio_declined','1');vxClose('bioOfferModalOverlay')">Non chiedermelo più</button>
             </div>
+        </div>
+    </div>
+    <!-- v4.9: editor icone categoria/proprietario -->
+    <div id="vxEditOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxEditClose()">
+        <div class="vx-sheet" role="dialog" aria-modal="true" aria-labelledby="vxEdTitle">
+            <div class="vx-h"><h3 id="vxEdTitle">Modifica</h3><button type="button" class="vx-x" onclick="vxEditClose()" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="vx-ed-top">
+                <div id="vxEdPrev" class="vx-ed-prev" aria-hidden="true"></div>
+                <div class="vx-ed-f">
+                    <input type="text" id="vxEdName" maxlength="30" placeholder="Nome" autocomplete="off" aria-label="Nome" oninput="vxEdName(this.value)">
+                    <label class="vx-ed-col">Colore <input type="color" id="vxEdColor" oninput="vxEdColor(this.value)"></label>
+                </div>
+            </div>
+            <div class="vx-sec">Icona</div>
+            <div id="vxEdOwnerTools" class="vx-ig-tools" hidden>
+                <button type="button" onclick="document.getElementById('vxEdFile').click()"><span id="vxEdPhotoIc"></span> Foto</button>
+                <button type="button" id="vxEdInitBtn" onclick="vxEdInitial()">Aa Iniziale</button>
+            </div>
+            <div id="vxEdGrid" class="vx-ig" role="group" aria-label="Icone disponibili"></div>
+            <div class="vx-btns">
+                <button type="button" class="vx-btn2" onclick="vxEditClose()">Annulla</button>
+                <button type="button" class="vx-btn" onclick="vxEditSave()">Salva</button>
+            </div>
+            <input type="file" id="vxEdFile" accept="image/*" class="hidden" onchange="vxEdFileChosen(this)">
+        </div>
+    </div>
+    <div id="vxCropOverlay" class="vx-overlay vx-off vx-fade">
+        <div class="vx-sheet" role="dialog" aria-modal="true" aria-labelledby="vxCropTitle">
+            <div class="vx-h"><h3 id="vxCropTitle">Adatta la foto</h3><button type="button" class="vx-x" onclick="vxCropCancel()" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <p class="vx-small" style="margin-top:0">Trascina per spostarla, pizzica o usa il cursore per ingrandire. L'area è quella che comparirà nel pulsante; il tratteggio tondo mostra la parte visibile nei filtri a scorrimento.</p>
+            <div id="vxCropBox" class="vx-crop"><img id="vxCropImg" alt=""></div>
+            <input type="range" id="vxCropZoom" min="1" max="4" step="0.01" value="1" aria-label="Ingrandimento" oninput="vxCropZoomSet(this.value)">
+            <div class="vx-btns">
+                <button type="button" class="vx-btn2" onclick="vxCropCancel()">Annulla</button>
+                <button type="button" class="vx-btn" onclick="vxCropOk()">Usa questa foto</button>
+            </div>
+        </div>
+    </div>
+    <!-- v4.9: condividi una carta -->
+    <div id="vxShareOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('vxShareOverlay')">
+        <div class="vx-sheet" role="dialog" aria-modal="true" aria-labelledby="vxShTitle">
+            <div class="vx-h"><h3 id="vxShTitle">Condividi carta</h3><button type="button" class="vx-x" onclick="vxClose('vxShareOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <div id="vxShBody"></div>
         </div>
     </div>
     <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-700 dark:border-slate-300 flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 text-xs font-medium">
@@ -816,7 +941,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-5 shadow-xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200 max-h-[90vh] overflow-y-auto" id="managerModalContainer">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700 mb-3">
                 <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-violet-600"></i> Personalizza Categorie e Colori
+                    <i class="fa-solid fa-sliders text-violet-600"></i> Categorie, titolari e icone
                 </h3>
                 <button onclick="closeManagerModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -826,7 +951,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <div class="space-y-4 text-xs">
                 <div>
                     <h4 class="font-bold text-slate-500 uppercase mb-2 flex items-center justify-between">
-                        <span>Categorie & Colori</span>
+                        <span>Categorie</span>
                         <button onclick="addCategoryPrompt()" class="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-semibold">
                             <i class="fa-solid fa-plus"></i> Nuova
                         </button>
@@ -836,12 +961,20 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 
                 <div class="pt-3 border-t border-slate-200 dark:border-slate-700">
                     <h4 class="font-bold text-slate-500 uppercase mb-2 flex items-center justify-between">
-                        <span>Proprietari & Colori</span>
+                        <span>Proprietari</span>
                         <button onclick="addOwnerPrompt()" class="text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1 font-semibold">
                             <i class="fa-solid fa-plus"></i> Nuovo
                         </button>
                     </h4>
                     <div id="ownersManagerList" class="grid grid-cols-1 gap-2"></div>
+                </div>
+                <div class="pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-slate-500 uppercase mb-2">Filtri in alto</h4>
+                    <div class="vx-seg">
+                        <button type="button" id="vxStChips" onclick="vxSetFilterStyle('chips')">A scorrimento</button>
+                        <button type="button" id="vxStSheet" onclick="vxSetFilterStyle('sheet')">A finestra</button>
+                    </div>
+                    <p class="vx-small">Scorrimento: tutte le voci a portata di tocco. Finestra: due pulsanti che aprono una griglia (comoda con molte voci).</p>
                 </div>
             </div>
 
@@ -1164,6 +1297,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             'Siti/Altri': '#f59e0b'
         };
 
+        let categoryIcons = (function () { try { return JSON.parse(localStorage.getItem('vault_cat_icons')) || {}; } catch (e) { return {}; } })();
+        let ownerIcons = (function () { try { return JSON.parse(localStorage.getItem('vault_owner_icons')) || {}; } catch (e) { return {}; } })();
         let ownerColors = JSON.parse(localStorage.getItem('vault_owner_colors')) || {
             'Utente 1': '#6366f1',
             'Utente 2': '#ec4899',
@@ -1682,8 +1817,8 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.8.0';
-        const APP_BUILD = '2026-11-07';
+        const APP_VERSION = '4.9.0';
+        const APP_BUILD = '2026-11-08';
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
             alert('Vault\nVersione ' + APP_VERSION + ' (build ' + APP_BUILD + ')\n\nUltimo backup su Google Drive: ' +
@@ -1868,14 +2003,14 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                              class="w-full h-full object-contain p-1 rounded-lg" 
                              onload="logoLoaded(this, '${domain}')" onerror="handleLogoError(this, '${domain}', 1)">
                         <div style="display:none;" class="absolute inset-0 items-center justify-center bg-slate-100 dark:bg-slate-700">
-                            <i class="fa-solid ${style.icon}" style="${style.iconStyle}"></i>
+                            <span class="vx-fbic" style="${style.iconStyle}">${vxCatIcon(item.category)}</span>
                         </div>
                     </div>
                 `;
             } else {
                 return `
                     <div class="${sizeClass} rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-600 shadow-sm">
-                        <i class="fa-solid ${style.icon}" style="${style.iconStyle}"></i>
+                        <span class="vx-fbic" style="${style.iconStyle}">${vxCatIcon(item.category)}</span>
                     </div>
                 `;
             }
@@ -1912,12 +2047,15 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                                         <div>
                                             <h4 class="font-bold text-slate-900 dark:text-white text-sm line-clamp-1">${escapeHtml(item.service)}</h4>
                                             <div class="flex items-center gap-1 mt-0.5 flex-wrap">
-                                                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" style="${style.badgeStyle}">${escapeHtml(item.category)}</span>
-                                                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" style="${ownerStyle}">${escapeHtml(item.owner)}</span>
+                                                <span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-bold" style="${style.badgeStyle}">${vxBadge('cat', item.category)}</span>
+                                                <span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-bold" style="${ownerStyle}">${vxBadge('own', item.owner)}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-0.5">
+                                        <button onclick="vxShareOpen(${item.originalIndex})" title="Condividi questa carta" aria-label="Condividi ${escapeHtml(item.service)}" class="p-1.5 rounded-md" style="color:#0284c7">
+                                            <span class="text-xs">${vxSvg('share')}</span>
+                                        </button>
                                         <button onclick="openModal(${item.originalIndex})" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md">
                                             <i class="fa-solid fa-pen-to-square text-xs"></i>
                                         </button>
@@ -1980,12 +2118,13 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                                     ${getServiceIconHTML(item, true)}
                                     <span class="truncate">${escapeHtml(item.service)}</span>
                                 </td>
-                                <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded font-bold" style="${style.badgeStyle}">${escapeHtml(item.category)}</span></td>
-                                <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded font-medium" style="${ownerStyle}">${escapeHtml(item.owner)}</span></td>
+                                <td class="p-3"><span class="vx-mini text-[10px] px-2 py-0.5 rounded font-bold" style="${style.badgeStyle}">${vxBadge('cat', item.category)}</span></td>
+                                <td class="p-3"><span class="vx-mini text-[10px] px-2 py-0.5 rounded font-medium" style="${ownerStyle}">${vxBadge('own', item.owner)}</span></td>
                                 <td class="p-3 font-mono cursor-pointer truncate max-w-[120px]" onclick="copyField(${item.originalIndex}, 'username', 'Username')">${escapeHtml(item.username || '-')}</td>
                                 <td class="p-3 font-mono cursor-pointer blur-password truncate max-w-[100px]" onclick="copyField(${item.originalIndex}, 'password', 'Password')">${escapeHtml(item.password || '-')}</td>
                                 <td class="p-3 text-right">
-                                    <button onclick="openModal(${item.originalIndex})" class="p-1 text-slate-400 hover:text-indigo-600"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button onclick="vxShareOpen(${item.originalIndex})" title="Condividi" aria-label="Condividi" class="p-1" style="color:#0284c7">${vxSvg('share')}</button>
+                                    <button onclick="openModal(${item.originalIndex})" class="p-1 text-slate-400 hover:text-indigo-600 ml-1"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button onclick="deleteCredential(${item.originalIndex})" class="p-1 text-slate-400 hover:text-rose-600 ml-1"><i class="fa-solid fa-trash-can"></i></button>
                                 </td>
                             </tr>
@@ -2097,7 +2236,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             const pw = prompt("Password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master:");
             if (pw === null) return;
             if (pw && pw.length < 8) return alert("Password troppo corta.");
-            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors }, pw || activePassword);
+            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons }, pw || activePassword);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: 'application/json' }));
             a.download = `vault_backup_cifrato_${new Date().toISOString().slice(0,10)}.json`;
@@ -2126,6 +2265,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             reader.onload = async function(ev) {
                 let payload;
                 try { payload = JSON.parse(ev.target.result); } catch (err) { return alert("Formato file non valido."); }
+                if (payload && payload.vaultCard) return vxImportSharedCard(payload);
                 await restoreFromPayload(payload);
             };
             reader.readAsText(file);
@@ -2148,6 +2288,10 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                         localStorage.setItem('vault_owners', JSON.stringify(ownersList));
                         localStorage.setItem('vault_cat_colors', JSON.stringify(categoryColors));
                         localStorage.setItem('vault_owner_colors', JSON.stringify(ownerColors));
+                        categoryIcons = (dec.catIcons && typeof dec.catIcons === 'object') ? dec.catIcons : categoryIcons;
+                        ownerIcons = (dec.ownerIcons && typeof dec.ownerIcons === 'object') ? dec.ownerIcons : ownerIcons;
+                        localStorage.setItem('vault_cat_icons', JSON.stringify(categoryIcons));
+                        localStorage.setItem('vault_owner_icons', JSON.stringify(ownerIcons));
                     }
                     await saveToLocalStorage(); refreshUIState();
                     showToast("Backup ripristinato con successo!");
@@ -3140,7 +3284,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         for (const f of l.slice(getMax())) { try { await dir.removeEntry(f.name); } catch (e) { } }
     }
     function snapshot() {
-        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors } };
+        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons } };
     }
 
     let busy = false, dirty = false, timer = null;
@@ -3640,6 +3784,492 @@ function vxActionIntent(raw) {
   }
   return null;
 }
+</script>
+<script id="vx-v49">
+/* ===== Vault v4.9: archivio icone, foto proprietario, condivisione carta, filtri a scorrimento ===== */
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+const esc = s => escapeHtml(s);
+const LS = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { try { showToast('Memoria del browser piena: modifica non salvata.'); } catch (_) {} } };
+
+/* ---------- Archivio icone (SVG a tratto, colore = quello del testo) ---------- */
+const I = {
+  bank: ['Banca', '<path d="M3 21h18M6 10v8M10 10v8M14 10v8M18 10v8M2 10l10-7 10 7z"/>'],
+  wallet: ['Portafoglio', '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 9h14a2 2 0 0 0 0-3H6M16 14h2"/>'],
+  coin: ['Soldi', '<circle cx="12" cy="12" r="9"/><path d="M15 9a4 4 0 1 0 0 6M8 11h5M8 13h5"/>'],
+  card: ['Carta', '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>'],
+  chart: ['Investimenti', '<path d="M3 3v18h18M7 15l4-4 3 3 5-6"/>'],
+  work: ['Lavoro', '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'],
+  office: ['Ufficio', '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/>'],
+  user: ['Persona', '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>'],
+  users: ['Persone', '<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17.5 14.5c2.5 0 4.5 1.5 4.5 4.5"/>'],
+  home: ['Casa', '<path d="M3 11l9-8 9 8M5 9.5V20h14V9.5M10 20v-6h4v6"/>'],
+  globe: ['Sito web', '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.5 3.5 3.5 14.5 0 18M12 3c-3.5 3.5-3.5 14.5 0 18"/>'],
+  cloud: ['Cloud', '<path d="M7 18a5 5 0 0 1-.5-9.97A6 6 0 0 1 18 9.5 4 4 0 0 1 17.5 18z"/>'],
+  mail: ['Posta', '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'],
+  phone: ['Telefono', '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'],
+  monitor: ['Computer', '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'],
+  wifi: ['Rete', '<path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r=".9"/>'],
+  code: ['Sviluppo', '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/>'],
+  shield: ['Sicurezza', '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>'],
+  lock: ['Lucchetto', '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'],
+  key: ['Chiave', '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>'],
+  cart: ['Acquisti', '<path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>'],
+  bag: ['Shopping', '<path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"/>'],
+  gift: ['Regali', '<rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8c-3 0-4-4-1.5-4S12 8 12 8zM12 8c3 0 4-4 1.5-4S12 8 12 8z"/>'],
+  food: ['Ristoranti', '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/>'],
+  car: ['Auto', '<path d="M5 17H3v-5l2-5h14l2 5v5h-2M3 12h18"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/>'],
+  plane: ['Viaggi', '<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>'],
+  pin: ['Luoghi', '<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>'],
+  game: ['Giochi', '<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4"/><circle cx="15.5" cy="11.5" r=".8"/><circle cx="18" cy="13.5" r=".8"/>'],
+  music: ['Musica', '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'],
+  film: ['Video', '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>'],
+  camera: ['Foto', '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/>'],
+  book: ['Libri', '<path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM8 7h7"/>'],
+  school: ['Studio', '<path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2.5 9 2.5 12 0v-5"/>'],
+  health: ['Salute', '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>'],
+  heart: ['Preferiti', '<path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/>'],
+  bolt: ['Utenze', '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'],
+  drop: ['Acqua', '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>'],
+  tool: ['Attrezzi', '<path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-2.6-.7-.7-2.6z"/>'],
+  folder: ['Cartella', '<path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'],
+  file: ['Documenti', '<path d="M6 2h8l5 5v15H6zM14 2v5h5M9 13h6M9 17h6"/>'],
+  star: ['Speciale', '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1L3.1 9.5l6.1-.9z"/>'],
+  /* usate dall'interfaccia, non proposte nell'elenco */
+  share: ['Condividi', '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/>'],
+  chat: ['Chat', '<path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.2A8.5 8.5 0 1 1 21 11.5z"/>'],
+  sms: ['SMS', '<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'],
+  copy: ['Copia', '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>'],
+  image: ['Immagine', '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/>']
+};
+const CAT_ORDER = ['bank','wallet','coin','card','chart','work','office','user','users','home','globe','cloud','mail','phone','monitor','wifi','code','shield','lock','key','cart','bag','gift','food','car','plane','pin','game','music','film','camera','book','school','health','heart','bolt','drop','tool','folder','file','star'];
+const OWNER_EMOJI = ['🙂','😎','🤓','🥳','😺','👨','👩','👦','👧','👴','👵','👶','🧔','👱','🦸','🧙','🐶','🐱','🐰','🦊','🐻','🐼','🦁','🐸','🦄','🏠','🏢','💼','⭐','❤️'];
+
+function svg(key, cls) {
+  const o = I[key] || I.globe;
+  return '<svg class="vx-svg' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + o[1] + '</svg>';
+}
+function guessKey(cat) {
+  const n = String(cat || '').toLowerCase();
+  const m = [[/banc|bank|conto/, 'bank'], [/uffic|lavor|work|azienda/, 'work'], [/person|priv/, 'user'], [/social|amic|famigl/, 'users'],
+    [/shop|acquist|negoz|ecommerce/, 'cart'], [/salut|medic|sanit/, 'health'], [/viagg|travel|vacanz/, 'plane'], [/cas[ae]|immobil/, 'home'],
+    [/giochi|game|svago|tempo libero/, 'game'], [/film|video|stream|tv/, 'film'], [/music/, 'music'], [/mail|posta/, 'mail'], [/cloud|server|hosting/, 'cloud'],
+    [/studio|scuol|univers|corsi/, 'school'], [/fisc|tass|pubblic|document|inps|agenzia/, 'file'], [/assicur|sicur/, 'shield'],
+    [/carte|pagament|paypal/, 'card'], [/invest|borsa|trading|cripto|crypto/, 'chart'], [/auto|veicol|moto/, 'car'],
+    [/energia|luce|gas|bollett|utenz/, 'bolt'], [/telefon|internet|wifi|rete/, 'wifi']];
+  for (const [re, k] of m) if (re.test(n)) return k;
+  return 'globe';
+}
+function catKey(cat) { const k = categoryIcons[cat]; return (k && I[k]) ? k : guessKey(cat); }
+const PHOTO_RE = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/;
+function ownerVal(o) {
+  const v = ownerIcons[o] || '';
+  if (v.slice(0, 2) === 'p:' && PHOTO_RE.test(v.slice(2))) return v;
+  if (v.slice(0, 2) === 'e:' && v.length <= 14) return v;
+  return '';
+}
+function initialOf(n) { return esc((Array.from(String(n || '').trim())[0] || '?').toUpperCase()); }
+function iconInner(v, name) {
+  if (v && v[0] === 'p') return '<img class="vx-av" alt="" src="' + v.slice(2) + '">';
+  if (v && v[0] === 'e') return '<span class="vx-em">' + esc(v.slice(2)) + '</span>';
+  return initialOf(name);
+}
+const lead = (kind, name) => kind === 'cat' ? svg(catKey(name)) : iconInner(ownerVal(name), name);
+
+window.vxSvg = svg;
+window.vxCatIcon = c => svg(catKey(c));
+window.vxBadge = function (kind, name) {
+  if (kind === 'cat') return svg(catKey(name)) + esc(name);
+  const v = ownerVal(name);
+  return (v ? iconInner(v, name) : '') + esc(name);
+};
+
+/* ---------- Filtri: a scorrimento (predefinito) o a finestra ---------- */
+let filterStyle = (function () { try { return localStorage.getItem('vault_filter_style') === 'sheet' ? 'sheet' : 'chips'; } catch (e) { return 'chips'; } })();
+const lastSel = {};
+function counter(kind) {
+  const isCat = kind === 'cat';
+  const base = isCat
+    ? (currentOwnerFilter === 'ALL' ? credentials : credentials.filter(x => x.owner === currentOwnerFilter))
+    : (currentCategoryFilter === 'ALL' ? credentials : credentials.filter(x => x.category === currentCategoryFilter));
+  return v => v === 'ALL' ? base.length : base.filter(x => (isCat ? x.category : x.owner) === v).length;
+}
+const FB = { cat: '#3b82f6', own: '#8b5cf6' };
+function chipRow(kind) {
+  const isCat = kind === 'cat', list = isCat ? categoriesList : ownersList, colors = isCat ? categoryColors : ownerColors;
+  const cur = isCat ? currentCategoryFilter : currentOwnerFilter, cnt = counter(kind);
+  const mk = (v, label, ic, col) => {
+    const on = cur === v, n = cnt(v), st = col ? '--c:' + col + ';--on:' + vxInk(col) : '';
+    return '<button type="button" role="radio" aria-checked="' + on + '" class="vx-chip' + (on ? ' is-on' : '') + ((n || !credentials.length) ? '' : ' is-zero') + '" style="' + st + '" onclick="vxChipSet(\'' + kind + '\',\'' + escapeJs(v) + '\')"><span class="vx-chip-ic">' + ic + '</span><span>' + esc(label) + '</span><span class="vx-chip-n">' + n + '</span></button>';
+  };
+  let h = mk('ALL', isCat ? 'Tutte le categorie' : 'Tutti i proprietari', svg(isCat ? 'folder' : 'users'), '');
+  list.forEach(v => { h += mk(v, v, lead(kind, v), colors[v] || FB[kind]); });
+  return '<div class="vx-chiprow" data-k="' + kind + '" role="radiogroup" aria-label="' + (isCat ? 'Categoria' : 'Proprietario') + '">' + h + '</div>';
+}
+function pickBtn(kind) {
+  const isCat = kind === 'cat', cur = isCat ? currentCategoryFilter : currentOwnerFilter, colors = isCat ? categoryColors : ownerColors;
+  const on = cur !== 'ALL', col = on ? (colors[cur] || FB[kind]) : '', st = col ? '--c:' + col + ';--on:' + vxInk(col) : '';
+  const ic = !on ? '<span class="vx-badge vx-badge-' + kind + '"></span>' : lead(kind, cur);
+  const k = isCat ? 'Categoria' : 'Proprietario', val = on ? cur : (isCat ? 'Tutte' : 'Tutti');
+  return '<button type="button" class="vx-pick' + (on ? ' is-on' : '') + '" style="' + st + '" aria-haspopup="dialog" aria-label="' + k + ': ' + esc(val) + '. Tocca per cambiare" onclick="vxOpenPick(\'' + kind + '\')"><span class="vx-pick-ic">' + ic + '</span><span class="vx-pick-t"><span class="vx-pick-k">' + k + '</span><span class="vx-pick-v">' + esc(val) + '</span></span><i class="fa-solid fa-chevron-down"></i></button>';
+}
+window.renderQuickPillsBar = function () {
+  const c = $('quickPillsBarContainer'); if (!c) return;
+  if (filterStyle === 'sheet') {
+    c.className = 'vx-rail';
+    c.innerHTML = pickBtn('cat') + pickBtn('own');
+  } else {
+    const sl = {};
+    c.querySelectorAll('.vx-chiprow').forEach(r => { sl[r.dataset.k] = r.scrollLeft; });
+    c.className = 'vx-rail vx-rail-chips';
+    c.innerHTML = chipRow('cat') + chipRow('own');
+    ['cat', 'own'].forEach(k => {
+      const r = c.querySelector('.vx-chiprow[data-k="' + k + '"]'); if (!r) return;
+      const cur = k === 'cat' ? currentCategoryFilter : currentOwnerFilter;
+      if (lastSel[k] !== cur) {
+        lastSel[k] = cur;
+        const a = r.querySelector('.is-on');
+        if (a) r.scrollLeft = a.offsetLeft - (r.clientWidth - a.offsetWidth) / 2;
+      } else if (sl[k] != null) r.scrollLeft = sl[k];
+    });
+  }
+  const ov = $('vxPickOverlay'); if (ov && !ov.classList.contains('vx-off')) window.vxRenderPick();
+};
+window.vxChipSet = function (kind, v) {
+  if (kind === 'cat') currentCategoryFilter = (currentCategoryFilter === v && v !== 'ALL') ? 'ALL' : v;
+  else currentOwnerFilter = (currentOwnerFilter === v && v !== 'ALL') ? 'ALL' : v;
+  renderQuickPillsBar(); renderGrid();
+};
+window.vxRenderPick = function () {
+  const isCat = vxPickKind === 'cat', kind = isCat ? 'cat' : 'own';
+  const list = isCat ? categoriesList : ownersList, cur = isCat ? currentCategoryFilter : currentOwnerFilter, colors = isCat ? categoryColors : ownerColors, cnt = counter(kind);
+  const tile = (v, label, ic, col) => {
+    const n = cnt(v), on = cur === v, st = col ? '--c:' + col + ';--on:' + vxInk(col) : '';
+    return '<button type="button" role="radio" aria-checked="' + on + '" class="vx-opt' + (on ? ' is-on' : '') + (n ? '' : ' is-zero') + '" style="' + st + '" onclick="vxPickSet(\'' + escapeJs(v) + '\')"><span class="vx-opt-ck"><i class="fa-solid fa-check"></i></span><span class="vx-opt-ic">' + ic + '</span><span class="vx-opt-v">' + esc(label) + '</span><span class="vx-opt-n">' + n + ' ' + (n === 1 ? 'voce' : 'voci') + '</span></button>';
+  };
+  let h = tile('ALL', isCat ? 'Tutte' : 'Tutti', '<span class="vx-badge vx-badge-' + kind + '"></span>', '');
+  list.forEach(v => { h += tile(v, v, lead(kind, v), colors[v] || FB[kind]); });
+  $('vxPickTitle').textContent = isCat ? 'Scegli la categoria' : 'Scegli il proprietario';
+  $('vxPickGrid').innerHTML = h;
+};
+function syncStyleBtns() {
+  const a = $('vxStChips'), b = $('vxStSheet');
+  if (a) a.classList.toggle('is-on', filterStyle === 'chips');
+  if (b) b.classList.toggle('is-on', filterStyle === 'sheet');
+}
+window.vxSetFilterStyle = function (s) {
+  filterStyle = s === 'sheet' ? 'sheet' : 'chips';
+  LS('vault_filter_style', filterStyle);
+  syncStyleBtns(); renderQuickPillsBar();
+};
+
+/* ---------- Elenco in "Categorie, titolari e icone" ---------- */
+function persist() {
+  LS('vault_categories', JSON.stringify(categoriesList)); LS('vault_owners', JSON.stringify(ownersList));
+  LS('vault_cat_colors', JSON.stringify(categoryColors)); LS('vault_owner_colors', JSON.stringify(ownerColors));
+  LS('vault_cat_icons', JSON.stringify(categoryIcons)); LS('vault_owner_icons', JSON.stringify(ownerIcons));
+}
+function prune() {
+  let ch = false;
+  Object.keys(categoryIcons).forEach(k => { if (!categoriesList.includes(k)) { delete categoryIcons[k]; ch = true; } });
+  Object.keys(ownerIcons).forEach(k => { if (!ownersList.includes(k)) { delete ownerIcons[k]; ch = true; } });
+  if (ch) { LS('vault_cat_icons', JSON.stringify(categoryIcons)); LS('vault_owner_icons', JSON.stringify(ownerIcons)); }
+}
+window.renderManagerLists = function () {
+  prune();
+  ['cat', 'own'].forEach(kind => {
+    const isCat = kind === 'cat', box = $(isCat ? 'categoriesManagerList' : 'ownersManagerList'); if (!box) return;
+    const list = isCat ? categoriesList : ownersList, colors = isCat ? categoryColors : ownerColors;
+    box.innerHTML = list.map(v => {
+      const col = colors[v] || FB[kind], j = escapeJs(v);
+      return '<div class="vx-mrow"><button type="button" class="vx-mrow-ic" style="--c:' + col + ';--on:' + vxInk(col) + '" onclick="vxEditOpen(\'' + kind + '\',\'' + j + '\')" aria-label="Cambia icona e colore di ' + esc(v) + '">' + lead(kind, v) + '</button>' +
+        '<span class="vx-mrow-n">' + esc(v) + '</span>' +
+        '<button type="button" class="vx-mb" onclick="vxEditOpen(\'' + kind + '\',\'' + j + '\')" title="Modifica" aria-label="Modifica ' + esc(v) + '"><i class="fa-solid fa-pen"></i></button>' +
+        '<button type="button" class="vx-mb" onclick="' + (isCat ? 'deleteCategory' : 'deleteOwner') + '(\'' + j + '\')" title="Elimina" aria-label="Elimina ' + esc(v) + '"><i class="fa-solid fa-trash-can"></i></button></div>';
+    }).join('');
+  });
+  syncStyleBtns();
+};
+window.addCategoryPrompt = () => vxEditOpen('cat');
+window.addOwnerPrompt = () => vxEditOpen('own');
+window.renameCategoryPrompt = n => vxEditOpen('cat', n);
+window.renameOwnerPrompt = n => vxEditOpen('own', n);
+
+/* ---------- Editor: nome, colore, icona / foto ---------- */
+let ED = null;
+const hex6 = c => /^#[0-9a-f]{6}$/i.test(c || '') ? c : '#6366f1';
+function edRender() {
+  const isCat = ED.kind === 'cat', pv = $('vxEdPrev');
+  pv.style.setProperty('--c', ED.color); pv.style.setProperty('--on', vxInk(ED.color));
+  pv.innerHTML = isCat ? svg(ED.icon) : iconInner(ED.icon, ED.name || '?');
+  let h = '';
+  if (isCat) {
+    h = CAT_ORDER.map(k => '<button type="button" data-v="' + k + '" class="' + (ED.icon === k ? 'is-on' : '') + '" title="' + esc(I[k][0]) + '" aria-label="' + esc(I[k][0]) + '" aria-pressed="' + (ED.icon === k) + '">' + svg(k) + '</button>').join('');
+  } else {
+    if (ED.icon.slice(0, 2) === 'p:') h += '<button type="button" data-v="' + ED.icon + '" class="is-on" aria-label="Foto scelta" aria-pressed="true"><img class="vx-av" alt="" src="' + ED.icon.slice(2) + '"></button>';
+    h += OWNER_EMOJI.map(e => '<button type="button" data-v="e:' + e + '" class="' + (ED.icon === 'e:' + e ? 'is-on' : '') + '" aria-pressed="' + (ED.icon === 'e:' + e) + '">' + e + '</button>').join('');
+    const ib = $('vxEdInitBtn'); if (ib) ib.classList.toggle('is-on', !ED.icon);
+  }
+  $('vxEdGrid').innerHTML = h;
+}
+window.vxEditOpen = function (kind, name) {
+  const isCat = kind === 'cat', isNew = name == null, colors = isCat ? categoryColors : ownerColors;
+  ED = { kind, old: isNew ? null : name, name: isNew ? '' : name, color: hex6(isNew ? FB[kind] : (colors[name] || FB[kind])), icon: isNew ? (isCat ? 'globe' : '') : (isCat ? catKey(name) : ownerVal(name)), auto: isNew && isCat };
+  $('vxEdTitle').textContent = isNew ? (isCat ? 'Nuova categoria' : 'Nuovo proprietario') : (isCat ? 'Modifica categoria' : 'Modifica proprietario');
+  $('vxEdName').value = ED.name; $('vxEdColor').value = ED.color;
+  $('vxEdOwnerTools').hidden = isCat;
+  const pi = $('vxEdPhotoIc'); if (pi) pi.innerHTML = svg('image');
+  edRender(); vxOpen('vxEditOverlay');
+  if (isNew) setTimeout(() => $('vxEdName').focus(), 250);
+};
+window.vxEditClose = () => vxClose('vxEditOverlay');
+window.vxEdName = v => { if (!ED) return; ED.name = v; if (ED.auto) ED.icon = guessKey(v); edRender(); };
+window.vxEdColor = v => { if (!ED) return; ED.color = v; edRender(); };
+window.vxEdInitial = () => { if (ED) { ED.icon = ''; edRender(); } };
+$('vxEdGrid').addEventListener('click', e => {
+  const b = e.target.closest('button[data-v]'); if (!b || !ED) return;
+  ED.icon = b.dataset.v; ED.auto = false; edRender();
+});
+window.vxEditSave = async function () {
+  if (!ED) return;
+  const isCat = ED.kind === 'cat', name = ED.name.trim();
+  if (!name) { showToast('Scrivi un nome.'); $('vxEdName').focus(); return; }
+  const list = isCat ? categoriesList : ownersList, colors = isCat ? categoryColors : ownerColors, icons = isCat ? categoryIcons : ownerIcons, old = ED.old;
+  let touched = false;
+  if (old === null) {
+    if (list.includes(name)) return alert('Esiste già: ' + name);
+    list.push(name);
+  } else if (name !== old) {
+    if (list.includes(name)) return alert('Esiste già: ' + name);
+    list[list.indexOf(old)] = name;
+    if (isCat) { if (currentCategoryFilter === old) currentCategoryFilter = name; credentials.forEach(c => { if (c.category === old) c.category = name; }); }
+    else { if (currentOwnerFilter === old) currentOwnerFilter = name; credentials.forEach(c => { if (c.owner === old) c.owner = name; }); }
+    delete colors[old]; delete icons[old]; touched = true;
+  }
+  colors[name] = ED.color;
+  if (ED.icon) icons[name] = ED.icon; else delete icons[name];
+  persist();
+  if (touched) { try { await saveToLocalStorage(); } catch (e) {} }
+  if (window.vxAfterSave) { try { vxAfterSave(); } catch (e) {} }
+  ED = null; vxClose('vxEditOverlay');
+  renderManagerLists(); refreshUIState();
+  showToast('Salvato.');
+};
+
+/* ---------- Ritaglio foto (adatta al pulsante) ---------- */
+const C = { img: null, w: 0, h: 0, V: 0, min: 1, z: 1, ox: 0, oy: 0, url: '', ptr: new Map(), d0: 0, z0: 1 };
+window.vxEdFileChosen = function (inp) { const f = inp.files && inp.files[0]; inp.value = ''; if (f) cropOpen(f); };
+function cropOpen(file) {
+  const url = URL.createObjectURL(file), im = new Image();
+  im.onload = () => {
+    C.url = url; C.img = im; C.w = im.naturalWidth; C.h = im.naturalHeight;
+    vxOpen('vxCropOverlay');
+    setTimeout(() => {
+      C.V = $('vxCropBox').clientWidth; C.min = C.V / Math.min(C.w, C.h); C.z = 1; C.ox = 0; C.oy = 0;
+      $('vxCropZoom').value = 1; $('vxCropImg').src = url; cropDraw();
+    }, 40);
+  };
+  im.onerror = () => { URL.revokeObjectURL(url); alert('Non riesco a leggere questa immagine.'); };
+  im.src = url;
+}
+function cropDraw() {
+  const s = C.min * C.z, mx = Math.max(0, (C.w * s - C.V) / 2), my = Math.max(0, (C.h * s - C.V) / 2);
+  C.ox = Math.min(mx, Math.max(-mx, C.ox)); C.oy = Math.min(my, Math.max(-my, C.oy));
+  const el = $('vxCropImg');
+  el.style.width = C.w * s + 'px'; el.style.height = C.h * s + 'px';
+  el.style.left = (C.V / 2 - C.w * s / 2 + C.ox) + 'px'; el.style.top = (C.V / 2 - C.h * s / 2 + C.oy) + 'px';
+}
+function setZoom(z) { C.z = Math.min(4, Math.max(1, z)); $('vxCropZoom').value = C.z; cropDraw(); }
+window.vxCropZoomSet = v => setZoom(parseFloat(v) || 1);
+(function bindCrop() {
+  const b = $('vxCropBox');
+  const dist = () => { const p = Array.from(C.ptr.values()); return Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); };
+  b.addEventListener('pointerdown', e => { b.setPointerCapture(e.pointerId); C.ptr.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (C.ptr.size === 2) { C.d0 = dist(); C.z0 = C.z; } });
+  b.addEventListener('pointermove', e => {
+    const p = C.ptr.get(e.pointerId); if (!p) return;
+    if (C.ptr.size === 1) { C.ox += e.clientX - p.x; C.oy += e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; cropDraw(); }
+    else { p.x = e.clientX; p.y = e.clientY; if (C.d0) setZoom(C.z0 * dist() / C.d0); }
+  });
+  const up = e => { C.ptr.delete(e.pointerId); C.d0 = 0; };
+  b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up);
+  b.addEventListener('wheel', e => { e.preventDefault(); setZoom(C.z * Math.exp(-e.deltaY * 0.0015)); }, { passive: false });
+})();
+function cropClose() { vxClose('vxCropOverlay'); if (C.url) { URL.revokeObjectURL(C.url); C.url = ''; } C.img = null; C.ptr.clear(); }
+window.vxCropCancel = cropClose;
+window.vxCropOk = function () {
+  if (!C.img || !ED) return cropClose();
+  const O = 192, k = O / C.V, s = C.min * C.z, cv = document.createElement('canvas');
+  cv.width = cv.height = O;
+  const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, O, O); g.imageSmoothingQuality = 'high';
+  g.drawImage(C.img, (C.V / 2 - C.w * s / 2 + C.ox) * k, (C.V / 2 - C.h * s / 2 + C.oy) * k, C.w * s * k, C.h * s * k);
+  ED.icon = 'p:' + cv.toDataURL('image/jpeg', 0.8); ED.auto = false;
+  cropClose(); edRender();
+};
+
+/* ---------- Condividi una carta ---------- */
+let S = null;
+const siteOf = it => (it.domain || (typeof extractDomain === 'function' ? extractDomain(it) : '') || '');
+function build(step, mask) {
+  const it = credentials[S.i]; if (!it) return '';
+  if (S.split && S.pass && step === 2) return '🔑 Password per ' + it.service + ': ' + (mask ? '••••••••' : it.password);
+  const L = ['🔐 ' + it.service], site = siteOf(it);
+  if (S.site && site) L.push('🌐 ' + site);
+  if (S.user && it.username) L.push('👤 ' + it.username);
+  if (S.pass && !S.split && it.password) L.push('🔑 ' + (mask ? '••••••••' : it.password));
+  if (S.notes && it.notes) L.push('📝 ' + it.notes);
+  if (S.split && S.pass) L.push('(la password arriva nel messaggio successivo)');
+  return L.join('\n');
+}
+function shRender() {
+  const it = credentials[S && S.i];
+  if (!it) { vxClose('vxShareOverlay'); return; }
+  const tg = (k, label, ok) => ok ? '<button type="button" class="' + (S[k] ? 'is-on' : '') + '" aria-pressed="' + !!S[k] + '" onclick="vxShToggle(\'' + k + '\')"><span class="vx-tgck">' + (S[k] ? '✓' : '') + '</span>' + label + '</button>' : '';
+  const app = (how, label, ic, col) => '<button type="button" class="vx-sh-app" onclick="vxShSend(\'' + how + '\')"><span class="ic" style="--c:' + col + '">' + svg(ic) + '</span>' + label + '</button>';
+  const step = S.split && S.pass ? S.step : 1;
+  let h = '<div class="vx-sh-head">' + getServiceIconHTML(it) + '<div><b>' + esc(it.service) + '</b><div class="vx-small" style="margin:0">Scegli cosa condividere</div></div></div>';
+  h += '<div class="vx-sh-tg">' + tg('site', 'Sito web', !!siteOf(it)) + tg('user', 'Utente', !!it.username) + tg('pass', 'Password', !!it.password) + tg('notes', 'Note', !!it.notes) + '</div>';
+  if (S.pass) h += '<label class="vx-toggle"><input type="checkbox" ' + (S.split ? 'checked' : '') + ' onchange="vxShSplit(this.checked)"><span><b>Password in un messaggio a parte</b><small>Prima l\'accesso, poi la sola password: se uno dei due messaggi finisce in mano sbagliata, da solo non basta.</small></span></label>';
+  if (S.pass && !S.split) h += '<div class="vx-warn">Con questa opzione la password resta scritta in chiaro nella chat. Più sicuro: messaggio separato o file cifrato.</div>';
+  if (S.split && S.pass) h += '<div class="vx-seg"><button type="button" class="' + (step === 1 ? 'is-on' : '') + '" onclick="vxShStep(1)">1 · Accesso</button><button type="button" class="' + (step === 2 ? 'is-on' : '') + '" onclick="vxShStep(2)">2 · Password</button></div>';
+  h += '<div class="vx-sh-pre">' + esc(build(step, true)) + '</div>';
+  h += '<div class="vx-sh-apps">' + app('wa', 'WhatsApp', 'chat', '#25d366') + app('tg', 'Telegram', 'plane', '#229ed9') + app('sms', 'SMS', 'sms', '#64748b') + app('mail', 'Email', 'mail', '#6366f1') + app('sys', 'Altre app…', 'share', '#0ea5e9') + app('copy', 'Copia', 'copy', '#f59e0b') + '</div>';
+  h += '<div class="vx-sec">Modo più sicuro</div><div class="vx-card"><b>File cifrato con codice monouso</b><div class="vx-small">Crea un file protetto da un codice. Invia il file in chat e comunica il codice a voce o su un altro canale. Chi ha Vault lo apre da Backup → Ripristina da file. Include i campi scelti sopra (attiva «Password» se serve).</div>';
+  if (S.file) {
+    h += '<div class="vx-code">' + esc(S.code) + '</div><div class="vx-btns"><button type="button" class="vx-btn" onclick="vxShSendFile()">Invia il file…</button><button type="button" class="vx-btn2" onclick="vxShCopyCode()">Copia codice</button></div>';
+  } else {
+    h += '<div class="vx-btns"><button type="button" class="vx-btn2" id="vxShMake" onclick="vxShMakeFile()">Crea file cifrato</button></div>';
+  }
+  h += '</div>';
+  $('vxShBody').innerHTML = h;
+}
+window.vxShareOpen = function (i) { S = { i, site: true, user: true, pass: false, notes: false, split: false, step: 1, file: null, code: '' }; shRender(); vxOpen('vxShareOverlay'); };
+window.vxShToggle = function (k) { S[k] = !S[k]; if (k === 'pass' && !S.pass) { S.split = false; S.step = 1; } S.file = null; S.code = ''; shRender(); };
+window.vxShSplit = function (v) { S.split = !!v; S.step = 1; shRender(); };
+window.vxShStep = function (n) { S.step = n; shRender(); };
+window.vxShSend = async function (how) {
+  const it = credentials[S && S.i]; if (!it) return;
+  const step = S.split && S.pass ? S.step : 1, text = build(step, false), enc = encodeURIComponent(text);
+  const withPass = S.pass && (!S.split || step === 2);
+  if (how === 'copy') { copyToClipboard(text, withPass ? 'Password' : 'Messaggio'); }
+  else if (how === 'wa') window.open('https://wa.me/?text=' + enc, '_blank', 'noopener');
+  else if (how === 'tg') window.open('https://t.me/share/url?url=&text=' + enc, '_blank', 'noopener');
+  else if (how === 'sms') location.href = 'sms:?&body=' + enc;
+  else if (how === 'mail') location.href = 'mailto:?subject=' + encodeURIComponent('Credenziali ' + it.service) + '&body=' + enc;
+  else if (how === 'sys') {
+    if (navigator.share) { try { await navigator.share({ text }); } catch (e) { if (e && e.name === 'AbortError') return; } }
+    else { copyToClipboard(text, withPass ? 'Password' : 'Messaggio'); }
+  }
+  if (how !== 'copy' && S.split && S.pass && S.step === 1) { setTimeout(() => { if (S) { S.step = 2; shRender(); showToast('Ora invia la password (messaggio 2).'); } }, 600); }
+};
+function genCode() {
+  const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', b = crypto.getRandomValues(new Uint8Array(12));
+  const c = Array.from(b, x => A[x & 31]).join('');
+  return c.slice(0, 4) + '-' + c.slice(4, 8) + '-' + c.slice(8);
+}
+window.vxShMakeFile = async function () {
+  const it = credentials[S && S.i]; if (!it) return;
+  const btn = $('vxShMake'); if (btn) { btn.disabled = true; btn.textContent = 'Cifro…'; }
+  try {
+    const card = { service: it.service, domain: S.site ? siteOf(it) : '', username: S.user ? (it.username || '') : '', password: S.pass ? (it.password || '') : '', notes: S.notes ? (it.notes || '') : '' };
+    const code = genCode(), pl = await encryptData({ v: 2, card }, code.replace(/-/g, ''));
+    pl.vaultCard = 1;
+    const slug = String(it.service).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24) || 'carta';
+    S.code = code; S.file = new File([JSON.stringify(pl)], 'Vault_carta_' + slug + '.json', { type: 'application/json' });
+  } catch (e) { alert('Non sono riuscito a creare il file cifrato.'); }
+  shRender();
+};
+window.vxShSendFile = async function () {
+  const f = S && S.file; if (!f) return;
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'Carta Vault cifrata' }); return; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(f); a.download = f.name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  showToast('File salvato: invialo e comunica il codice a parte.');
+};
+window.vxShCopyCode = function () { if (S && S.code) copyToClipboard(S.code, 'Codice'); };
+window.vxImportSharedCard = async function (pl) {
+  const code = prompt('Questa è una carta condivisa e cifrata.\nInserisci il codice che ti ha dato il mittente:');
+  if (!code) return;
+  const dec = await decryptData(pl, code.toUpperCase().replace(/[^A-Z0-9]/g, ''));
+  if (!dec || !dec.card) return alert('Codice errato o file non valido.');
+  const c = dec.card, s = (v, n) => String(v == null ? '' : v).slice(0, n);
+  const item = { service: s(c.service, 80), category: categoriesList[0], owner: ownersList[0], username: s(c.username, 200), password: s(c.password, 300), domain: s(c.domain, 120), notes: s(c.notes, 1000) };
+  if (!item.service) return alert('File non valido.');
+  if (!confirm('Aggiungere "' + item.service + '" al tuo caveau?')) return;
+  credentials.unshift(item);
+  await saveToLocalStorage(); renderGrid();
+  showToast('Carta aggiunta: controlla categoria e proprietario.');
+};
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  ['vxCropOverlay', 'vxEditOverlay', 'vxShareOverlay'].forEach(id => { const o = $(id); if (o && !o.classList.contains('vx-off')) { if (id === 'vxCropOverlay') cropClose(); else vxClose(id); } });
+});
+
+syncStyleBtns();
+try { renderQuickPillsBar(); } catch (e) {}
+})();
+</script>
+<script id="vx-haptic">
+/* ===== Vault v4.9: feedback aptico (disattivabile) ===== */
+(function () {
+'use strict';
+const KEY = 'vault_haptics';
+const P = { tap: 8, ok: [14, 40, 14], warn: [35, 50, 35], error: [60, 60, 60, 60, 60] };
+const hasVib = typeof navigator.vibrate === 'function';
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let on = (function () { try { return localStorage.getItem(KEY) !== '0'; } catch (e) { return true; } })();
+let sw = null;
+function iosTick() {            // iOS 17.4+ (Safari): l'interruttore nativo produce un tocco aptico
+  try {
+    if (!sw) {
+      sw = document.createElement('label');
+      sw.setAttribute('aria-hidden', 'true');
+      sw.style.cssText = 'position:fixed;left:-99px;top:-99px;width:1px;height:1px;opacity:0;pointer-events:none';
+      sw.innerHTML = '<input type="checkbox" switch tabindex="-1">';
+      document.body.appendChild(sw);
+    }
+    sw.click();
+  } catch (e) {}
+}
+function fire(kind) {
+  if (!on) return;
+  if (hasVib) { try { navigator.vibrate(P[kind] || P.tap); } catch (e) {} }
+  else if (isIOS) { iosTick(); if (kind === 'error' || kind === 'warn') setTimeout(iosTick, 110); }
+}
+window.vxHaptic = fire;
+window.vxHapticSet = function (v) {
+  on = !!v;
+  try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+  if (on) fire('ok');
+  sync();
+};
+function sync() {
+  const c = document.getElementById('vxHapticToggle'), n = document.getElementById('vxHapticNote');
+  if (c) c.checked = on;
+  if (n) n.textContent = (hasVib || isIOS)
+    ? 'Una breve vibrazione quando copi, salvi, elimini, blocchi/sblocchi o condividi.'
+    : 'Questo dispositivo o browser non supporta il feedback aptico.';
+}
+// Operazioni "necessarie": conferma (ok), attenzione prima di eliminare (warn), errore, tocchi sui comandi principali
+const after = (name, kind) => { const f = window[name]; if (typeof f !== 'function') return; window[name] = function () { const r = f.apply(this, arguments); fire(kind); return r; }; };
+after('copyToClipboard', 'ok');
+after('saveCredential', 'ok');
+after('finishUnlock', 'ok');
+after('lockError', 'error');
+after('lockVaultManual', 'tap');
+after('deleteCredential', 'warn');
+after('deleteSelectedCredentials', 'warn');
+after('deleteAllCredentials', 'warn');
+after('vxEditSave', 'ok');
+after('vxShSend', 'tap');
+after('vxShSendFile', 'tap');
+after('exportData', 'ok');
+document.addEventListener('click', e => { if (e.target.closest('.vx-tab,.vx-chip,.vx-pick,.vx-opt')) fire('tap'); }, true);
+sync();
+})();
 </script>
 </body>
 </html>
