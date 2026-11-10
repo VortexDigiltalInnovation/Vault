@@ -13,6 +13,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'self' https://api.pwnedpasswords.com https://www.googleapis.com https://accounts.google.com https://oauth2.googleapis.com https://www.wikidata.org">
     <meta name="referrer" content="no-referrer">
+    <script>
+    /* v4.12: dimensione del testo scelta dall'utente (applicata subito, prima del primo disegno) */
+    (function(){try{var v=parseInt(localStorage.getItem('vault_fontscale'),10);if(v>=80&&v<=160)document.documentElement.style.fontSize=v+'%';if(v>=125)document.documentElement.classList.add('vx-big');}catch(e){}})();
+    </script>
     <title>Vault</title>
     <style>
         body { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -40,8 +44,8 @@
         .drv-list { display: flex; flex-direction: column; gap: 8px; max-height: 55vh; overflow-y: auto; }
         .drv-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; }
         .dark .drv-item { border-color: #334155; background: #0f172a; }
-        .drv-item b { display: block; font-size: 13px; } .drv-item small { color: #64748b; font-size: 11px; word-break: break-all; }
-        .drv-btn { padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+        .drv-item b { display: block; font-size: 0.8125rem; } .drv-item small { color: #64748b; font-size: 0.75rem; word-break: break-all; }
+        .drv-btn { padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
         .drv-restore { background: #e0e7ff; color: #4338ca; } .drv-del { background: #ffe4e6; color: #be123c; }
         .dark .drv-restore { background: #312e81; color: #c7d2fe; } .dark .drv-del { background: #4c0519; color: #fecdd3; }
         .sheet-scroll { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
@@ -50,8 +54,8 @@
             .brand-text { display: none; }
             .hdr-actions { flex: 1 1 auto; flex-wrap: nowrap !important; justify-content: space-between !important; gap: 4px !important; }
             .hdr-actions > button, #moreMenuBtn { flex: 1 1 0; min-width: 0; max-width: none; min-height: 54px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 5px 1px !important; border-radius: 12px; }
-            .hdr-actions > button i, #moreMenuBtn i { font-size: 18px; }
-            .hdr-actions > button .m-lbl, #moreMenuBtn .m-lbl { display: block; font-size: 10px; line-height: 1; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+            .hdr-actions > button i, #moreMenuBtn i { font-size: 1.125rem; }
+            .hdr-actions > button .m-lbl, #moreMenuBtn .m-lbl { display: block; font-size: 0.75rem; line-height: 1; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
             .hdr-actions > button > span.hidden, .hdr-actions > button > span.sm\:inline { display: none !important; }
             .hdr-actions > button > span.m-lbl { display: block !important; }
             #moreMenuBtn { display: inline-flex; }
@@ -62,13 +66,13 @@
                 background: #fff; border: 1px solid #e2e8f0;
             }
             .dark .sec-actions.open { background: #1e293b; border-color: #334155; }
-            .sec-actions.open > button { display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-height: 46px; padding: 10px 12px; font-size: 13px; }
+            .sec-actions.open > button { display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-height: 46px; padding: 10px 12px; font-size: 0.8125rem; }
             .sec-actions.open > button span { display: inline !important; }
             .sec-actions.open { grid-template-columns: 1fr !important; gap: 6px !important; max-height: 80dvh; overflow-y: auto; }
             .sec-actions.open > button span.lbl-short { display: none !important; }
-            .sec-actions.open .menu-head { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748b; padding: 6px 4px 0; }
+            .sec-actions.open .menu-head { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748b; padding: 6px 4px 0; }
             .sec-actions.open > #themeToggleBtn::after { content: "Tema chiaro / scuro" !important; }
-            .sec-actions.open > #themeToggleBtn::after { content: "Tema"; font-size: 13px; font-weight: 500; }
+            .sec-actions.open > #themeToggleBtn::after { content: "Tema"; font-size: 0.8125rem; font-weight: 500; }
             /* Modali come bottom-sheet */
             #modalOverlay, [id$="ModalOverlay"] { align-items: flex-end !important; padding: 0 !important; }
             #modalOverlay > div, [id$="ModalOverlay"] > div {
@@ -79,8 +83,8 @@
             #aiModalContainer { height: 88dvh !important; }
             #guideModalContainer { height: 92dvh !important; max-height: 92dvh !important; }
             /* Input a 16px: niente zoom automatico su iOS */
-            input, select, textarea { font-size: 16px !important; }
-            #aiChatInput { font-size: 16px !important; }
+            input, select, textarea { font-size: max(16px,1rem) !important; }
+            #aiChatInput { font-size: max(16px,1rem) !important; }
             /* Target touch piu' comodi */
             #credentialsGrid button { min-width: 38px; min-height: 38px; }
             #btnSelectAll, #btnDeleteSelected, [onclick="deleteAllCredentials()"] { min-height: 38px; }
@@ -99,23 +103,23 @@
         body { padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important; }
         #toast { bottom: calc(96px + env(safe-area-inset-bottom)) !important; pointer-events: none; }
         .vx-off { display: none !important; }
-        .vx-sub { font-size: 11px; color: #64748b; font-weight: 500; line-height: 1.2; }
+        .vx-sub { font-size: 0.75rem; color: #64748b; font-weight: 500; line-height: 1.2; }
         .dark .vx-sub { color: #94a3b8; }
-        .vx-lock { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 12px; background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; font-size: 14px; font-weight: 700; cursor: pointer; }
+        .vx-lock { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 12px; background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
         .vx-lock:active { transform: scale(.96); }
         .dark .vx-lock { background: #4c0519; color: #fecdd3; border-color: #881337; }
-        .vx-lock i { font-size: 15px; }
+        .vx-lock i { font-size: 0.9375rem; }
         .vx-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: space-around; gap: 2px; padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.97); backdrop-filter: blur(10px); border-top: 1px solid #e2e8f0; box-shadow: 0 -6px 20px rgba(15,23,42,.08); }
         .dark .vx-bar { background: rgba(30,41,59,.97); border-color: #334155; }
-        .vx-tab { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 7px 2px 5px; border-radius: 14px; background: none; border: 0; color: #475569; font-size: 11px; font-weight: 700; line-height: 1.1; cursor: pointer; white-space: nowrap; }
-        .vx-tab i { font-size: 21px; }
+        .vx-tab { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 7px 2px 5px; border-radius: 14px; background: none; border: 0; color: #475569; font-size: 0.75rem; font-weight: 700; line-height: 1.1; cursor: pointer; white-space: nowrap; }
+        .vx-tab i { font-size: 1.3125rem; }
         .vx-tab:active { background: rgba(99,102,241,.14); }
         .dark .vx-tab { color: #cbd5e1; }
         .vx-tab.vx-new { color: #4338ca; }
         .dark .vx-tab.vx-new { color: #c7d2fe; }
         .vx-plus { width: 54px; height: 54px; margin-top: -30px; border-radius: 50%; background: linear-gradient(135deg,#4f46e5,#7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; border: 4px solid #f8fafc; box-shadow: 0 8px 18px rgba(79,70,229,.45); }
         .dark .vx-plus { border-color: #1e293b; }
-        .vx-plus i { font-size: 22px; }
+        .vx-plus i { font-size: 1.375rem; }
         @media (min-width: 640px) {
             .vx-bar { left: 50%; right: auto; transform: translateX(-50%); bottom: 14px; width: min(560px, calc(100% - 24px)); border: 1px solid #e2e8f0; border-radius: 22px; }
             .dark .vx-bar { border-color: #334155; }
@@ -126,17 +130,17 @@
         .vx-sheet { background: #fff; color: #0f172a; border-radius: 22px; width: 100%; max-width: 30rem; max-height: 90dvh; overflow-y: auto; padding: 16px; box-shadow: 0 25px 50px rgba(0,0,0,.35); overscroll-behavior: contain; }
         .dark .vx-sheet { background: #1e293b; color: #f1f5f9; }
         .vx-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-        .vx-h h3 { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .vx-h h3 { font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
         .vx-x { padding: 9px 11px; border-radius: 12px; background: #f1f5f9; color: #475569; border: 0; cursor: pointer; }
         .dark .vx-x { background: #334155; color: #cbd5e1; }
-        .vx-sec { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #64748b; margin: 14px 4px 6px; }
+        .vx-sec { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #64748b; margin: 14px 4px 6px; }
         .vx-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 16px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 7px; color: inherit; cursor: pointer; }
         .vx-row:active { transform: scale(.985); }
         .dark .vx-row { background: #0f172a; border-color: #334155; }
         .vx-row[hidden] { display: none !important; }
-        .vx-ic { flex: 0 0 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 19px; }
-        .vx-row b { display: block; font-size: 14px; font-weight: 700; }
-        .vx-row small { display: block; font-size: 12px; color: #64748b; line-height: 1.3; margin-top: 1px; }
+        .vx-ic { flex: 0 0 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.1875rem; }
+        .vx-row b { display: block; font-size: 0.875rem; font-weight: 700; }
+        .vx-row small { display: block; font-size: 0.75rem; color: #64748b; line-height: 1.3; margin-top: 1px; }
         .dark .vx-row small { color: #94a3b8; }
         .ic-indigo { background: #e0e7ff; color: #4338ca; } .dark .ic-indigo { background: #312e81; color: #c7d2fe; }
         .ic-sky { background: #e0f2fe; color: #0369a1; } .dark .ic-sky { background: #0c4a6e; color: #bae6fd; }
@@ -146,38 +150,38 @@
         .ic-slate { background: #e2e8f0; color: #334155; } .dark .ic-slate { background: #334155; color: #e2e8f0; }
         .vx-card { padding: 12px; border-radius: 16px; background: #f1f5f9; border: 1px solid #e2e8f0; margin: 8px 0; }
         .dark .vx-card { background: #0f172a; border-color: #334155; }
-        .vx-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #64748b; }
-        .vx-val { font-size: 14px; font-weight: 700; margin-top: 2px; word-break: break-word; }
-        .vx-small { font-size: 12px; color: #64748b; line-height: 1.4; margin-top: 4px; }
+        .vx-lbl { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #64748b; }
+        .vx-val { font-size: 0.875rem; font-weight: 700; margin-top: 2px; word-break: break-word; }
+        .vx-small { font-size: 0.75rem; color: #64748b; line-height: 1.4; margin-top: 4px; }
         .dark .vx-small { color: #94a3b8; }
-        .vx-warn { margin-top: 8px; padding: 8px 10px; border-radius: 10px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600; }
+        .vx-warn { margin-top: 8px; padding: 8px 10px; border-radius: 10px; background: #fef3c7; color: #92400e; font-size: 0.75rem; font-weight: 600; }
         .dark .vx-warn { background: #78350f; color: #fde68a; }
         .vx-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-        .vx-btn, .vx-btn2 { flex: 1 1 140px; padding: 12px 14px; border-radius: 14px; font-size: 14px; font-weight: 700; border: 0; cursor: pointer; text-align: center; }
+        .vx-btn, .vx-btn2 { flex: 1 1 140px; padding: 12px 14px; border-radius: 14px; font-size: 0.875rem; font-weight: 700; border: 0; cursor: pointer; text-align: center; }
         .vx-btn { background: #4f46e5; color: #fff; }
         .vx-btn2 { background: #e0e7ff; color: #3730a3; }
         .dark .vx-btn2 { background: #312e81; color: #e0e7ff; }
         .vx-btn:active, .vx-btn2:active { transform: scale(.97); }
-        .vx-link { background: none; border: 0; color: #6366f1; font-size: 12px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px; }
+        .vx-link { background: none; border: 0; color: #6366f1; font-size: 0.75rem; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px; }
         .vx-toggle { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 14px; background: #f1f5f9; border: 1px solid #e2e8f0; margin: 8px 0; cursor: pointer; }
         .dark .vx-toggle { background: #0f172a; border-color: #334155; }
         .vx-toggle input { width: 20px; height: 20px; margin-top: 2px; accent-color: #4f46e5; flex: 0 0 auto; }
-        .vx-toggle b { display: block; font-size: 13px; }
-        .vx-toggle small { display: block; font-size: 12px; color: #64748b; line-height: 1.3; }
+        .vx-toggle b { display: block; font-size: 0.8125rem; }
+        .vx-toggle small { display: block; font-size: 0.75rem; color: #64748b; line-height: 1.3; }
         .vx-field { margin: 10px 0; }
-        .vx-field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
-        .vx-field select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; background: #fff; color: inherit; font-size: 14px; }
+        .vx-field label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; }
+        .vx-field select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; background: #fff; color: inherit; font-size: 0.875rem; }
         .dark .vx-field select { background: #0f172a; border-color: #475569; }
         .vx-file { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 10px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 6px; }
         .dark .vx-file { background: #0f172a; border-color: #334155; }
         .vx-file > span:last-child { display: flex; gap: 6px; flex: 0 0 auto; }
         .vx-file > span:first-child { min-width: 0; word-break: break-all; }
-        .vx-file b { display: block; font-size: 13px; }
-        .vx-file small { font-size: 11px; color: #64748b; }
-        .vx-file button { padding: 7px 10px; border-radius: 10px; font-size: 12px; font-weight: 700; border: 0; cursor: pointer; }
+        .vx-file b { display: block; font-size: 0.8125rem; }
+        .vx-file small { font-size: 0.75rem; color: #64748b; }
+        .vx-file button { padding: 7px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; border: 0; cursor: pointer; }
         .vx-file .f-r { background: #e0e7ff; color: #4338ca; } .vx-file .f-d { background: #ffe4e6; color: #be123c; }
         .dark .vx-file .f-r { background: #312e81; color: #c7d2fe; } .dark .vx-file .f-d { background: #4c0519; color: #fecdd3; }
-        .vx-bigic { width: 64px; height: 64px; margin: 4px auto 10px; border-radius: 20px; background: #e0e7ff; color: #4338ca; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+        .vx-bigic { width: 64px; height: 64px; margin: 4px auto 10px; border-radius: 20px; background: #e0e7ff; color: #4338ca; display: flex; align-items: center; justify-content: center; font-size: 1.875rem; }
         .dark .vx-bigic { background: #312e81; color: #c7d2fe; }
     </style>
     <style id="icons-inline">
@@ -282,20 +286,20 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 @supports (background:color-mix(in srgb,red,blue)){.vx-top{background:color-mix(in srgb,var(--vx-surface) 94%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}}
 .vx-top header.vx-header{max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left))}
 .vx-brand{display:flex;align-items:center;gap:10px;min-width:0}
-.vx-logo{width:40px;height:40px;border-radius:var(--vx-r-m);background:var(--vx-grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;border:0;cursor:pointer;flex:0 0 auto;box-shadow:0 8px 16px -8px rgba(79,70,229,.7)}
-.vx-brand h1{font-size:18px;line-height:1.1;font-weight:800;color:var(--vx-ink);letter-spacing:-.01em}
+.vx-logo{width:40px;height:40px;border-radius:var(--vx-r-m);background:var(--vx-grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.125rem;border:0;cursor:pointer;flex:0 0 auto;box-shadow:0 8px 16px -8px rgba(79,70,229,.7)}
+.vx-brand h1{font-size:1.125rem;line-height:1.1;font-weight:800;color:var(--vx-ink);letter-spacing:-.01em}
 .vx-top .vx-lock{height:40px;padding:0 14px;border-radius:999px}
 .vx-rail{max-width:80rem;margin:0 auto;padding:0 max(12px,env(safe-area-inset-right)) 10px max(12px,env(safe-area-inset-left));display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .vx-pick{display:flex;align-items:center;gap:10px;min-width:0;height:58px;padding:0 12px 0 9px;border-radius:var(--vx-r-m);border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);text-align:left;cursor:pointer;transition:transform .12s,border-color .15s,background .15s}
 .vx-pick:active{transform:scale(.98)}
-.vx-pick-ic{flex:0 0 40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text))}
+.vx-pick-ic{flex:0 0 40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text))}
 .vx-pick-t{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
-.vx-pick-k{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--vx-mute);line-height:1}
-.vx-pick-v{font-size:15px;font-weight:800;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vx-pick > .fa-chevron-down{flex:0 0 auto;font-size:14px;color:var(--vx-mute)}
+.vx-pick-k{font-size:0.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--vx-mute);line-height:1}
+.vx-pick-v{font-size:0.9375rem;font-weight:800;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vx-pick > .fa-chevron-down{flex:0 0 auto;font-size:0.875rem;color:var(--vx-mute)}
 .vx-pick.is-on{border-color:var(--c,var(--vx-accent));background:var(--vx-accent-soft)}
 @supports (background:color-mix(in srgb,red,blue)){.vx-pick.is-on{background:color-mix(in srgb,var(--c,var(--vx-accent)) 11%,var(--vx-surface))}}
-.vx-result{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px;font-size:13px;color:var(--vx-mute);font-weight:600}
+.vx-result{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px;font-size:0.8125rem;color:var(--vx-mute);font-weight:600}
 .vx-result b{color:var(--vx-ink);font-variant-numeric:tabular-nums}
 .vx-link{color:var(--vx-accent)}
 
@@ -304,13 +308,13 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 @media (min-width:480px){.vx-pk-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .vx-opt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:94px;padding:12px;border-radius:var(--vx-r-m);border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);text-align:left;cursor:pointer;transition:transform .12s,border-color .15s,background .15s}
 .vx-opt:active{transform:scale(.97)}
-.vx-opt-ic{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text))}
-.vx-opt-v{font-size:14px;font-weight:800;line-height:1.15;word-break:break-word}
-.vx-opt-n{font-size:12px;font-weight:600;color:var(--vx-mute);margin-top:-4px}
+.vx-opt-ic{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:0.9375rem;font-weight:800;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text))}
+.vx-opt-v{font-size:0.875rem;font-weight:800;line-height:1.15;word-break:break-word}
+.vx-opt-n{font-size:0.75rem;font-weight:600;color:var(--vx-mute);margin-top:-4px}
 .vx-opt.is-zero{opacity:.55}
 .vx-opt.is-on{border-color:var(--c,var(--vx-accent));background:var(--vx-accent-soft)}
 @supports (background:color-mix(in srgb,red,blue)){.vx-opt.is-on{background:color-mix(in srgb,var(--c,var(--vx-accent)) 11%,var(--vx-surface))}}
-.vx-opt-ck{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:50%;background:var(--c,var(--vx-accent));color:var(--on,#fff);display:none;align-items:center;justify-content:center;font-size:11px}
+.vx-opt-ck{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:50%;background:var(--c,var(--vx-accent));color:var(--on,#fff);display:none;align-items:center;justify-content:center;font-size:0.75rem}
 .vx-opt.is-on .vx-opt-ck{display:flex}
 
 /* ---- Contenuto: stesse forme, stessa ombra ---- */
@@ -323,7 +327,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 
 /* ---- Barra inferiore e fogli ---- */
 .vx-bar{box-shadow:0 -10px 26px -22px rgba(15,23,42,.5)}
-.vx-tab{font-size:11.5px;font-weight:700;border-radius:var(--vx-r-m)}
+.vx-tab{font-size:0.75rem;font-weight:700;border-radius:var(--vx-r-m)}
 .vx-sheet{border:1px solid var(--vx-line);border-radius:var(--vx-r-l)}
 .vx-btn,.vx-btn2,.vx-row,.vx-card,.vx-toggle,.vx-file{border-radius:var(--vx-r-m)}
 @keyframes vxUp{from{transform:translateY(26px);opacity:.5}to{transform:none;opacity:1}}
@@ -335,35 +339,35 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 /* ---- Assistente vocale ---- */
 .vx-ai-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--vx-line);margin-bottom:10px}
 .vx-ai-title{display:flex;align-items:center;gap:10px;min-width:0}
-.vx-ai-title h3{font-size:16px;font-weight:800;line-height:1.15;color:var(--vx-ink)}
-.vx-ai-badge{width:38px;height:38px;border-radius:12px;background:var(--vx-grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto}
+.vx-ai-title h3{font-size:1rem;font-weight:800;line-height:1.15;color:var(--vx-ink)}
+.vx-ai-badge{width:38px;height:38px;border-radius:12px;background:var(--vx-grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex:0 0 auto}
 .vx-ai-tools{display:flex;align-items:center;gap:6px}
-.vx-iconbtn{width:40px;height:40px;border-radius:var(--vx-r-m);border:0;background:var(--vx-surface-2);color:var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer}
+.vx-iconbtn{width:40px;height:40px;border-radius:var(--vx-r-m);border:0;background:var(--vx-surface-2);color:var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer}
 .vx-iconbtn[aria-pressed="true"]{color:var(--vx-accent-text);background:var(--vx-accent-soft)}
-.vx-mode{display:inline-flex;align-items:center;gap:6px;margin-top:3px;padding:0;border:0;background:none;color:var(--vx-mute);font-size:12px;font-weight:700;cursor:pointer;text-align:left}
+.vx-mode{display:inline-flex;align-items:center;gap:6px;margin-top:3px;padding:0;border:0;background:none;color:var(--vx-mute);font-size:0.75rem;font-weight:700;cursor:pointer;text-align:left}
 .vx-mode-dot{width:8px;height:8px;border-radius:50%;background:var(--vx-mute);flex:0 0 auto}
 .vx-mode[data-s="local"] .vx-mode-dot{background:var(--vx-ok)}
 .vx-mode[data-s="remote"] .vx-mode-dot{background:#f59e0b}
 .vx-mode[data-s="local"]{color:var(--vx-ok)}
 .vx-mode[data-s="remote"]{color:#b45309}
 .dark .vx-mode[data-s="remote"]{color:#fbbf24}
-.vx-vpanel{padding:12px;border-radius:var(--vx-r-m);background:var(--vx-surface-2);border:1px solid var(--vx-line);margin-bottom:10px;font-size:12.5px;line-height:1.45;color:var(--vx-ink)}
+.vx-vpanel{padding:12px;border-radius:var(--vx-r-m);background:var(--vx-surface-2);border:1px solid var(--vx-line);margin-bottom:10px;font-size:0.7812rem;line-height:1.45;color:var(--vx-ink)}
 .vx-vpanel p{margin:0 0 8px;color:var(--vx-mute)}
 .vx-vpanel .vx-btn2{width:100%;margin:2px 0 8px}
 .vx-vpanel .vx-toggle{margin:4px 0 0;background:var(--vx-surface)}
-.vx-live{min-height:20px;margin:0 2px 6px;font-size:13px;font-weight:600;color:var(--vx-accent-text);font-style:italic}
+.vx-live{min-height:20px;margin:0 2px 6px;font-size:0.8125rem;font-weight:600;color:var(--vx-accent-text);font-style:italic}
 .vx-inputrow{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--vx-line)}
-.vx-inputrow input{flex:1 1 auto;min-width:0;height:46px;padding:0 14px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:14px}
+.vx-inputrow input{flex:1 1 auto;min-width:0;height:46px;padding:0 14px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:0.875rem}
 .vx-inputrow input:focus{outline:2px solid var(--vx-accent);outline-offset:0}
-.vx-micbtn,.vx-sendbtn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.vx-micbtn,.vx-sendbtn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:0;display:inline-flex;align-items:center;justify-content:center;font-size:1.125rem;cursor:pointer}
 .vx-micbtn{background:var(--vx-accent-soft);color:var(--vx-accent-text)}
 .vx-micbtn.listening{background:var(--vx-danger);color:#fff;animation:micPulse 1.2s infinite}
 .vx-micbtn[disabled]{opacity:.45;cursor:not-allowed}
-.vx-sendbtn{background:var(--vx-accent);color:#fff;font-size:15px}
+.vx-sendbtn{background:var(--vx-accent);color:#fff;font-size:0.9375rem}
 #voiceSearchBtn{border-radius:12px;position:absolute;left:auto;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;z-index:2}
 #searchInput{padding-left:40px!important;padding-right:48px!important;text-overflow:ellipsis}
 .vx-searchic{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none;z-index:1}
-.vx-ver{font-size:10px;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:var(--vx-surface-2);color:var(--vx-mute);vertical-align:middle;margin-left:6px;letter-spacing:.02em}
+.vx-ver{font-size:0.75rem;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:var(--vx-surface-2);color:var(--vx-mute);vertical-align:middle;margin-left:6px;letter-spacing:.02em}
 /* Barra inferiore: un colore per pulsante */
 .vx-bar .vx-tab:nth-child(1){color:#0d9488}
 .vx-bar .vx-tab:nth-child(2){color:#0284c7}
@@ -373,7 +377,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .dark .vx-bar .vx-tab:nth-child(2){color:#38bdf8}
 .dark .vx-bar .vx-tab:nth-child(4){color:#34d399}
 .dark .vx-bar .vx-tab:nth-child(5){color:#fbbf24}
-#aiChatMessages{font-size:13px;line-height:1.5}
+#aiChatMessages{font-size:0.8125rem;line-height:1.5}
 </style>
 <style id="vx-icons-css">
 /* ===== v4.9: archivio icone, foto proprietario, condivisione, filtri a scorrimento ===== */
@@ -381,12 +385,12 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .vx-pick-ic,.vx-opt-ic{overflow:hidden}
 .vx-pick-ic .vx-svg,.vx-opt-ic .vx-svg{width:22px;height:22px;vertical-align:baseline}
 .vx-av{display:block;width:100%;height:100%;object-fit:cover}
-.vx-em{font-size:21px;line-height:1;font-weight:400}
+.vx-em{font-size:1.3125rem;line-height:1;font-weight:400}
 .vx-pick-ic:has(.vx-av),.vx-opt-ic:has(.vx-av),.vx-chip-ic:has(.vx-av),.vx-ed-prev:has(.vx-av),.vx-mrow-ic:has(.vx-av){background:none;padding:0}
 .vx-mini{display:inline-flex;align-items:center;gap:4px;vertical-align:middle}
 .vx-mini .vx-svg{width:11px;height:11px;vertical-align:baseline}
 .vx-mini .vx-av{width:14px;height:14px;border-radius:50%}
-.vx-mini .vx-em{font-size:11px}
+.vx-mini .vx-em{font-size:0.75rem}
 .vx-fbic{display:inline-flex;align-items:center;justify-content:center}
 .vx-fbic .vx-svg{width:1.2em;height:1.2em;vertical-align:baseline}
 
@@ -395,12 +399,12 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .vx-chiprow{position:relative;display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px;margin:0 -2px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent)}
 .vx-chiprow::-webkit-scrollbar{display:none}
 .vx-chiprow::after{content:"";flex:0 0 16px}
-.vx-chip{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 13px 0 5px;border-radius:999px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer;transition:transform .12s}
+.vx-chip{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 13px 0 5px;border-radius:999px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:0.875rem;font-weight:700;white-space:nowrap;cursor:pointer;transition:transform .12s}
 .vx-chip:active{transform:scale(.97)}
-.vx-chip-ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text));font-size:14px;font-weight:800;flex:0 0 auto}
+.vx-chip-ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,var(--vx-accent-soft));color:var(--on,var(--vx-accent-text));font-size:0.875rem;font-weight:800;flex:0 0 auto}
 .vx-chip-ic .vx-svg{width:17px;height:17px;vertical-align:baseline}
-.vx-chip-ic .vx-em{font-size:17px}
-.vx-chip-n{font-size:12px;font-weight:700;color:var(--vx-mute);font-variant-numeric:tabular-nums}
+.vx-chip-ic .vx-em{font-size:1.0625rem}
+.vx-chip-n{font-size:0.75rem;font-weight:700;color:var(--vx-mute);font-variant-numeric:tabular-nums}
 .vx-chip.is-zero{opacity:.5}
 .vx-chip.is-on{border-color:var(--c,var(--vx-accent));background:var(--vx-accent-soft)}
 @supports (background:color-mix(in srgb,red,blue)){.vx-chip.is-on{background:color-mix(in srgb,var(--c,var(--vx-accent)) 14%,var(--vx-surface))}}
@@ -409,20 +413,20 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 #vxEditOverlay,#vxShareOverlay{z-index:58}
 #vxCropOverlay{z-index:59}
 .vx-ed-top{display:flex;gap:12px;align-items:center;margin:8px 0 4px}
-.vx-ed-prev{flex:0 0 64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);font-size:26px;font-weight:800}
+.vx-ed-prev{flex:0 0 64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);font-size:1.625rem;font-weight:800}
 .vx-ed-prev .vx-svg{width:34px;height:34px;vertical-align:baseline}
-.vx-ed-prev .vx-em{font-size:34px}
+.vx-ed-prev .vx-em{font-size:2.125rem}
 .vx-ed-f{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:8px}
-.vx-ed-f input[type=text]{width:100%;height:44px;padding:0 12px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:15px;font-weight:600}
-.vx-ed-col{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--vx-mute)}
+.vx-ed-f input[type=text]{width:100%;height:44px;padding:0 12px;border:1px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:0.9375rem;font-weight:600}
+.vx-ed-col{display:flex;align-items:center;gap:10px;font-size:0.75rem;font-weight:700;color:var(--vx-mute)}
 .vx-ed-col input{width:48px;height:30px;border:0;padding:0;background:none;cursor:pointer}
 .vx-ig{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:4px 0 8px}
 @media (min-width:420px){.vx-ig{grid-template-columns:repeat(7,minmax(0,1fr))}}
-.vx-ig button{aspect-ratio:1;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;overflow:hidden;padding:0}
+.vx-ig button{aspect-ratio:1;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);display:flex;align-items:center;justify-content:center;font-size:1.375rem;cursor:pointer;overflow:hidden;padding:0}
 .vx-ig button .vx-svg{width:24px;height:24px;vertical-align:baseline}
 .vx-ig button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text);box-shadow:0 0 0 2px var(--vx-accent) inset}
 .vx-ig-tools{display:flex;gap:8px;margin:6px 0}
-.vx-ig-tools button{flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 10px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:13px;font-weight:700;cursor:pointer}
+.vx-ig-tools button{flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 10px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:0.8125rem;font-weight:700;cursor:pointer}
 .vx-ig-tools button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
 .vx-crop{position:relative;width:min(280px,100%);aspect-ratio:1;margin:12px auto;overflow:hidden;border-radius:30%;background:#0f172a;touch-action:none;cursor:grab;box-shadow:0 0 0 2px var(--vx-accent)}
 .vx-crop img{position:absolute;max-width:none!important;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;pointer-events:none}
@@ -430,31 +434,113 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
 .vx-crop::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(255,255,255,.8);pointer-events:none}
 #vxCropZoom{width:100%;accent-color:#4f46e5;margin:4px 0 6px}
 .vx-mrow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:14px;background:var(--vx-surface-2);border:1px solid var(--vx-line)}
-.vx-mrow-ic{flex:0 0 42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);border:0;cursor:pointer;font-size:17px;font-weight:800;padding:0}
+.vx-mrow-ic{flex:0 0 42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c,#64748b);color:var(--on,#fff);border:0;cursor:pointer;font-size:1.0625rem;font-weight:800;padding:0}
 .vx-mrow-ic .vx-svg{width:22px;height:22px;vertical-align:baseline}
-.vx-mrow-ic .vx-em{font-size:22px}
-.vx-mrow-n{flex:1 1 auto;min-width:0;font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--vx-ink)}
+.vx-mrow-ic .vx-em{font-size:1.375rem}
+.vx-mrow-n{flex:1 1 auto;min-width:0;font-weight:700;font-size:0.8438rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--vx-ink)}
 .vx-mb{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:0;background:none;color:var(--vx-mute);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
 .vx-mb:active{background:var(--vx-accent-soft)}
 .vx-seg{display:flex;gap:6px;margin:6px 0}
-.vx-seg button{flex:1 1 0;padding:11px 8px;border-radius:12px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-weight:700;font-size:13px;cursor:pointer}
+.vx-seg button{flex:1 1 0;padding:11px 8px;border-radius:12px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-weight:700;font-size:0.8125rem;cursor:pointer}
 .vx-seg button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
 
 /* Condivisione */
 .vx-sh-head{display:flex;align-items:center;gap:10px;margin:4px 0 8px}
-.vx-sh-head b{font-size:15px}
+.vx-sh-head b{font-size:0.9375rem}
 .vx-sh-tg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
-.vx-sh-tg button{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:13px;font-weight:700;text-align:left;cursor:pointer}
+.vx-sh-tg button{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:0.8125rem;font-weight:700;text-align:left;cursor:pointer}
 .vx-sh-tg button.is-on{border-color:var(--vx-accent);background:var(--vx-accent-soft);color:var(--vx-accent-text)}
-.vx-tgck{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+.vx-tgck{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--vx-mute);display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;flex:0 0 auto}
 .is-on .vx-tgck{background:var(--vx-accent);border-color:var(--vx-accent);color:#fff}
-.vx-sh-pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;border-radius:14px;background:var(--vx-surface-2);border:1px dashed var(--vx-line);font-size:13px;line-height:1.5;margin:8px 0;color:var(--vx-ink)}
+.vx-sh-pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;border-radius:14px;background:var(--vx-surface-2);border:1px dashed var(--vx-line);font-size:0.8125rem;line-height:1.5;margin:8px 0;color:var(--vx-ink)}
 .vx-sh-apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
-.vx-sh-app{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:14px;border:0;background:none;color:var(--vx-ink);font-size:12px;font-weight:700;cursor:pointer}
+.vx-sh-app{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:14px;border:0;background:none;color:var(--vx-ink);font-size:0.75rem;font-weight:700;cursor:pointer}
 .vx-sh-app:active{background:var(--vx-accent-soft)}
 .vx-sh-app .ic{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--c);color:#fff}
 .vx-sh-app .ic .vx-svg{width:25px;height:25px;vertical-align:baseline}
 .vx-code{font:800 20px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-align:center;padding:12px;border-radius:14px;background:var(--vx-accent-soft);color:var(--vx-accent-text);margin:8px 0;user-select:all;-webkit-user-select:all}
+</style>
+<style id="vx-a11y">
+/* ===== v4.12: dimensione del testo regolabile, leggibilità, bersagli touch più comodi =====
+   Tutto il testo e le misure principali ora sono in "rem": cambiando la dimensione di base
+   (html{font-size}) si ingrandisce o si riduce l'intera app in modo coerente. */
+html{font-size:100%}
+/* Testi che prima erano 9-11px: minimo 12px */
+.text-\[9px\],.text-\[10px\],.text-\[11px\]{font-size:.75rem !important;line-height:1.35 !important}
+.text-\[13px\]{font-size:.8125rem}
+.text-xs{font-size:.8125rem;line-height:1.3rem}
+
+/* Spazio per la barra inferiore: misurato davvero (cresce con il testo) */
+body{padding-bottom:calc(var(--vx-bar-h,92px) + 22px + env(safe-area-inset-bottom)) !important}
+#toast{bottom:calc(var(--vx-bar-h,92px) + 14px + env(safe-area-inset-bottom)) !important}
+@media (min-width:640px){#toast{bottom:calc(var(--vx-bar-h,92px) + 34px) !important}}
+.vx-tab{font-size:calc(12px + (1rem - 16px) * .15);padding-left:1px;padding-right:1px}
+.vx-tab i{font-size:calc(21px + (1rem - 16px) * .4)}
+.vx-tab > span:not(.vx-plus){max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+/* Altezze elastiche: con testo grande nulla viene tagliato */
+.vx-pick{height:auto;min-height:3.625rem;padding-top:.375rem;padding-bottom:.375rem}
+.vx-chip{height:auto;min-height:2.5rem}
+.vx-top .vx-lock{height:auto;min-height:2.5rem;white-space:nowrap}
+#searchInput,.vx-inputrow input{height:auto;min-height:2.875rem}
+.vx-ed-f input[type=text]{height:auto;min-height:2.75rem}
+.vx-pick-v,.vx-opt-v{white-space:normal;overflow-wrap:anywhere}
+.vx-pick-v{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vx-brand h1{font-size:1.125rem}
+.vx-sub{max-width:46vw}
+
+/* Bersagli touch di almeno 44px */
+.vx-mb,.vx-iconbtn{width:2.75rem;height:2.75rem}
+.vx-x{min-width:2.75rem;min-height:2.75rem;display:inline-flex;align-items:center;justify-content:center}
+.vx-micbtn,.vx-sendbtn{width:2.875rem;height:2.875rem}
+.vx-btn,.vx-btn2{min-height:2.75rem}
+.vx-toggle input{width:1.25rem;height:1.25rem}
+.vx-link{min-height:2.25rem}
+.vx-file button{min-height:2.25rem}
+.vx-seg button{min-height:2.75rem}
+
+/* Fuoco da tastiera ben visibile ovunque */
+input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:2px solid var(--vx-accent);outline-offset:2px}
+
+/* Schermata di sblocco: campi leggibili (e senza zoom automatico su iPhone) */
+#masterPasswordInput,#masterConfirmInput{font-size:max(1rem,16px) !important}
+#masterLockOverlay button[type=submit]{font-size:.9375rem;min-height:3rem}
+#masterLockOverlay{overflow-y:auto}
+#masterLockOverlay > div{margin:auto}
+
+/* Controllo dimensione testo */
+.vx-fs{margin:8px 0;padding:12px;border-radius:var(--vx-r-m);background:var(--vx-surface-2);border:1px solid var(--vx-line)}
+.vx-fs-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.vx-fs-top b{font-size:.875rem;font-weight:800}
+.vx-fs-val{font-variant-numeric:tabular-nums;font-weight:800;font-size:.875rem;color:var(--vx-accent-text)}
+.vx-fs-ctl{display:flex;align-items:center;gap:10px}
+.vx-fs-b{flex:0 0 auto;width:2.75rem;height:2.75rem;border-radius:50%;border:1.5px solid var(--vx-line);background:var(--vx-surface);color:var(--vx-ink);font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.vx-fs-b:active{background:var(--vx-accent-soft)}
+.vx-fs-ctl input[type=range]{flex:1 1 auto;min-width:0;height:2.25rem;accent-color:#4f46e5;margin:0}
+.vx-fs .vx-seg{margin:8px 0 4px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:420px){.vx-fs .vx-seg{grid-template-columns:repeat(4,minmax(0,1fr))}}
+#sortOrder{flex:1 1 9rem;min-width:0;max-width:100%}
+div:has(> #sortOrder){flex:1 1 auto;min-width:0;max-width:100%}
+/* Schede: con testo grande le azioni vanno a capo invece di uscire dal bordo */
+#credentialsGrid .flex.items-start.justify-between{flex-wrap:wrap}
+#credentialsGrid .flex.items-start.justify-between > :first-child{min-width:0;flex:1 1 8rem}
+#credentialsGrid .flex.items-start.justify-between > :first-child > div:last-child{min-width:0}
+#credentialsGrid .flex.items-start.justify-between > :last-child{margin-left:auto}
+/* Testo molto grande: la testata non resta più fissa (occuperebbe metà schermo) */
+html.vx-big .vx-top{position:static}
+#masterLockOverlay input::placeholder{font-size:.9375rem}
+.vx-fs .vx-seg button{flex:1 1 auto;padding:8px 6px;font-size:.8125rem}
+.vx-fs-sample{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:var(--vx-surface);border:1px dashed var(--vx-line);font-size:1rem;line-height:1.45;color:var(--vx-ink)}
+.vx-fs-sample small{display:block;font-size:.75rem;color:var(--vx-mute);margin-top:2px}
+.vx-fs-mini{position:absolute;top:10px;right:10px;display:flex;gap:4px}
+.vx-fs-mini button{width:2.5rem;height:2.5rem;border-radius:12px;border:1px solid rgba(100,116,139,.35);background:rgba(148,163,184,.14);color:inherit;font-weight:800;cursor:pointer;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.vx-fs-mini button:active{background:rgba(99,102,241,.25)}
+
+/* Pulsante "cancella" nella ricerca */
+.vx-clear{position:absolute;right:46px;top:50%;transform:translateY(-50%);z-index:2;width:2.25rem;height:2.25rem;border:0;border-radius:10px;background:none;color:var(--vx-mute);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.0625rem;line-height:1}
+.vx-clear:hover,.vx-clear:active{background:var(--vx-accent-soft);color:var(--vx-accent-text)}
+.vx-clear[hidden]{display:none !important}
+#searchInput{padding-right:5.25rem !important}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
@@ -465,7 +551,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.11.1</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.12.0</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -480,7 +566,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
         <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-700/80 p-3 mb-4 shadow-sm flex flex-col gap-3">
             <div class="relative w-full">
                 <i class="fa-solid fa-magnifying-glass vx-searchic text-slate-400 text-sm"></i>
-                <input type="text" id="searchInput" placeholder="Cerca per nome servizio..." 
+                <input type="text" id="searchInput" placeholder="Cerca un servizio..." 
                     class="w-full pl-10 pr-12 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium text-slate-900 dark:text-slate-100 transition-all shadow-inner">
                 <button type="button" id="voiceSearchBtn" onclick="toggleVoiceSearch()" title="Ricerca vocale" aria-label="Ricerca vocale" class="hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
                     <i class="fa-solid fa-microphone"></i>
@@ -720,6 +806,21 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openGuideModal()" id="guideBtn"><span class="vx-ic ic-amber"><i class="fa-solid fa-book-open"></i></span><span><b>Guida rapida</b><small>Come si usa Vault (PDF)</small></span></button>
             <button class="vx-row" onclick="vxClose('moreMenuModalOverlay');openManagerModal()"><span class="vx-ic ic-violet"><i class="fa-solid fa-sliders"></i></span><span><b>Categorie, titolari e icone</b><small>Personalizza come ordini le voci</small></span></button>
             <button class="vx-row" id="themeToggleBtn" onclick="toggleTheme()"><span class="vx-ic ic-slate"><i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:inline"></i></span><span><b>Tema chiaro / scuro</b><small>Cambia l'aspetto dell'app</small></span></button>
+            <div class="vx-fs" id="vxFontBox" role="group" aria-labelledby="vxFsTitle">
+                <div class="vx-fs-top"><b id="vxFsTitle">Aa &nbsp;Dimensione del testo</b><span class="vx-fs-val" id="vxFsVal" aria-live="polite">100%</span></div>
+                <div class="vx-fs-ctl">
+                    <button type="button" class="vx-fs-b" onclick="vxFontStep(-1)" aria-label="Riduci il testo"><span style="font-size:.8125rem">A</span></button>
+                    <input type="range" id="vxFsRange" min="80" max="160" step="5" value="100" aria-label="Dimensione del testo in percentuale" oninput="vxFontSet(+this.value)">
+                    <button type="button" class="vx-fs-b" onclick="vxFontStep(1)" aria-label="Ingrandisci il testo"><span style="font-size:1.3125rem">A</span></button>
+                </div>
+                <div class="vx-seg" id="vxFsPresets">
+                    <button type="button" data-v="90" onclick="vxFontSet(90)">Piccolo</button>
+                    <button type="button" data-v="100" onclick="vxFontSet(100)">Normale</button>
+                    <button type="button" data-v="120" onclick="vxFontSet(120)">Grande</button>
+                    <button type="button" data-v="145" onclick="vxFontSet(145)">Molto grande</button>
+                </div>
+                <p class="vx-fs-sample"><b>Banca Esempio</b> · mario.rossi@email.it<small>Così apparirà il testo in tutta l'app.</small></p>
+            </div>
                         <label class="vx-toggle" style="margin:8px 0"><input type="checkbox" id="vxHapticToggle" checked onchange="vxHapticSet(this.checked)"><span><b>Feedback aptico</b><small id="vxHapticNote"></small></span></label>
             <button class="vx-row" id="installBtn" hidden onclick="vxClose('moreMenuModalOverlay');installApp()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-mobile-screen-button"></i></span><span><b>Installa l'app</b><small>Aggiungi Vault alla schermata Home</small></span></button>
             <button class="vx-row" onclick="showAppVersion()"><span class="vx-ic" style="padding:0;overflow:hidden;background:none"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></span><span><b>Informazioni su Vault</b><small>Versione e ultimo backup su Drive</small></span></button>
@@ -754,7 +855,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
     <div id="bioOfferModalOverlay" class="vx-overlay vx-off vx-fade">
         <div class="vx-sheet" style="text-align:center">
             <div class="vx-bigic"><i class="fa-solid fa-fingerprint"></i></div>
-            <h3 style="font-size:17px;font-weight:800;display:block">Aprire Vault con impronta o volto?</h3>
+            <h3 style="font-size:1.0625rem;font-weight:800;display:block">Aprire Vault con impronta o volto?</h3>
             <p class="vx-small" style="margin:8px 0 12px">Da ora il caveau si sblocca da solo appena apri l'app, senza scrivere la password master. La password resta necessaria se cambi telefono o se la biometria non risponde.</p>
             <div class="vx-btns" style="flex-direction:column">
                 <button class="vx-btn" onclick="vxClose('bioOfferModalOverlay');registerBiometricCredential()">Attiva sblocco automatico</button>
@@ -814,6 +915,10 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
     <!-- Master Lock Screen (Con Sblocco Biometrico integrato) -->
     <div id="masterLockOverlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-500">
         <div class="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-white/20 dark:border-slate-700/60 text-center">
+            <div class="vx-fs-mini" role="group" aria-label="Dimensione del testo">
+                <button type="button" onclick="vxFontStep(-1)" aria-label="Riduci il testo" title="Testo più piccolo"><span style="font-size:.8125rem">A</span><span style="font-size:.75rem">&minus;</span></button>
+                <button type="button" onclick="vxFontStep(1)" aria-label="Ingrandisci il testo" title="Testo più grande"><span style="font-size:1.125rem">A</span><span style="font-size:.75rem">+</span></button>
+            </div>
             <div class="relative w-16 h-16 mx-auto mb-4">
                 <div class="relative w-16 h-16 rounded-2xl overflow-hidden shadow-xl"><img class="vx-appicon" src="icons/icon-512x512.png" alt="Vault"></div>
             </div>
@@ -824,14 +929,14 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             <form onsubmit="unlockVault(event)" class="space-y-3.5">
                 <div class="relative group">
                     <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors text-xs"></i>
-                    <input type="password" id="masterPasswordInput" placeholder="Password Principale..." required autocomplete="current-password"
+                    <input type="password" id="masterPasswordInput" placeholder="Password principale" required autocomplete="current-password"
                         class="w-full pl-10 pr-10 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white transition-all shadow-inner">
                     <button type="button" onclick="toggleStartupPasswordVisibility()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                         <i class="fa-regular fa-eye text-xs" id="startupEyeIcon"></i>
                     </button>
                 </div>
 
-                <input type="password" id="masterConfirmInput" placeholder="Conferma password principale..." autocomplete="new-password" class="hidden w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white shadow-inner">
+                <input type="password" id="masterConfirmInput" placeholder="Conferma la password" autocomplete="new-password" class="hidden w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white shadow-inner">
                 <p id="firstRunHint" class="hidden text-[10px] text-amber-600 dark:text-amber-400 leading-relaxed">Primo avvio: scegli una password master (min. 8 caratteri). Non è recuperabile: se la perdi, i dati sono persi.</p>
                 <div id="masterError" class="text-[11px] text-rose-500 font-semibold bg-rose-50 dark:bg-rose-950/50 py-1.5 rounded-lg border border-rose-200 dark:border-rose-900 hidden">
                     <i class="fa-solid fa-triangle-exclamation"></i> Password errata o non decifrabile.
@@ -1172,12 +1277,12 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
                 st.textContent = '.vxpw-ov{position:fixed;inset:0;z-index:2147483000;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;padding:16px}'
                     + '.vxpw-box{background:#fff;color:#0f172a;width:100%;max-width:380px;border-radius:16px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.35);font-family:inherit}'
                     + '.dark .vxpw-box{background:#1e293b;color:#f1f5f9}'
-                    + '.vxpw-box h3{margin:0 0 6px;font-size:17px;font-weight:700}.vxpw-box p{margin:0 0 12px;font-size:13px;line-height:1.4;opacity:.8;white-space:pre-line}'
-                    + '.vxpw-row{display:flex;gap:6px;margin-bottom:8px}.vxpw-row input{flex:1;min-width:0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;background:#fff;color:#0f172a}'
+                    + '.vxpw-box h3{margin:0 0 6px;font-size:1.0625rem;font-weight:700}.vxpw-box p{margin:0 0 12px;font-size:0.8125rem;line-height:1.4;opacity:.8;white-space:pre-line}'
+                    + '.vxpw-row{display:flex;gap:6px;margin-bottom:8px}.vxpw-row input{flex:1;min-width:0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:max(16px,1rem);background:#fff;color:#0f172a}'
                     + '.dark .vxpw-row input{background:#0f172a;color:#f1f5f9;border-color:#475569}'
-                    + '.vxpw-eye{border:1px solid #cbd5e1;background:transparent;color:inherit;border-radius:10px;padding:0 12px;font-size:13px;cursor:pointer}'
-                    + '.vxpw-err{min-height:18px;margin:0 0 8px;font-size:12px;color:#e11d48}'
-                    + '.vxpw-btns{display:flex;gap:8px;justify-content:flex-end}.vxpw-btns button{padding:10px 16px;border-radius:10px;border:0;font-size:14px;font-weight:600;cursor:pointer}'
+                    + '.vxpw-eye{border:1px solid #cbd5e1;background:transparent;color:inherit;border-radius:10px;padding:0 12px;font-size:0.8125rem;cursor:pointer}'
+                    + '.vxpw-err{min-height:18px;margin:0 0 8px;font-size:0.75rem;color:#e11d48}'
+                    + '.vxpw-btns{display:flex;gap:8px;justify-content:flex-end}.vxpw-btns button{padding:10px 16px;border-radius:10px;border:0;font-size:0.875rem;font-weight:600;cursor:pointer}'
                     + '.vxpw-cancel{background:#e2e8f0;color:#0f172a}.dark .vxpw-cancel{background:#334155;color:#f1f5f9}.vxpw-ok{background:#4f46e5;color:#fff}';
                 document.head.appendChild(st);
             }
@@ -1890,7 +1995,7 @@ input[type=text],input[type=search],input[type=password],input[type=email],selec
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.11.1';
+        const APP_VERSION = '4.12.0';
         const APP_BUILD = '2026-11-09';
         document.addEventListener('DOMContentLoaded', () => { const vb = document.getElementById('vxVerBadge'); if (vb) vb.textContent = 'v' + APP_VERSION; });
         function showAppVersion() {
@@ -3698,7 +3803,7 @@ function initVoiceSearch() {
 }
 function toggleVoiceSearch() {
   if (VXV.active) { vxStop(); return; }
-  const input = $v('searchInput'), btn = $v('voiceSearchBtn'), ph = 'Cerca per nome servizio...';
+  const input = $v('searchInput'), btn = $v('voiceSearchBtn'), ph = 'Cerca un servizio...';
   vxListen({
     onStart() { btn.classList.add('listening'); input.placeholder = 'Sto ascoltando…'; },
     onInterim(t) { input.value = t; input.dispatchEvent(new Event('input', { bubbles: true })); },
@@ -4401,6 +4506,77 @@ after('vxShSendFile', 'tap');
 after('exportData', 'ok');
 document.addEventListener('click', e => { if (e.target.closest('.vx-tab,.vx-chip,.vx-pick,.vx-opt')) fire('tap'); }, true);
 sync();
+})();
+</script>
+<script id="vx-v412">
+/* ===== v4.12: dimensione testo, cancella ricerca, accessibilità ===== */
+(function () {
+  var KEY = 'vault_fontscale', MIN = 80, MAX = 160, DEF = 100;
+  function get() { try { var v = parseInt(localStorage.getItem(KEY), 10); return (v >= MIN && v <= MAX) ? v : DEF; } catch (e) { return DEF; } }
+  function measure() {
+    var b = document.querySelector('.vx-bar'); if (!b) return;
+    var h = Math.ceil(b.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty('--vx-bar-h', h + 'px');
+  }
+  function sync(v) {
+    var r = document.getElementById('vxFsRange'); if (r) r.value = v;
+    var l = document.getElementById('vxFsVal'); if (l) l.textContent = v + '%';
+    document.querySelectorAll('#vxFsPresets button').forEach(function (b) {
+      var on = +b.getAttribute('data-v') === v; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  window.vxFontSet = function (v) {
+    v = Math.max(MIN, Math.min(MAX, Math.round(v / 5) * 5));
+    try { localStorage.setItem(KEY, String(v)); } catch (e) {}
+    document.documentElement.style.fontSize = v + '%';
+    document.documentElement.classList.toggle('vx-big', v >= 125);
+    sync(v); requestAnimationFrame(measure);
+  };
+  window.vxFontStep = function (d) { vxFontSet(get() + d * 10); };
+
+  function onReady() {
+    sync(get());
+    var bar = document.querySelector('.vx-bar');
+    measure();
+    if (bar && window.ResizeObserver) new ResizeObserver(measure).observe(bar);
+    window.addEventListener('resize', measure);
+
+    /* Cancella ricerca */
+    var si = document.getElementById('searchInput');
+    if (si && si.parentElement) {
+      var cb = document.createElement('button');
+      cb.type = 'button'; cb.className = 'vx-clear'; cb.hidden = true; cb.id = 'vxSearchClear';
+      cb.setAttribute('aria-label', 'Cancella la ricerca'); cb.title = 'Cancella la ricerca';
+      cb.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      si.parentElement.appendChild(cb);
+      var upd = function () { cb.hidden = !si.value; };
+      cb.addEventListener('click', function () { si.value = ''; si.dispatchEvent(new Event('input', { bubbles: true })); upd(); si.focus(); });
+      si.addEventListener('input', upd);
+      si.addEventListener('keydown', function (e) { if (e.key === 'Escape' && si.value) { e.preventDefault(); cb.click(); } });
+      var rg = window.renderGrid;
+      if (typeof rg === 'function') window.renderGrid = function () { var r = rg.apply(this, arguments); upd(); return r; };
+      upd();
+    }
+
+    /* Accessibilità: finestre e pulsanti con solo icona */
+    function a11y() {
+      document.querySelectorAll('.vx-overlay > .vx-sheet, [id$="ModalOverlay"] > div').forEach(function (d) {
+        if (d.getAttribute('role')) return;
+        d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+        var h = d.querySelector('h3'); if (h && !d.getAttribute('aria-labelledby')) d.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+      });
+      document.querySelectorAll('button:not([aria-label])').forEach(function (b) {
+        if ((b.textContent || '').trim()) return;
+        var t = b.getAttribute('title');
+        if (t) b.setAttribute('aria-label', t);
+        else if (b.querySelector('.fa-xmark')) b.setAttribute('aria-label', 'Chiudi');
+      });
+    }
+    a11y();
+    var t = 0;
+    new MutationObserver(function () { clearTimeout(t); t = setTimeout(a11y, 400); }).observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
 })();
 </script>
 </body>
