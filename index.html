@@ -577,9 +577,9 @@ html.vx-big .vx-top{position:static}
 .vx-sh-app .ic{width:calc(3.125rem * var(--icb));height:calc(3.125rem * var(--icb))}
 .vx-bigic{width:calc(4rem * var(--icb));height:calc(4rem * var(--icb))}
 .vx-plus{width:calc(3.375rem * var(--icb));height:calc(3.375rem * var(--icb));margin-top:calc(-1.875rem * var(--icb))}
-.vx-mb,.vx-iconbtn{width:calc(2.75rem * var(--icb));height:calc(2.75rem * var(--icb))}
-.vx-micbtn,.vx-sendbtn{width:calc(2.875rem * var(--icb));height:calc(2.875rem * var(--icb))}
-.vx-x{min-width:calc(2.75rem * var(--icb));min-height:calc(2.75rem * var(--icb))}
+.vx-mb,.vx-iconbtn{width:min(calc(2.75rem * var(--icb)),4rem);height:min(calc(2.75rem * var(--icb)),4rem)}
+.vx-micbtn,.vx-sendbtn{width:min(calc(2.875rem * var(--icb)),4rem);height:min(calc(2.875rem * var(--icb)),4rem)}
+.vx-x{min-width:min(calc(2.75rem * var(--icb)),4rem);min-height:min(calc(2.75rem * var(--icb)),4rem)}
 #searchInput{padding-left:calc(14px + .875rem * var(--ics) + .75rem) !important}
 .vx-searchic{font-size:.875rem}
 #credentialsGrid .w-9.h-9{width:calc(2.25rem * var(--icb));height:calc(2.25rem * var(--icb))}
@@ -677,6 +677,39 @@ html.vx-big .vx-top{position:static}
 .vx-qk-acts button.is-del{color:#e11d48}
 .vx-qk-acts button i,.vx-qk-acts button .vx-svg{font-size:1.125rem}
 </style>
+<style id="vx-viewport">
+/* ===== v4.14.1: barre e finestre sempre dentro lo schermo visibile ===== */
+/* Tastiera aperta (iPhone/Android): finestre e blocco schermo seguono l'area VISIBILE, non quella del layout */
+html.vx-kb .vx-overlay,html.vx-kb [id$="Overlay"]{top:var(--vv-t,0px) !important;bottom:auto !important;height:var(--vv-h,100dvh) !important}
+html.vx-kb .vx-sheet{max-height:calc(var(--vv-h,100dvh) - 16px)}
+/* finestre "vecchie" (Nuova credenziale, Assistente, Sicurezza...) forzate a 92dvh con !important: con la tastiera si limitano all'area visibile */
+html.vx-kb #modalOverlay > div,html.vx-kb [id$="ModalOverlay"] > div,html.vx-kb #guideModalContainer{max-height:calc(var(--vv-h,100dvh) - 8px) !important;overflow-y:auto}
+html.vx-kb .vx-bar{display:none}
+/* Schermi bassi (telefono in orizzontale): testata non fissa, finestre centrate e per intero visibili */
+@media (max-height:520px){
+  .vx-top{position:static}
+  .vx-overlay{align-items:center;padding:6px}
+  .vx-sheet{max-height:calc(100dvh - 12px);border-radius:var(--vx-r-l);border-bottom:1px solid var(--vx-line);animation:none}
+  .vx-bar{padding-top:3px}
+  .vx-tab i{font-size:1.1rem}
+  .vx-plus{margin-top:-.875rem}
+}
+/* vh -> dvh: su telefono "100vh" include la barra del browser e spinge il fondo delle finestre fuori schermo */
+.max-h-\[90vh\]{max-height:90vh;max-height:90dvh}
+.h-\[85vh\]{height:85vh;height:85dvh}
+/* Gestione categorie/titolari: le azioni vanno a capo se manca spazio (testo/icone grandi) */
+.vx-mrow{flex-wrap:wrap}
+.vx-mrow-n{flex:1 1 6rem}
+/* Pannello Aspetto: niente sforamenti a 320px con testo massimo */
+.vx-lv button{min-width:0;overflow:hidden}
+#vxThemeSeg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,6.5rem),1fr))}
+#vxThemeSeg button{min-width:0}
+.vx-lv button small{white-space:normal}
+.vx-look-prev > span:nth-child(2){min-width:0;flex:1 1 6rem}
+/* Guida: i due pulsanti vanno a capo invece di uscire dal riquadro */
+#guideModalOverlay .flex.gap-2.ml-auto{flex-wrap:wrap}
+#guideModalOverlay .flex.gap-2.ml-auto > button{min-width:0}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
     
@@ -686,7 +719,7 @@ html.vx-big .vx-top{position:static}
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.0</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.1</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -2158,7 +2191,7 @@ html.vx-big .vx-top{position:static}
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.14.0';
+        const APP_VERSION = '4.14.1';
         const APP_BUILD = '2026-11-09';
         document.addEventListener('DOMContentLoaded', () => { const vb = document.getElementById('vxVerBadge'); if (vb) vb.textContent = 'v' + APP_VERSION; });
         function showAppVersion() {
@@ -4880,6 +4913,43 @@ sync();
   var ov = $('vxQuickOverlay');
   if (ov) new MutationObserver(function () { if (ov.classList.contains('vx-off')) $('vxQkBody').innerHTML = ''; }).observe(ov, { attributes: true, attributeFilter: ['class'] });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov && !ov.classList.contains('vx-off')) vxClose('vxQuickOverlay'); });
+})();
+</script>
+<script id="vx-v4141">
+/* ===== v4.14.1: rete di sicurezza per finestre e barre fuori schermo ===== */
+(function () {
+  var root = document.documentElement, vv = window.visualViewport;
+  function upd() {
+    if (!vv) return;
+    var kb = (window.innerHeight - vv.height) > 120 && vv.scale <= 1.05;   /* tastiera a schermo */
+    root.classList.toggle('vx-kb', kb);
+    if (kb) { root.style.setProperty('--vv-t', vv.offsetTop + 'px'); root.style.setProperty('--vv-h', vv.height + 'px'); }
+    else { root.style.removeProperty('--vv-t'); root.style.removeProperty('--vv-h'); }
+    guard();
+  }
+  var busy = false;
+  function guard() {
+    if (busy) return; busy = true;
+    requestAnimationFrame(function () {
+      busy = false;
+      var vh = window.innerHeight;
+      if (root.classList.contains('vx-kb')) { var hv = parseFloat(getComputedStyle(root).getPropertyValue('--vv-h')); vh = hv > 0 ? hv : (vv ? vv.height : vh); }
+      document.querySelectorAll('[id$="Overlay"]').forEach(function (o) {
+        if (o.id === 'masterLockOverlay' || o.classList.contains('hidden') || o.classList.contains('vx-off')) return;
+        var cs = getComputedStyle(o); if (cs.display === 'none' || cs.visibility === 'hidden') return;
+        var sh = o.firstElementChild; if (!sh) return;
+        sh.style.removeProperty('max-height');        /* misura sempre da zero (dopo una rotazione) */
+        var r = sh.getBoundingClientRect(), top = o.getBoundingClientRect().top;
+        if (r.top < top - 1 || r.bottom > top + vh + 1) { sh.style.setProperty('max-height', (vh - 16) + 'px', 'important'); sh.style.overflowY = 'auto'; }
+        if (o.scrollTop) o.scrollTop = 0;
+      });
+    });
+  }
+  if (vv) { vv.addEventListener('resize', upd); vv.addEventListener('scroll', upd); }
+  window.addEventListener('resize', upd);
+  window.addEventListener('orientationchange', function () { setTimeout(upd, 350); });
+  new MutationObserver(guard).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  upd();
 })();
 </script>
 </body>

@@ -1,5 +1,5 @@
 /* Vault – Service Worker (offline + installabilità PWA) */
-const VERSION = 'vault-v4-14-0';  // cambia questo valore a OGNI nuova versione pubblicata
+const VERSION = 'vault-v4-14-1';  // cambia questo valore a OGNI nuova versione pubblicata
 const SHELL = [
   './', './index.html', './privacy.html', './manifest.webmanifest',
   './icons/icon-192x192.png', './icons/icon-512x512.png',
