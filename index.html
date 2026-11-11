@@ -653,6 +653,7 @@ html.vx-big .vx-top{position:static}
 @media (max-width:639px){
   .vx-tbl .c-cat,.vx-tbl .c-usr{display:none}
   .vx-tbl-u{display:block}
+  .vx-tbl-nm{max-width:max(6rem,calc(100vw - 13.5rem))}
   .vx-tbl .c-pwd{max-width:none;width:2rem;padding-left:.125rem;padding-right:.125rem;text-align:center}
   .vx-tbl .c-pwd .vx-pwtxt{display:none}
   .vx-tbl .c-pwd .vx-pwic{display:inline-block;vertical-align:middle;font-size:1rem}
@@ -706,6 +707,14 @@ html.vx-kb .vx-bar{display:none}
 #vxThemeSeg button{min-width:0}
 .vx-lv button small{white-space:normal}
 .vx-look-prev > span:nth-child(2){min-width:0;flex:1 1 6rem}
+/* Tabella: scorre solo la tabella (non la dashboard). Il riquadro è il "contenitore" di tutto, anche degli elementi
+   assoluti (.sr-only) che prima sfuggivano e allargavano l'intera pagina spingendo la barra fuori schermo. */
+html{overflow-x:hidden}
+.vx-tblwrap{position:relative;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:70vh;max-height:70dvh}
+.vx-tbl{position:relative}
+.vx-tbl thead th{position:sticky;top:0;z-index:2}
+.vx-tblwrap::-webkit-scrollbar{height:8px;width:8px}
+.vx-tblwrap::-webkit-scrollbar-thumb{background:rgba(100,116,139,.45);border-radius:8px}
 /* Guida: i due pulsanti vanno a capo invece di uscire dal riquadro */
 #guideModalOverlay .flex.gap-2.ml-auto{flex-wrap:wrap}
 #guideModalOverlay .flex.gap-2.ml-auto > button{min-width:0}
@@ -719,7 +728,7 @@ html.vx-kb .vx-bar{display:none}
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.1</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.2</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -2191,7 +2200,7 @@ html.vx-kb .vx-bar{display:none}
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.14.1';
+        const APP_VERSION = '4.14.2';
         const APP_BUILD = '2026-11-09';
         document.addEventListener('DOMContentLoaded', () => { const vb = document.getElementById('vxVerBadge'); if (vb) vb.textContent = 'v' + APP_VERSION; });
         function showAppVersion() {
@@ -4950,6 +4959,35 @@ sync();
   window.addEventListener('orientationchange', function () { setTimeout(upd, 350); });
   new MutationObserver(guard).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
   upd();
+})();
+</script>
+<script id="vx-v4142">
+/* ===== v4.14.2: la tabella scorre da sola, sempre dentro lo spazio visibile ===== */
+(function () {
+  var g = document.getElementById('credentialsGrid'); if (!g) return;
+  var queued = false;
+  function fit() {
+    queued = false;
+    if (!g.classList.contains('vx-tblwrap')) { g.style.maxHeight = ''; return; }
+    var vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    var top = document.querySelector('.vx-top'), th = 0;
+    if (top && getComputedStyle(top).position === 'sticky') th = top.getBoundingClientRect().height;
+    var bar = document.querySelector('.vx-bar'), bh = 0;
+    if (bar && bar.offsetParent !== null || (bar && getComputedStyle(bar).position === 'fixed' && getComputedStyle(bar).display !== 'none')) bh = Math.max(0, window.innerHeight - bar.getBoundingClientRect().top);
+    var r = g.getBoundingClientRect();
+    var avail = vh - Math.max(r.top, th) - bh - 12;
+    g.style.maxHeight = Math.max(220, Math.floor(avail)) + 'px';
+  }
+  function q() { if (!queued) { queued = true; requestAnimationFrame(fit); } }
+  window.addEventListener('scroll', q, { passive: true });
+  window.addEventListener('resize', q);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', q);
+  new MutationObserver(q).observe(g, { attributes: true, attributeFilter: ['class'], childList: true });
+  var bar = document.querySelector('.vx-bar');
+  if (bar && window.ResizeObserver) new ResizeObserver(q).observe(bar);
+  var top = document.querySelector('.vx-top');
+  if (top && window.ResizeObserver) new ResizeObserver(q).observe(top);
+  q();
 })();
 </script>
 </body>
