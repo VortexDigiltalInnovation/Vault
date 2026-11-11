@@ -597,6 +597,86 @@ html.vx-big .vx-top{position:static}
 .vx-look-sec b{font-size:.8125rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--vx-mute)}
 .vx-fs-b i{width:1em;height:1em}
 </style>
+<style id="vx-views">
+/* ===== v4.14: tre viste (schede / icone / tabella), tabella compatta, scheda rapida ===== */
+.fa-view-cards{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect x=%223%22 y=%223%22 width=%2218%22 height=%228%22 rx=%222.5%22/%3E%3Crect x=%223%22 y=%2213%22 width=%2218%22 height=%228%22 rx=%222.5%22/%3E%3C/svg%3E")}
+.fa-view-icons{--fa:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect x=%223%22 y=%223%22 width=%228%22 height=%228%22 rx=%222.5%22/%3E%3Crect x=%2213%22 y=%223%22 width=%228%22 height=%228%22 rx=%222.5%22/%3E%3Crect x=%223%22 y=%2213%22 width=%228%22 height=%228%22 rx=%222.5%22/%3E%3Crect x=%2213%22 y=%2213%22 width=%228%22 height=%228%22 rx=%222.5%22/%3E%3C/svg%3E")}
+
+/* selettore vista */
+.vx-vseg{display:inline-flex;padding:2px;gap:2px;border-radius:12px;background:var(--vx-surface-2);border:1px solid var(--vx-line)}
+.vx-vseg button{min-width:2.5rem;min-height:2.5rem;border:0;border-radius:10px;background:none;color:var(--vx-mute);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;transition:background .15s,color .15s}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.vx-vseg button.is-on{background:var(--vx-surface);color:var(--vx-accent-text);box-shadow:0 1px 3px rgba(15,23,42,.18)}
+.vx-vseg button:not(.is-on):hover{color:var(--vx-ink)}
+
+/* vista a icone */
+.vx-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(calc(5.5rem * var(--icb)),1fr));gap:.5rem}
+.vx-tiles > .vx-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.375rem;padding:.75rem .25rem .5rem;min-width:0;background:var(--vx-surface);border:1px solid var(--vx-line);border-bottom:3px solid var(--cat,#64748b);border-radius:var(--vx-r-m);cursor:pointer;text-align:center;color:var(--vx-ink);-webkit-tap-highlight-color:transparent;transition:transform .12s,box-shadow .12s}
+.vx-tile:hover{box-shadow:0 6px 16px -8px rgba(15,23,42,.45)}
+.vx-tile:active{transform:scale(.97)}
+.vx-tile.is-sel{background:var(--vx-accent-soft);box-shadow:0 0 0 2px var(--vx-accent)}
+.vx-tile-n{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;width:100%;padding:0 .25rem;font-size:.8125rem;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+.vx-tile-ck{position:absolute;top:.375rem;left:.375rem;width:1.125rem;height:1.125rem;margin:0;cursor:pointer;accent-color:#4f46e5;opacity:.55}
+.vx-tile:hover .vx-tile-ck,.vx-tile.is-sel .vx-tile-ck,.vx-tile-ck:focus-visible{opacity:1}
+@media (hover:none){.vx-tile-ck{opacity:.85}}
+.vx-lgic{width:calc(3.5rem * var(--icb));height:calc(3.5rem * var(--icb));border-radius:1rem;background:var(--vx-surface-2);display:flex;align-items:center;justify-content:center;flex:0 0 auto;border:1px solid var(--vx-line);overflow:hidden;position:relative}
+.vx-lgic .vx-fbic{font-size:1.75rem}
+.vx-lgic > div[style*="inset"], .vx-lgic .absolute{background:var(--vx-surface-2)}
+
+/* tabella compatta */
+.vx-tblwrap{width:100%;max-width:100%;min-width:0;overflow-x:auto;background:var(--vx-surface);border:1px solid var(--vx-line);border-radius:var(--vx-r-m)}
+.vx-tbl{width:100%;border-collapse:collapse;text-align:left;font-size:.8125rem}
+.vx-tbl th{padding:.3125rem .5rem;font-size:.6875rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--vx-mute);background:var(--vx-surface-2);border-bottom:1px solid var(--vx-line);white-space:nowrap}
+.vx-tbl td{padding:.1875rem .5rem;border-bottom:1px solid var(--vx-line);vertical-align:middle;font-weight:500}
+.vx-tbl tbody tr{box-shadow:inset 3px 0 0 var(--cat,transparent)}
+.vx-tbl tbody tr:last-child td{border-bottom:0}
+.vx-tbl tbody tr:hover{background:var(--vx-accent-soft)}
+.vx-tbl tbody tr.is-sel{background:var(--vx-accent-soft)}
+.vx-tbl .c-ck{width:1.75rem;padding-left:.625rem;padding-right:.125rem;text-align:center}
+.vx-tbl .c-ck input{width:1rem;height:1rem;margin:0;cursor:pointer;accent-color:#4f46e5;vertical-align:middle}
+.vx-tbl .c-svc{width:100%}
+.vx-tbl-svc{display:flex;align-items:center;gap:.5rem;min-width:0}
+.vx-tbl-svc .w-6{width:1.5rem;height:1.5rem;border-radius:.5rem}
+.vx-tbl-nm{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.vx-tbl-t{font-weight:700;color:var(--vx-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vx-tbl-u{display:none;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem;color:var(--vx-mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.vx-tbl .c-usr,.vx-tbl .c-pwd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vx-tbl .c-usr{max-width:12rem}
+.vx-tbl .c-pwd{max-width:7.5rem}
+.vx-tbl .c-cat,.vx-tbl .c-own{white-space:nowrap}
+.vx-tbl .c-act{white-space:nowrap;text-align:right;padding-right:.375rem}
+.vx-pwic{display:none;color:var(--vx-mute)}
+#credentialsGrid .vx-tbl .c-act button{min-width:2rem;min-height:2rem;width:2rem;height:2rem;padding:0;border:0;background:none;border-radius:.5rem;color:var(--vx-mute);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.9375rem}
+#credentialsGrid .vx-tbl .c-act button:hover{background:var(--vx-accent-soft);color:var(--vx-accent-text)}
+#credentialsGrid .vx-tbl .c-act button.is-del:hover{color:#e11d48;background:rgba(244,63,94,.12)}
+@media (max-width:759px){.vx-tbl .c-own{display:none}}
+@media (max-width:639px){
+  .vx-tbl .c-cat,.vx-tbl .c-usr{display:none}
+  .vx-tbl-u{display:block}
+  .vx-tbl .c-pwd{max-width:none;width:2rem;padding-left:.125rem;padding-right:.125rem;text-align:center}
+  .vx-tbl .c-pwd .vx-pwtxt{display:none}
+  .vx-tbl .c-pwd .vx-pwic{display:inline-block;vertical-align:middle;font-size:1rem}
+  .vx-tbl th.c-pwd{font-size:0}
+  .vx-tbl th.c-pwd::after{content:"Pw";font-size:.6875rem}
+  .vx-tbl td{padding-left:.375rem;padding-right:.375rem}
+  .vx-tbl .c-act{padding-right:.125rem}
+  #credentialsGrid .vx-tbl .c-act button{min-width:1.875rem;width:1.875rem}
+}
+
+/* scheda rapida (vista a icone) */
+.vx-qk-head{display:flex;align-items:center;gap:.75rem;margin:.25rem 0 .75rem;flex-wrap:wrap}
+.vx-qk-badges{display:flex;gap:.375rem;flex-wrap:wrap}
+.vx-qk-row{display:flex;align-items:center;gap:.25rem;padding:.5rem .5rem .5rem .75rem;margin-bottom:.4375rem;border-radius:var(--vx-r-m);background:var(--vx-surface-2);border:1px solid var(--vx-line)}
+.vx-qk-row > div{flex:1 1 auto;min-width:0}
+.vx-qk-row small{display:block;font-size:.6875rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--vx-mute)}
+.vx-qk-v{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9375rem;font-weight:600;overflow-wrap:anywhere;color:var(--vx-ink)}
+.vx-qk-note{font-size:.8125rem;color:var(--vx-mute);font-style:italic;margin:.25rem .25rem .625rem;overflow-wrap:anywhere}
+.vx-qk-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.375rem;margin-top:.5rem}
+.vx-qk-acts button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;padding:.625rem .25rem;min-height:3.5rem;border-radius:var(--vx-r-m);border:1.5px solid var(--vx-line);background:var(--vx-surface-2);color:var(--vx-ink);font-size:.75rem;font-weight:700;cursor:pointer}
+.vx-qk-acts button:active{background:var(--vx-accent-soft)}
+.vx-qk-acts button.is-del{color:#e11d48}
+.vx-qk-acts button i,.vx-qk-acts button .vx-svg{font-size:1.125rem}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
     
@@ -606,7 +686,7 @@ html.vx-big .vx-top{position:static}
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.13.0</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.0</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -647,13 +727,10 @@ html.vx-big .vx-top{position:static}
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <div class="flex items-center bg-slate-100 dark:bg-slate-900/90 p-0.5 rounded-lg border border-slate-300 dark:border-slate-600">
-                        <button onclick="setViewMode('grid')" id="btnViewGrid" title="Griglia" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm transition-all">
-                            <i class="fa-solid fa-grip"></i>
-                        </button>
-                        <button onclick="setViewMode('table')" id="btnViewTable" title="Tabella" class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
-                            <i class="fa-solid fa-table-list"></i>
-                        </button>
+                    <div class="vx-vseg" role="group" aria-label="Modalità di visualizzazione">
+                        <button type="button" id="btnViewGrid" onclick="setViewMode('grid')" title="Schede" aria-label="Vista a schede" aria-pressed="true" class="is-on"><i class="fa-solid fa-view-cards"></i></button>
+                        <button type="button" id="btnViewIcons" onclick="setViewMode('icons')" title="Icone" aria-label="Vista a icone" aria-pressed="false"><i class="fa-solid fa-view-icons"></i></button>
+                        <button type="button" id="btnViewTable" onclick="setViewMode('table')" title="Tabella" aria-label="Vista a tabella" aria-pressed="false"><i class="fa-solid fa-table-list"></i></button>
                     </div>
 
                     <select id="sortOrder" class="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100 transition-colors shadow-sm cursor-pointer">
@@ -904,6 +981,12 @@ html.vx-big .vx-top{position:static}
 
             <label class="vx-toggle" style="margin:8px 0"><input type="checkbox" id="vxHapticToggle" checked onchange="vxHapticSet(this.checked)"><span><b>Feedback aptico</b><small id="vxHapticNote"></small></span></label>
             <div class="vx-btns"><button type="button" class="vx-btn2" onclick="vxLookReset()">Ripristina impostazioni standard</button></div>
+        </div>
+    </div>
+    <div id="vxQuickOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('vxQuickOverlay')">
+        <div class="vx-sheet" role="dialog" aria-modal="true" aria-labelledby="vxQkTitle">
+            <div class="vx-h"><h3 id="vxQkTitle">Credenziale</h3><button type="button" class="vx-x" onclick="vxClose('vxQuickOverlay')" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button></div>
+            <div id="vxQkBody"></div>
         </div>
     </div>
     <div id="localBackupModalOverlay" class="vx-overlay vx-off vx-fade" onclick="if(event.target===this)vxClose('localBackupModalOverlay')">
@@ -1542,7 +1625,7 @@ html.vx-big .vx-top{position:static}
         let selectedIndices = new Set();
         let currentCategoryFilter = 'ALL';
         let currentOwnerFilter = 'ALL';
-        let currentViewMode = 'grid';
+        let currentViewMode = (function(){ try { var v = localStorage.getItem('vault_viewmode'); return (v === 'icons' || v === 'table') ? v : 'grid'; } catch (e) { return 'grid'; } })();
         let activePassword = null;
 
         let categoriesList = JSON.parse(localStorage.getItem('vault_categories')) || ['Banche', 'Ufficio', 'Personale', 'Siti/Altri'];
@@ -2075,7 +2158,7 @@ html.vx-big .vx-top{position:static}
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.13.0';
+        const APP_VERSION = '4.14.0';
         const APP_BUILD = '2026-11-09';
         document.addEventListener('DOMContentLoaded', () => { const vb = document.getElementById('vxVerBadge'); if (vb) vb.textContent = 'v' + APP_VERSION; });
         function showAppVersion() {
@@ -2275,9 +2358,9 @@ html.vx-big .vx-top{position:static}
             if (img.naturalWidth <= 16) handleLogoError(img, domain, 1);
         }
 
-        function getServiceIconHTML(item, isSmall = false) {
+        function getServiceIconHTML(item, isSmall = false, isLarge = false) {
             const style = getCategoryStyle(item.category);
-            const sizeClass = isSmall ? 'w-6 h-6 text-[10px]' : 'w-9 h-9 text-sm';
+            const sizeClass = isLarge ? 'vx-lgic' : (isSmall ? 'w-6 h-6 text-[10px]' : 'w-9 h-9 text-sm');
             const domain = extractDomain(item);
             
             if (domain) {
@@ -2375,45 +2458,59 @@ html.vx-big .vx-top{position:static}
                         card.style.setProperty('--cat', categoryColors[item.category] || '#64748b');
                         grid.appendChild(card);
                     });
+                } else if (currentViewMode === 'icons') {
+                    grid.className = "vx-tiles";
+                    let h = '';
+                    filtered.forEach((item) => {
+                        const isChecked = selectedIndices.has(item.originalIndex);
+                        const cat = categoryColors[item.category] || '#64748b';
+                        const tip = `${item.service} · ${item.category || ''} · ${item.owner || ''}`;
+                        h += `<div class="vx-tile${isChecked ? ' is-sel' : ''}" role="button" tabindex="0" style="--cat:${cat}" title="${escapeHtml(tip)}" aria-label="${escapeHtml(item.service)}: apri azioni" onclick="vxQuickOpen(${item.originalIndex})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vxQuickOpen(${item.originalIndex})}">
+                            <input type="checkbox" class="vx-tile-ck" aria-label="Seleziona ${escapeHtml(item.service)}" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation()" onchange="toggleItemSelection(${item.originalIndex})">
+                            ${getServiceIconHTML(item, false, true)}
+                            <span class="vx-tile-n">${escapeHtml(item.service)}</span>
+                        </div>`;
+                    });
+                    grid.innerHTML = h;
                 } else {
-                    grid.className = "w-full overflow-x-auto bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700";
+                    grid.className = "vx-tblwrap";
                     let tableHTML = `
-                        <table class="w-full text-left border-collapse text-xs">
+                        <table class="vx-tbl">
                             <thead>
-                                <tr class="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700 text-slate-500 uppercase">
-                                    <th class="p-3 w-8"></th>
-                                    <th class="p-3">Servizio</th>
-                                    <th class="p-3">Categoria</th>
-                                    <th class="p-3">Proprietario</th>
-                                    <th class="p-3">Username</th>
-                                    <th class="p-3">Password</th>
-                                    <th class="p-3 text-right">Azioni</th>
+                                <tr>
+                                    <th class="c-ck"><span class="sr-only">Seleziona</span></th>
+                                    <th>Servizio</th>
+                                    <th class="c-cat">Categoria</th>
+                                    <th class="c-own">Titolare</th>
+                                    <th class="c-usr">Username</th>
+                                    <th class="c-pwd">Password</th>
+                                    <th class="c-act"><span class="sr-only">Azioni</span></th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700/60 font-medium">
+                            <tbody>
                     `;
                     filtered.forEach((item) => {
                         const style = getCategoryStyle(item.category);
                         const ownerStyle = getOwnerBadgeStyle(item.owner);
                         const isChecked = selectedIndices.has(item.originalIndex);
-                        
+                        const cat = categoryColors[item.category] || '#64748b';
                         tableHTML += `
-                            <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/40 ${isChecked ? 'bg-indigo-50/30 dark:bg-indigo-950/30' : ''}">
-                                <td class="p-3 text-center">
-                                    <input type="checkbox" onchange="toggleItemSelection(${item.originalIndex})" ${isChecked ? 'checked' : ''} class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5 cursor-pointer">
+                            <tr class="${isChecked ? 'is-sel' : ''}" style="--cat:${cat}">
+                                <td class="c-ck"><input type="checkbox" aria-label="Seleziona ${escapeHtml(item.service)}" onchange="toggleItemSelection(${item.originalIndex})" ${isChecked ? 'checked' : ''}></td>
+                                <td class="c-svc">
+                                    <div class="vx-tbl-svc">
+                                        ${getServiceIconHTML(item, true)}
+                                        <div class="vx-tbl-nm"><span class="vx-tbl-t">${escapeHtml(item.service)}</span><span class="vx-tbl-u" onclick="copyField(${item.originalIndex}, 'username', 'Username')">${escapeHtml(item.username || '-')}</span></div>
+                                    </div>
                                 </td>
-                                <td class="p-3 font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                    ${getServiceIconHTML(item, true)}
-                                    <span class="truncate">${escapeHtml(item.service)}</span>
-                                </td>
-                                <td class="p-3"><span class="vx-mini text-[10px] px-2 py-0.5 rounded font-bold" style="${style.badgeStyle}">${vxBadge('cat', item.category)}</span></td>
-                                <td class="p-3"><span class="vx-mini text-[10px] px-2 py-0.5 rounded font-medium" style="${ownerStyle}">${vxBadge('own', item.owner)}</span></td>
-                                <td class="p-3 font-mono cursor-pointer truncate max-w-[120px]" onclick="copyField(${item.originalIndex}, 'username', 'Username')">${escapeHtml(item.username || '-')}</td>
-                                <td class="p-3 font-mono cursor-pointer blur-password truncate max-w-[100px]" onclick="copyField(${item.originalIndex}, 'password', 'Password')">${escapeHtml(item.password || '-')}</td>
-                                <td class="p-3 text-right">
-                                    <button onclick="vxShareOpen(${item.originalIndex})" title="Condividi" aria-label="Condividi" class="p-1" style="color:#0284c7">${vxSvg('share')}</button>
-                                    <button onclick="openModal(${item.originalIndex})" class="p-1 text-slate-400 hover:text-indigo-600 ml-1"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button onclick="deleteCredential(${item.originalIndex})" class="p-1 text-slate-400 hover:text-rose-600 ml-1"><i class="fa-solid fa-trash-can"></i></button>
+                                <td class="c-cat"><span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-bold" style="${style.badgeStyle}">${vxBadge('cat', item.category)}</span></td>
+                                <td class="c-own"><span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-medium" style="${ownerStyle}">${vxBadge('own', item.owner)}</span></td>
+                                <td class="c-usr" title="Copia username" onclick="copyField(${item.originalIndex}, 'username', 'Username')">${escapeHtml(item.username || '-')}</td>
+                                <td class="c-pwd" title="Copia password" aria-label="Copia password di ${escapeHtml(item.service)}" onclick="copyField(${item.originalIndex}, 'password', 'Password')"><span class="vx-pwtxt blur-password">${escapeHtml(item.password || '-')}</span><i class="fa-regular fa-copy vx-pwic"></i></td>
+                                <td class="c-act">
+                                    <button type="button" onclick="vxShareOpen(${item.originalIndex})" title="Condividi" aria-label="Condividi ${escapeHtml(item.service)}" style="color:#0284c7">${vxSvg('share')}</button>
+                                    <button type="button" onclick="openModal(${item.originalIndex})" title="Modifica" aria-label="Modifica ${escapeHtml(item.service)}"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button type="button" onclick="deleteCredential(${item.originalIndex})" title="Elimina" aria-label="Elimina ${escapeHtml(item.service)}" class="is-del"><i class="fa-solid fa-trash-can"></i></button>
                                 </td>
                             </tr>
                         `;
@@ -2905,12 +3002,21 @@ html.vx-big .vx-top{position:static}
             toastTimeout = setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
         }
 
+        function syncViewButtons() {
+            [['btnViewGrid', 'grid'], ['btnViewIcons', 'icons'], ['btnViewTable', 'table']].forEach(([id, m]) => {
+                const el = document.getElementById(id); if (!el) return;
+                el.classList.toggle('is-on', m === currentViewMode);
+                el.setAttribute('aria-pressed', m === currentViewMode ? 'true' : 'false');
+            });
+        }
         function setViewMode(mode) {
             currentViewMode = mode;
-            const on = ['bg-white', 'dark:bg-slate-800', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-sm'];
-            [['btnViewGrid', 'grid'], ['btnViewTable', 'table']].forEach(([id, m]) => on.forEach(c => document.getElementById(id).classList.toggle(c, m === mode)));
+            try { localStorage.setItem('vault_viewmode', mode); } catch (e) {}
+            syncViewButtons();
             renderGrid();
         }
+
+        syncViewButtons();
 
         function setupEventListeners() {
             document.getElementById('searchInput').addEventListener('input', renderGrid);
@@ -4727,6 +4833,53 @@ sync();
     new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(a11y, 400); }).observe(document.body, { childList: true, subtree: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
+})();
+</script>
+<script id="vx-v414">
+/* ===== v4.14: scheda rapida della vista a icone ===== */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var cur = -1;
+  window.vxQuickOpen = function (i) {
+    var it = credentials[i]; if (!it) return;
+    cur = i;
+    var st = getCategoryStyle(it.category), os = getOwnerBadgeStyle(it.owner);
+    $('vxQkTitle').textContent = it.service || 'Credenziale';
+    var h = '<div class="vx-qk-head">' + getServiceIconHTML(it, false, true) +
+      '<div class="vx-qk-badges"><span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-bold" style="' + st.badgeStyle + '">' + vxBadge('cat', it.category) + '</span>' +
+      '<span class="vx-mini text-[10px] px-1.5 py-0.5 rounded font-medium" style="' + os + '">' + vxBadge('own', it.owner) + '</span></div></div>' +
+      '<div class="vx-qk-row"><div><small>Username / email</small><b class="vx-qk-v">' + escapeHtml(it.username || '-') + '</b></div>' +
+        '<button type="button" class="vx-mb" aria-label="Copia username" title="Copia username" onclick="copyField(' + i + ',\'username\',\'Username\')"><i class="fa-regular fa-copy"></i></button></div>' +
+      '<div class="vx-qk-row"><div><small>Password</small><b class="vx-qk-v" id="vxQkPw">••••••••</b></div>' +
+        '<button type="button" class="vx-mb" id="vxQkEye" aria-label="Mostra la password" title="Mostra / nascondi" onclick="vxQuickReveal()"><i class="fa-regular fa-eye"></i></button>' +
+        '<button type="button" class="vx-mb" aria-label="Copia password" title="Copia password" onclick="copyField(' + i + ',\'password\',\'Password\')"><i class="fa-regular fa-copy"></i></button></div>' +
+      (it.notes ? '<p class="vx-qk-note">' + escapeHtml(it.notes) + '</p>' : '') +
+      '<div class="vx-qk-acts">' +
+        '<button type="button" onclick="vxQuickGo(\'share\')">' + vxSvg('share') + 'Condividi</button>' +
+        '<button type="button" onclick="vxQuickGo(\'edit\')"><i class="fa-solid fa-pen-to-square"></i>Modifica</button>' +
+        '<button type="button" class="is-del" onclick="vxQuickGo(\'del\')"><i class="fa-solid fa-trash-can"></i>Elimina</button></div>';
+    $('vxQkBody').innerHTML = h;
+    vxOpen('vxQuickOverlay');
+  };
+  window.vxQuickReveal = function () {
+    var it = credentials[cur], pw = $('vxQkPw'), eye = $('vxQkEye'); if (!it || !pw) return;
+    var hidden = pw.getAttribute('data-shown') !== '1';
+    pw.textContent = hidden ? (it.password || '-') : '••••••••';
+    pw.setAttribute('data-shown', hidden ? '1' : '0');
+    eye.setAttribute('aria-label', hidden ? 'Nascondi la password' : 'Mostra la password');
+    eye.innerHTML = '<i class="fa-regular ' + (hidden ? 'fa-eye-slash' : 'fa-eye') + '"></i>';
+  };
+  window.vxQuickGo = function (act) {
+    var i = cur; vxClose('vxQuickOverlay');
+    $('vxQkBody').innerHTML = ''; /* la password non resta nel DOM */
+    setTimeout(function () {
+      if (act === 'share') vxShareOpen(i); else if (act === 'edit') openModal(i); else if (act === 'del') deleteCredential(i);
+    }, 140);
+  };
+  /* chiudendo la scheda (✕, sfondo, Esc) svuoto il contenuto: niente password nel DOM */
+  var ov = $('vxQuickOverlay');
+  if (ov) new MutationObserver(function () { if (ov.classList.contains('vx-off')) $('vxQkBody').innerHTML = ''; }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov && !ov.classList.contains('vx-off')) vxClose('vxQuickOverlay'); });
 })();
 </script>
 </body>
