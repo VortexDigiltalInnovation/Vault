@@ -728,7 +728,7 @@ html{overflow-x:hidden}
             <div class="vx-brand">
                 <button type="button" class="vx-logo" onclick="showAppVersion()" title="Informazioni sulla versione" aria-label="Informazioni sulla versione"><img class="vx-appicon" src="icons/icon-192x192.png" alt="Vault"></button>
                 <div>
-                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.2</span></h1>
+                    <h1>Vault<span class="vx-ver" id="vxVerBadge">v4.14.4</span></h1>
                     <p class="vx-sub">Le tue credenziali, al sicuro</p>
                 </div>
             </div>
@@ -882,6 +882,12 @@ html{overflow-x:hidden}
                     <textarea id="inputNotes" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none"></textarea>
                 </div>
 
+                <section class="rounded-xl border border-slate-200 dark:border-slate-700 p-3 space-y-2">
+                    <div class="flex items-center justify-between gap-2"><b class="text-xs text-slate-700 dark:text-slate-200"><i class="fa-solid fa-paperclip mr-1"></i> Documenti allegati</b><span class="text-[10px] text-slate-500">PDF, foto e file</span></div>
+                    <input id="vxCredentialFiles" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.rtf,.odt,.ods" onchange="vxStageCredentialFiles(this.files)" class="block w-full text-xs text-slate-500 file:mr-2 file:rounded-lg file:border-0 file:bg-indigo-50 dark:file:bg-indigo-950 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-indigo-700 dark:file:text-indigo-300">
+                    <div id="vxCredentialPending" class="text-[10px] text-slate-500">Puoi allegare file alla credenziale; saranno cifrati nel dispositivo.</div>
+                    <div id="vxCredentialAttachments" class="space-y-1"></div>
+                </section>
                 <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-700">
                     <button type="button" onclick="closeModal()" class="px-3.5 py-2 rounded-xl text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium">Annulla</button>
                     <button type="submit" class="px-4 py-2 rounded-xl text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-sm">Salva</button>
@@ -969,8 +975,10 @@ html{overflow-x:hidden}
             <div class="vx-sec">File</div>
             <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');exportData()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-file-export"></i></span><span><b>Crea backup cifrato</b><small>Scarica un file cifrato (e lo invia a Drive se attivo)</small></span></button>
             <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');triggerImport()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-file-import"></i></span><span><b>Ripristina da file</b><small>Carica un backup .json dal telefono</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');vxExportSharedBackup()"><span class="vx-ic ic-violet"><i class="fa-solid fa-user-group"></i></span><span><b>Condividi backup con un altro utente</b><small>Crea un file cifrato da inviare a chi usa Vault</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');vxOpenDocuments()"><span class="vx-ic ic-indigo"><i class="fa-solid fa-folder-open"></i></span><span><b>Archivio documenti</b><small>Foto, PDF e file con anteprima e download</small></span></button>
             <div class="vx-sec">Excel</div>
-            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');exportExcel()"><span class="vx-ic ic-emerald"><i class="fa-solid fa-file-excel"></i></span><span><b>Esporta in Excel</b><small>Tutte le voci in un file Excel</small></span></button>
+            <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');exportExcel()"><span class="vx-ic ic-emerald"><i class="fa-solid fa-file-excel"></i></span><span><b>Esporta in Excel</b><small>Excel in chiaro, diviso per proprietario e categoria, con filtri</small></span></button>
             <button class="vx-row" onclick="vxClose('backupMenuModalOverlay');triggerExcelImport()"><span class="vx-ic ic-emerald"><i class="fa-solid fa-file-arrow-up"></i></span><span><b>Importa da Excel</b><small>Aggiungi voci da un file Excel</small></span></button>
         </div>
     </div>
@@ -1197,7 +1205,7 @@ html{overflow-x:hidden}
                         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50"><p class="font-bold text-emerald-700 dark:text-emerald-300">🛡 Cifratura Zero-Knowledge</p><p class="text-xs mt-0.5">Protezione totale client-side: si decifra solo con la Master Password locale.</p></div>
                         <div class="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50"><p class="font-bold text-indigo-700 dark:text-indigo-300">🔑 Biometria WebAuthn</p><p class="text-xs mt-0.5">Touch ID, Face ID o Windows Hello senza digitare la Master Password a ogni accesso.</p></div>
                         <div class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/50"><p class="font-bold text-violet-700 dark:text-violet-300">🤖 Vault AI Inspector</p><p class="text-xs mt-0.5">Audit euristici di sicurezza, analisi dell'entropia NIST e verifica violazioni HIBP.</p></div>
-                        <div class="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-900/50"><p class="font-bold text-sky-700 dark:text-sky-300">🔄 Backup &amp; Sync flessibile</p><p class="text-xs mt-0.5">Export JSON cifrato, Google Drive via OAuth2, import/export Excel (.xlsx / .enc).</p></div>
+                        <div class="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-900/50"><p class="font-bold text-sky-700 dark:text-sky-300">🔄 Backup &amp; Sync flessibile</p><p class="text-xs mt-0.5">Backup JSON cifrato, Google Drive via OAuth2 ed esportazione Excel (.xlsx) in chiaro con filtri per proprietario e categoria.</p></div>
                     </div>
                 </section>
                 <section>
@@ -1460,7 +1468,7 @@ html{overflow-x:hidden}
 
         // Guardia anti-chiaro: ogni backup (Drive, cartella locale, download, condivisione) deve passare di qui.
         // Accetta solo il formato prodotto da encryptData(); qualsiasi altro campo o formato viene rifiutato.
-        const ENC_ALLOWED_KEYS = ['salt', 'iv', 'ciphertext', 'iterations', 'timestamp', 'backupTimestamp', 'backupTimestampLocal', 'vaultCard'];
+        const ENC_ALLOWED_KEYS = ['salt', 'iv', 'ciphertext', 'iterations', 'timestamp', 'backupTimestamp', 'backupTimestampLocal', 'vaultCard', 'vaultShare'];
         function assertEncrypted(p) {
             const ok = p && typeof p === 'object' && !Array.isArray(p)
                 && Array.isArray(p.salt) && p.salt.length === 16
@@ -1664,7 +1672,206 @@ html{overflow-x:hidden}
 
         // --- APP STATE ---
         let credentials = [];
+        let vaultDocuments = [];
+        let vxCredentialPendingFiles = [];
+        let vxDocPreviewUrls = [];
         let selectedIndices = new Set();
+
+        // --- ARCHIVIO DOCUMENTI CIFRATO (IndexedDB + metadati cifrati) ---
+        function vxDocId() {
+            return 'doc_' + Date.now().toString(36) + '_' + Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(16).padStart(2,'0')).join('');
+        }
+        function vxCredentialId() {
+            return 'cred_' + Date.now().toString(36) + '_' + Array.from(crypto.getRandomValues(new Uint8Array(6)), b => b.toString(16).padStart(2,'0')).join('');
+        }
+        function vxDocDb() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) return reject(new Error('Archivio file non supportato da questo browser.'));
+                const req = indexedDB.open('VaultDocumentsDB', 1);
+                req.onupgradeneeded = () => { const db = req.result; if (!db.objectStoreNames.contains('files')) db.createObjectStore('files', { keyPath: 'id' }); };
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error || new Error('Impossibile aprire archivio documenti.'));
+            });
+        }
+        async function vxDocDbPut(record) {
+            const db = await vxDocDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('files', 'readwrite');
+                tx.objectStore('files').put(record);
+                tx.oncomplete = () => { db.close(); resolve(true); };
+                tx.onerror = () => { const e = tx.error; db.close(); reject(e || new Error('Salvataggio file non riuscito.')); };
+            });
+        }
+        async function vxDocDbGet(id) {
+            const db = await vxDocDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('files', 'readonly');
+                const req = tx.objectStore('files').get(id);
+                req.onsuccess = () => { const v = req.result || null; db.close(); resolve(v); };
+                req.onerror = () => { const e = req.error; db.close(); reject(e || new Error('Lettura file non riuscita.')); };
+            });
+        }
+        async function vxDocDbDelete(id) {
+            const db = await vxDocDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('files', 'readwrite'); tx.objectStore('files').delete(id);
+                tx.oncomplete = () => { db.close(); resolve(true); };
+                tx.onerror = () => { const e = tx.error; db.close(); reject(e || new Error('Eliminazione file non riuscita.')); };
+            });
+        }
+        async function vxDocDbClear() {
+            const db = await vxDocDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('files', 'readwrite'); tx.objectStore('files').clear();
+                tx.oncomplete = () => { db.close(); resolve(true); };
+                tx.onerror = () => { const e = tx.error; db.close(); reject(e || new Error('Pulizia archivio non riuscita.')); };
+            });
+        }
+        async function vxPersistDocumentsIndex() {
+            if (!activePassword) return;
+            const enc = await encryptData(vaultDocuments, activePassword);
+            localStorage.setItem('vault_documents_index', JSON.stringify(enc));
+        }
+        async function vxLoadDocumentsIndex(pass) {
+            vaultDocuments = [];
+            const raw = localStorage.getItem('vault_documents_index');
+            if (!raw) return;
+            try { const d = await decryptData(JSON.parse(raw), pass); if (Array.isArray(d)) vaultDocuments = d.filter(x => x && typeof x.id === 'string' && typeof x.name === 'string'); }
+            catch (e) { console.warn('Indice documenti non disponibile:', e); vaultDocuments = []; }
+        }
+        async function vxDocStoreFile(file, credentialId, folder) {
+            if (!activePassword) throw new Error('Sblocca prima Vault.');
+            if (!file || !file.size) return null;
+            if (file.size > 20 * 1024 * 1024) throw new Error('Ogni file può pesare al massimo 20 MB.');
+            const total = vaultDocuments.reduce((n,d) => n + (Number(d.size)||0), 0);
+            if (total + file.size > 50 * 1024 * 1024) throw new Error('Hai raggiunto il limite di 50 MB per l’archivio documenti.');
+            const bytes = await file.arrayBuffer();
+            const encrypted = await encryptBytes(bytes, activePassword);
+            const id = vxDocId();
+            await vxDocDbPut({ id, encrypted: Array.from(encrypted) });
+            const meta = { id, name: String(file.name || 'Documento').slice(0,180), type: file.type || 'application/octet-stream', size: file.size, createdAt: new Date().toISOString(), folder: folder || 'Generale', credentialId: credentialId || null };
+            vaultDocuments.unshift(meta);
+            await vxPersistDocumentsIndex();
+            return meta;
+        }
+        async function vxDocBytes(id) {
+            if (!activePassword) throw new Error('Vault bloccato.');
+            const rec = await vxDocDbGet(id);
+            if (!rec || !Array.isArray(rec.encrypted)) throw new Error('File non trovato in questo dispositivo.');
+            return await decryptBytes(new Uint8Array(rec.encrypted).buffer, activePassword);
+        }
+        function vxDocBlob(bytes, type) { return new Blob([bytes], { type: type || 'application/octet-stream' }); }
+        async function vxDocDownload(id) {
+            try {
+                const d = vaultDocuments.find(x => x.id === id); if (!d) return;
+                const bytes = await vxDocBytes(id), url = URL.createObjectURL(vxDocBlob(bytes, d.type));
+                const a = document.createElement('a'); a.href = url; a.download = d.name; document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 15000);
+            } catch (e) { alert('Download non riuscito: ' + (e.message || e)); }
+        }
+        async function vxDocPreview(id) {
+            try {
+                const d = vaultDocuments.find(x => x.id === id); if (!d) return;
+                const bytes = await vxDocBytes(id), url = URL.createObjectURL(vxDocBlob(bytes, d.type));
+                vxDocPreviewUrls.push(url);
+                const ov = document.createElement('div'); ov.className = 'vx-overlay'; ov.style.cssText = 'position:fixed;inset:0;z-index:2147482000;background:rgba(2,6,23,.88);display:flex;align-items:center;justify-content:center;padding:12px';
+                const panel = document.createElement('div'); panel.style.cssText = 'width:100%;max-width:900px;height:min(92vh,900px);background:var(--vx-panel,#fff);color:var(--vx-text,#0f172a);border-radius:16px;overflow:hidden;display:flex;flex-direction:column';
+                const head = document.createElement('div'); head.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #94a3b8';
+                const name = document.createElement('b'); name.textContent = d.name; name.style.cssText = 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px';
+                const dl = document.createElement('button'); dl.textContent = 'Scarica'; dl.style.cssText = 'padding:7px 10px;border-radius:8px;background:#4f46e5;color:white;font-size:12px;font-weight:700'; dl.onclick = () => vxDocDownload(id);
+                const close = document.createElement('button'); close.textContent = '✕'; close.style.cssText = 'padding:7px 10px;border-radius:8px;background:#e2e8f0;color:#0f172a'; close.onclick = () => { ov.remove(); URL.revokeObjectURL(url); vxDocPreviewUrls = vxDocPreviewUrls.filter(x => x !== url); };
+                head.append(name, dl, close);
+                const body = document.createElement('div'); body.style.cssText = 'flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;background:#0f172a';
+                if ((d.type || '').startsWith('image/')) { const img = document.createElement('img'); img.src = url; img.alt = d.name; img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain'; body.appendChild(img); }
+                else if (d.type === 'application/pdf' || /\.pdf$/i.test(d.name)) { const frame = document.createElement('iframe'); frame.src = url; frame.title = d.name; frame.style.cssText = 'width:100%;height:100%;border:0;background:white'; body.appendChild(frame); }
+                else { const msg = document.createElement('div'); msg.textContent = 'Anteprima non disponibile per questo formato. Usa Scarica per aprire il file.'; msg.style.cssText = 'color:white;text-align:center;padding:24px'; body.appendChild(msg); }
+                panel.append(head, body); ov.appendChild(panel); ov.addEventListener('click', e => { if (e.target === ov) close.click(); }); document.body.appendChild(ov);
+            } catch (e) { alert('Anteprima non disponibile: ' + (e.message || e)); }
+        }
+        async function vxDocDelete(id) {
+            const d = vaultDocuments.find(x => x.id === id); if (!d || !confirm('Eliminare definitivamente "' + d.name + '"?')) return;
+            try { await vxDocDbDelete(id); vaultDocuments = vaultDocuments.filter(x => x.id !== id); credentials.forEach(c => { if (Array.isArray(c.attachments)) c.attachments = c.attachments.filter(x => x !== id); }); await saveToLocalStorage(); vxDocRender(); vxRenderCredentialAttachments(); showToast('Documento eliminato.'); }
+            catch(e) { alert('Eliminazione non riuscita: ' + (e.message || e)); }
+        }
+        function vxDocFormatSize(n) { return n < 1024*1024 ? Math.max(1,Math.round(n/1024)) + ' KB' : (n/1024/1024).toFixed(1) + ' MB'; }
+        function vxOpenDocuments() {
+            let ov = document.getElementById('vxDocumentsOverlay');
+            if (!ov) {
+                ov = document.createElement('div'); ov.id = 'vxDocumentsOverlay'; ov.className = 'vx-overlay'; ov.style.cssText = 'position:fixed;inset:0;z-index:2147481000;background:rgba(15,23,42,.65);display:flex;align-items:center;justify-content:center;padding:12px';
+                ov.innerHTML = '<section style="width:100%;max-width:760px;max-height:92vh;overflow:auto;background:var(--vx-panel,#fff);color:var(--vx-text,#0f172a);border-radius:18px;padding:16px"><header style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><h3 style="font-weight:800;font-size:17px;flex:1">Archivio documenti</h3><button type="button" onclick="vxCloseDocuments()" style="padding:7px 10px;border-radius:8px;background:#e2e8f0;color:#0f172a">✕</button></header><p style="font-size:12px;opacity:.75;margin-bottom:12px">Carica foto, PDF e altri file. I contenuti vengono cifrati sul dispositivo. Limiti: 20 MB per file, 50 MB complessivi.</p><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px"><input id="vxDocFolderInput" type="text" maxlength="40" placeholder="Cartella (es. Casa, Auto, Lavoro)" style="min-width:145px;flex:1;padding:8px;border:1px solid #94a3b855;border-radius:8px;background:transparent;color:inherit;font-size:12px"><input id="vxDocUploadInput" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.rtf,.odt,.ods" style="max-width:100%;font-size:12px"><button type="button" onclick="vxDocUploadGeneral()" style="padding:9px 12px;border-radius:9px;background:#4f46e5;color:white;font-size:12px;font-weight:700">Carica file</button></div><div id="vxDocumentsList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px"></div></section>';
+                ov.addEventListener('click', e => { if (e.target === ov) vxCloseDocuments(); }); document.body.appendChild(ov);
+            }
+            vxDocRender();
+        }
+        function vxCloseDocuments() { const ov = document.getElementById('vxDocumentsOverlay'); if (ov) ov.remove(); }
+        async function vxDocUploadGeneral() {
+            const input = document.getElementById('vxDocUploadInput'); if (!input || !input.files.length) return alert('Seleziona prima uno o più file.');
+            const files = Array.from(input.files); input.value = '';
+            const folderInput = document.getElementById('vxDocFolderInput'); const folder = (folderInput && folderInput.value.trim()) || 'Generale';
+            try { for (const f of files) await vxDocStoreFile(f, null, folder.slice(0,40)); vxDocRender(); if (window.vxAfterSave) window.vxAfterSave(); showToast(files.length + ' file salvati nell’archivio.'); }
+            catch(e) { alert('Caricamento interrotto: ' + (e.message || e)); }
+        }
+        async function vxDocRender() {
+            const list = document.getElementById('vxDocumentsList'); if (!list) return;
+            list.innerHTML = '';
+            if (!vaultDocuments.length) { const p = document.createElement('p'); p.textContent = 'Nessun documento archiviato. Aggiungi foto, PDF o altri file.'; p.style.cssText = 'grid-column:1/-1;text-align:center;padding:26px 8px;font-size:13px;opacity:.65'; list.appendChild(p); return; }
+            for (const d of vaultDocuments) {
+                const card = document.createElement('article'); card.style.cssText = 'min-width:0;border:1px solid #94a3b855;border-radius:12px;padding:9px;display:flex;flex-direction:column;gap:7px';
+                const thumb = document.createElement('button'); thumb.type = 'button'; thumb.style.cssText = 'height:92px;border-radius:9px;background:#64748b18;display:flex;align-items:center;justify-content:center;overflow:hidden'; thumb.onclick = () => vxDocPreview(d.id);
+                if ((d.type || '').startsWith('image/')) { try { const bytes = await vxDocBytes(d.id); const u = URL.createObjectURL(vxDocBlob(bytes,d.type)); vxDocPreviewUrls.push(u); const im = document.createElement('img'); im.src = u; im.alt = d.name; im.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain'; thumb.appendChild(im); } catch(e) { thumb.textContent = 'Foto'; } }
+                else { const ic = document.createElement('span'); ic.textContent = /\.pdf$/i.test(d.name) || d.type === 'application/pdf' ? '📄 PDF' : '📁 FILE'; ic.style.cssText = 'font-size:22px;font-weight:800'; thumb.appendChild(ic); }
+                const nm = document.createElement('div'); nm.textContent = d.name; nm.title = d.name; nm.style.cssText = 'font-size:11px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+                const meta = document.createElement('div'); const linked = d.credentialId ? credentials.find(c => c._vaultId === d.credentialId) : null; meta.textContent = vxDocFormatSize(d.size) + (linked ? ' · ' + (linked.service || 'Credenziale') : ' · ' + (d.folder || 'Archivio')); meta.style.cssText = 'font-size:10px;opacity:.65';
+                const actions = document.createElement('div'); actions.style.cssText = 'display:flex;gap:5px;margin-top:auto';
+                const preview = document.createElement('button'); preview.textContent = 'Apri'; preview.onclick = () => vxDocPreview(d.id); preview.style.cssText = 'flex:1;padding:6px;border-radius:7px;background:#4f46e5;color:white;font-size:10px;font-weight:700';
+                const download = document.createElement('button'); download.textContent = '↓'; download.title = 'Scarica'; download.onclick = () => vxDocDownload(d.id); download.style.cssText = 'padding:6px 9px;border-radius:7px;background:#e2e8f0;color:#0f172a';
+                const del = document.createElement('button'); del.textContent = '🗑'; del.title = 'Elimina'; del.onclick = () => vxDocDelete(d.id); del.style.cssText = 'padding:6px 9px;border-radius:7px;background:#fee2e2;color:#991b1b';
+                actions.append(preview,download,del); card.append(thumb,nm,meta,actions); list.appendChild(card);
+            }
+        }
+        function vxStageCredentialFiles(files) {
+            vxCredentialPendingFiles = Array.from(files || []);
+            const p = document.getElementById('vxCredentialPending'); if (p) p.textContent = vxCredentialPendingFiles.length ? vxCredentialPendingFiles.length + ' file in attesa: verranno cifrati quando salvi la credenziale.' : 'Puoi allegare file alla credenziale; saranno cifrati nel dispositivo.';
+        }
+        function vxRenderCredentialAttachments() {
+            const box = document.getElementById('vxCredentialAttachments'); if (!box) return; box.innerHTML = '';
+            const idx = document.getElementById('itemIndex')?.value;
+            const item = idx !== '' && credentials[Number(idx)] ? credentials[Number(idx)] : null;
+            const docs = item && item._vaultId ? vaultDocuments.filter(d => d.credentialId === item._vaultId) : [];
+            docs.forEach(d => {
+                const row = document.createElement('div'); row.style.cssText = 'display:flex;align-items:center;gap:6px;font-size:11px;padding:5px 0;border-top:1px solid #94a3b833';
+                const nm = document.createElement('span'); nm.textContent = d.name; nm.style.cssText = 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+                const open = document.createElement('button'); open.textContent = 'Apri'; open.type = 'button'; open.onclick = () => vxDocPreview(d.id); open.style.cssText = 'color:#4f46e5;font-weight:700';
+                const dl = document.createElement('button'); dl.textContent = '↓'; dl.type = 'button'; dl.onclick = () => vxDocDownload(d.id);
+                row.append(nm,open,dl); box.appendChild(row);
+            });
+        }
+        function vxBase64FromBytes(bytes) {
+            let binary = ''; const chunk = 0x8000;
+            for (let i=0;i<bytes.length;i+=chunk) binary += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i+chunk,bytes.length)));
+            return btoa(binary);
+        }
+        function vxBytesFromBase64(data) { const bin = atob(data); const out = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) out[i]=bin.charCodeAt(i); return out; }
+        async function vxBuildBackupDocuments() {
+            const files = [];
+            for (const d of vaultDocuments) { const bytes = await vxDocBytes(d.id); files.push({ id:d.id, name:d.name, type:d.type, size:d.size, createdAt:d.createdAt, folder:d.folder || 'Generale', credentialId:d.credentialId || null, data:vxBase64FromBytes(bytes) }); }
+            return { documents: vaultDocuments.map(d => ({...d})), documentFiles: files };
+        }
+        async function vxImportBackupDocuments(data, replace) {
+            const incoming = Array.isArray(data.documentFiles) ? data.documentFiles : [];
+            if (replace) { await vxDocDbClear(); vaultDocuments = []; }
+            for (const f of incoming) {
+                if (!f || typeof f.data !== 'string' || typeof f.name !== 'string') continue;
+                const bytes = vxBytesFromBase64(f.data); if (bytes.byteLength > 20*1024*1024) continue;
+                const duplicate = !replace && vaultDocuments.some(d => d.name === f.name && d.size === (Number(f.size)||bytes.length) && d.credentialId === (f.credentialId || null));
+                if (duplicate) continue;
+                const id = f.id && !vaultDocuments.some(d => d.id === f.id) ? f.id : vxDocId();
+                const enc = await encryptBytes(bytes.buffer, activePassword); await vxDocDbPut({id, encrypted:Array.from(enc)});
+                vaultDocuments.push({id,name:f.name.slice(0,180),type:f.type || 'application/octet-stream',size:bytes.length,createdAt:f.createdAt || new Date().toISOString(),folder:f.folder || 'Generale',credentialId:f.credentialId || null});
+            }
+            await vxPersistDocumentsIndex();
+        }
+
         let currentCategoryFilter = 'ALL';
         let currentOwnerFilter = 'ALL';
         let currentViewMode = (function(){ try { var v = localStorage.getItem('vault_viewmode'); return (v === 'icons' || v === 'table') ? v : 'grid'; } catch (e) { return 'grid'; } })();
@@ -1778,7 +1985,7 @@ html{overflow-x:hidden}
             if (!stored) {
                 if (pass.length < 8) { lockError("La password deve avere almeno 8 caratteri."); return false; }
                 if (pass !== document.getElementById('masterConfirmInput').value) { lockError("Le password non coincidono."); return false; }
-                credentials = []; activePassword = pass;
+                credentials = []; activePassword = pass; vaultDocuments = [];
                 await saveToLocalStorage();
                 finishUnlock("Nuovo caveau creato e cifrato!");
                 return true;
@@ -1787,6 +1994,8 @@ html{overflow-x:hidden}
             try { dec = await decryptData(JSON.parse(stored), pass); } catch (err) {}
             if (Array.isArray(dec)) {
                 credentials = dec; activePassword = pass; failedUnlocks = 0;
+                credentials.forEach(c => { if (c && !c._vaultId) c._vaultId = vxCredentialId(); });
+                await vxLoadDocumentsIndex(pass);
                 finishUnlock("Caveau sbloccato con successo!");
                 return true;
             }
@@ -1815,7 +2024,7 @@ html{overflow-x:hidden}
             if (window.vxCloseAll) vxCloseAll();
             if (window.vxStopAll) vxStopAll();
             if (clipboardTimer) { clearTimeout(clipboardTimer); clipboardTimer = null; navigator.clipboard.writeText('').catch(() => {}); }
-            activePassword = null; credentials = []; selectedIndices.clear();
+            activePassword = null; credentials = []; vaultDocuments = []; vxCredentialPendingFiles = []; selectedIndices.clear();
             ['masterPasswordInput', 'masterConfirmInput'].forEach(id => document.getElementById(id).value = '');
             ['modalOverlay', 'aiModalOverlay', 'securityModalOverlay', 'managerModalOverlay'].forEach(id => document.getElementById(id).classList.add('hidden'));
             document.getElementById('credentialForm').reset();
@@ -1840,8 +2049,10 @@ html{overflow-x:hidden}
                 localStorage.setItem('vault_revisions_history', JSON.stringify(revisions));
             }
 
+            credentials.forEach(c => { if (c && !c._vaultId) c._vaultId = vxCredentialId(); });
             const encryptedPayload = await encryptData(credentials, activePassword);
             localStorage.setItem('vault_encrypted_store', JSON.stringify(encryptedPayload));
+            await vxPersistDocumentsIndex();
             if (window.__pwChanged) { localStorage.removeItem('vault_revisions_history'); window.__pwChanged = false; }
             updateStats();
             runPasswordAudit();
@@ -2200,8 +2411,8 @@ html{overflow-x:hidden}
             });
         }
         const DEFAULT_GDRIVE_CLIENT_ID = '762101270743-epbrhp987aabmva2chtqpm5kthg402i8.apps.googleusercontent.com';
-        const APP_VERSION = '4.14.2';
-        const APP_BUILD = '2026-11-09';
+        const APP_VERSION = '4.14.4';
+        const APP_BUILD = '2026-11-16';
         document.addEventListener('DOMContentLoaded', () => { const vb = document.getElementById('vxVerBadge'); if (vb) vb.textContent = 'v' + APP_VERSION; });
         function showAppVersion() {
             const last = localStorage.getItem('vault_last_drive_backup');
@@ -2662,7 +2873,8 @@ html{overflow-x:hidden}
             if (driveClient) { tokPromise = gAuth(driveClient); tokPromise.catch(() => {}); }
             const pw = await vxAskPassword({ title: 'Password del backup', message: 'Scegli una password per cifrare il backup (min. 8 caratteri).\nLascia vuoto per usare la password master.', confirm: true, min: 8, allowEmpty: true, okLabel: 'Crea backup' });
             if (pw === null) return;
-            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons }, pw || activePassword);
+            const docBackup = await vxBuildBackupDocuments();
+            const payload = await encryptData({ v: 2, credentials, categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons, ...docBackup }, pw || activePassword);
             assertEncrypted(payload);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: 'application/json' }));
@@ -2682,6 +2894,208 @@ html{overflow-x:hidden}
             }
         }
 
+        // --- CONDIVISIONE SICURA DEL BACKUP COMPLETO TRA UTENTI VAULT ---
+        // Il file contiene solo dati cifrati AES-GCM. Il codice viene mostrato separatamente
+        // e non viene mai inserito nel file: mittente e destinatario lo comunicano su un altro canale.
+        async function vxExportSharedBackup() {
+            if (!activePassword) return;
+            if ((!Array.isArray(credentials) || !credentials.length) && (!Array.isArray(vaultDocuments) || !vaultDocuments.length)) {
+                alert('Il caveau e l’archivio documenti sono vuoti.');
+                return;
+            }
+            try {
+                const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                const random = crypto.getRandomValues(new Uint8Array(12));
+                const code = Array.from(random, n => alphabet[n & 31]).join('');
+                const displayCode = code.slice(0, 4) + '-' + code.slice(4, 8) + '-' + code.slice(8);
+                const data = {
+                    v: 2,
+                    kind: 'vault-full-backup-share',
+                    createdAt: new Date().toISOString(),
+                    credentials: credentials,
+                    categories: categoriesList,
+                    owners: ownersList,
+                    catColors: categoryColors,
+                    ownerColors: ownerColors,
+                    catIcons: categoryIcons,
+                    ownerIcons: ownerIcons,
+                    ...(await vxBuildBackupDocuments())
+                };
+                const payload = await encryptData(data, code);
+                payload.vaultShare = 1;
+                assertEncrypted(payload);
+
+                const file = new File(
+                    [JSON.stringify(payload)],
+                    'Vault_condivisione_backup_' + new Date().toISOString().slice(0, 10) + '.json',
+                    { type: 'application/json' }
+                );
+                let shared = false;
+                if (navigator.share && navigator.canShare) {
+                    try {
+                        if (navigator.canShare({ files: [file] })) {
+                            await navigator.share({ files: [file], title: 'Backup Vault cifrato' });
+                            shared = true;
+                        }
+                    } catch (shareError) {
+                        if (shareError && shareError.name === 'AbortError') return;
+                    }
+                }
+                if (!shared) {
+                    const a = document.createElement('a');
+                    const url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = file.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                }
+                vxShowBackupShareCode(displayCode);
+            } catch (err) {
+                console.error('Condivisione backup Vault:', err);
+                alert('Non è stato possibile creare il backup condiviso. Riprova.');
+            }
+        }
+
+        function vxShowBackupShareCode(code) {
+            const old = document.getElementById('vxBackupShareCodeOverlay');
+            if (old) old.remove();
+            const ov = document.createElement('div');
+            ov.id = 'vxBackupShareCodeOverlay';
+            ov.style.cssText = 'position:fixed;inset:0;z-index:2147482500;background:rgba(15,23,42,.72);display:flex;align-items:center;justify-content:center;padding:16px';
+            const panel = document.createElement('div');
+            panel.style.cssText = 'width:100%;max-width:390px;background:var(--vx-panel,#fff);color:var(--vx-text,#0f172a);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center';
+            const title = document.createElement('h3');
+            title.textContent = 'Backup pronto da condividere';
+            title.style.cssText = 'font-size:1.1rem;font-weight:800;margin:0 0 8px';
+            const info = document.createElement('p');
+            info.textContent = 'Invia il file JSON al destinatario e comunicagli questo codice separatamente (per esempio a voce). Senza il codice il contenuto non può essere aperto.';
+            info.style.cssText = 'font-size:.85rem;line-height:1.45;margin:0 0 14px;opacity:.85';
+            const codeBox = document.createElement('div');
+            codeBox.textContent = code;
+            codeBox.style.cssText = 'font-size:1.45rem;font-weight:900;letter-spacing:.08em;padding:14px 8px;border-radius:12px;background:rgba(99,102,241,.12);margin:0 0 14px;user-select:all';
+            const actions = document.createElement('div');
+            actions.style.cssText = 'display:flex;gap:8px;justify-content:center;flex-wrap:wrap';
+            const copy = document.createElement('button');
+            copy.type = 'button';
+            copy.textContent = 'Copia codice';
+            copy.style.cssText = 'border:0;border-radius:10px;padding:11px 16px;background:#4f46e5;color:white;font-weight:700';
+            copy.onclick = async () => {
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(code);
+                        showToast('Codice copiato negli appunti.');
+                    } else {
+                        const ta = document.createElement('textarea');
+                        ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+                        document.body.appendChild(ta); ta.select();
+                        document.execCommand('copy'); ta.remove();
+                        showToast('Codice copiato negli appunti.');
+                    }
+                } catch (e) { alert('Copia non disponibile: trascrivi il codice visualizzato.'); }
+            };
+            const close = document.createElement('button');
+            close.type = 'button';
+            close.textContent = 'Chiudi';
+            close.style.cssText = 'border:1px solid #cbd5e1;border-radius:10px;padding:11px 16px;background:transparent;color:inherit;font-weight:700';
+            close.onclick = () => ov.remove();
+            actions.append(copy, close);
+            panel.append(title, info, codeBox, actions);
+            ov.appendChild(panel);
+            ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+            document.body.appendChild(ov);
+        }
+
+        window.vxImportSharedBackup = async function (pl) {
+            try {
+                assertEncrypted(pl);
+                const codeInput = await vxAskPassword({
+                    title: 'Backup condiviso',
+                    message: 'Inserisci il codice ricevuto dal mittente. Il codice è separato dal file.',
+                    okLabel: 'Apri backup'
+                });
+                if (!codeInput) return;
+                const code = String(codeInput).toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (code.length !== 12) {
+                    alert('Codice non valido: deve contenere 12 caratteri.');
+                    return;
+                }
+                const dec = await decryptData(pl, code);
+                if (!dec || dec.kind !== 'vault-full-backup-share' || dec.v !== 2 || !Array.isArray(dec.credentials)) {
+                    alert('Codice errato oppure file condiviso non valido.');
+                    return;
+                }
+                if (!dec.credentials.every(item => item && typeof item === 'object' && !Array.isArray(item))) {
+                    alert('Il file contiene dati non validi. Nessuna modifica è stata eseguita.');
+                    return;
+                }
+                if (!confirm('Il backup contiene ' + dec.credentials.length + ' voci. Vuoi procedere con l’importazione?')) return;
+                const replace = confirm(
+                    'Come vuoi importare il backup?\n\n' +
+                    'OK = SOSTITUISCI il tuo caveau con quello ricevuto (operazione distruttiva).\n' +
+                    'Annulla = AGGIUNGI le voci ricevute a quelle esistenti, saltando i duplicati.'
+                );
+
+                const mergeList = (local, incoming) => {
+                    const a = Array.isArray(local) ? local.slice() : [];
+                    (Array.isArray(incoming) ? incoming : []).forEach(value => {
+                        if (!a.some(x => String(x).trim().toLowerCase() === String(value).trim().toLowerCase())) a.push(value);
+                    });
+                    return a;
+                };
+                const mergeMap = (local, incoming) => Object.assign(
+                    {},
+                    incoming && typeof incoming === 'object' && !Array.isArray(incoming) ? incoming : {},
+                    local && typeof local === 'object' && !Array.isArray(local) ? local : {}
+                );
+                if (replace) {
+                    credentials = dec.credentials.slice();
+                    if (Array.isArray(dec.categories) && dec.categories.length) categoriesList = dec.categories;
+                    if (Array.isArray(dec.owners) && dec.owners.length) ownersList = dec.owners;
+                    categoryColors = dec.catColors && typeof dec.catColors === 'object' ? dec.catColors : {};
+                    ownerColors = dec.ownerColors && typeof dec.ownerColors === 'object' ? dec.ownerColors : {};
+                    categoryIcons = dec.catIcons && typeof dec.catIcons === 'object' ? dec.catIcons : {};
+                    ownerIcons = dec.ownerIcons && typeof dec.ownerIcons === 'object' ? dec.ownerIcons : {};
+                } else {
+                    const fingerprint = item => [
+                        item.service, item.domain, item.username || item.user || item.email,
+                        item.owner, item.category, (!item.username && !item.user && !item.email) ? item.password : ''
+                    ].map(v => String(v == null ? '' : v).trim().toLowerCase()).join('|');
+                    const known = new Set(credentials.map(fingerprint));
+                    const incoming = dec.credentials.filter(item => {
+                        const key = fingerprint(item);
+                        if (known.has(key)) return false;
+                        known.add(key);
+                        return true;
+                    });
+                    const skipped = dec.credentials.length - incoming.length;
+                    credentials = incoming.concat(credentials);
+                    categoriesList = mergeList(categoriesList, dec.categories);
+                    ownersList = mergeList(ownersList, dec.owners);
+                    categoryColors = mergeMap(categoryColors, dec.catColors);
+                    ownerColors = mergeMap(ownerColors, dec.ownerColors);
+                    categoryIcons = mergeMap(categoryIcons, dec.catIcons);
+                    ownerIcons = mergeMap(ownerIcons, dec.ownerIcons);
+                    if (skipped) showToast(skipped + ' duplicati saltati.');
+                }
+                localStorage.setItem('vault_categories', JSON.stringify(categoriesList));
+                localStorage.setItem('vault_owners', JSON.stringify(ownersList));
+                localStorage.setItem('vault_cat_colors', JSON.stringify(categoryColors));
+                localStorage.setItem('vault_owner_colors', JSON.stringify(ownerColors));
+                localStorage.setItem('vault_cat_icons', JSON.stringify(categoryIcons));
+                localStorage.setItem('vault_owner_icons', JSON.stringify(ownerIcons));
+                await vxImportBackupDocuments(dec, replace);
+                selectedIndices.clear();
+                await saveToLocalStorage();
+                refreshUIState();
+                showToast(replace ? 'Caveau e documenti sostituiti dal backup condiviso.' : 'Voci e documenti del backup aggiunti al caveau.');
+            } catch (err) {
+                console.error('Importazione backup condiviso Vault:', err);
+                alert('Impossibile importare il backup condiviso. Nessuna modifica completata.');
+            }
+        };
+
         function triggerImport() { document.getElementById('importFileInput').click(); }
 
         function handleFileImport(e) {
@@ -2692,6 +3106,7 @@ html{overflow-x:hidden}
             reader.onload = async function(ev) {
                 let payload;
                 try { payload = JSON.parse(ev.target.result); } catch (err) { return alert("Formato file non valido."); }
+                if (payload && payload.vaultShare) return vxImportSharedBackup(payload);
                 if (payload && payload.vaultCard) return vxImportSharedCard(payload);
                 await restoreFromPayload(payload);
             };
@@ -2708,6 +3123,7 @@ html{overflow-x:hidden}
                     if (!dec) return alert("Impossibile decifrare il file di backup.");
                     if (!confirm(`Il ripristino sostituirà le ${credentials.length} voci attuali con ${dec.credentials.length} voci del backup. Continuare?`)) return;
                     credentials = dec.credentials; selectedIndices.clear();
+                    await vxImportBackupDocuments(dec, true);
                     if (Array.isArray(dec.categories) && dec.categories.length) {
                         categoriesList = dec.categories; ownersList = dec.owners || ownersList;
                         categoryColors = dec.catColors || categoryColors; ownerColors = dec.ownerColors || ownerColors;
@@ -2807,59 +3223,95 @@ html{overflow-x:hidden}
 
         async function exportExcel() {
             if (!(await ensureExcelLib('exceljs'))) return;
-            const encPw = await vxAskPassword({ title: 'Password export Excel', message: "Scegli una password per cifrare l'export (min. 8 caratteri).\nL'export viene sempre cifrato.", confirm: true, min: 8, okLabel: 'Esporta' });
-            if (encPw === null) return;
+            if (!credentials.length) { showToast("Non ci sono credenziali da esportare."); return; }
+            const ok = confirm("ATTENZIONE: il file Excel conterrà TUTTE le credenziali, comprese password e PIN, IN CHIARO e senza cifratura. Chiunque possa aprire il file potrà leggerle. Salvalo solo in un luogo protetto. Vuoi continuare?");
+            if (!ok) return;
+
             const workbook = new ExcelJS.Workbook();
-            
-            const dataByOwner = [...credentials].sort((a, b) => (a.owner || '').localeCompare(b.owner || ''));
-            const dataAlphabetical = [...credentials].sort((a, b) => (a.service || '').localeCompare(b.service || ''));
+            workbook.creator = 'Vault';
+            workbook.created = new Date();
+            workbook.modified = new Date();
+            workbook.subject = 'Esportazione credenziali in chiaro';
+            workbook.title = 'Vault - Credenziali';
 
-            const sheetsConfig = [
-                { name: 'Per Proprietario', items: dataByOwner },
-                { name: 'Tutti i Servizi (A-Z)', items: dataAlphabetical }
-            ];
-
-            sheetsConfig.forEach(cfg => {
-                const ws = workbook.addWorksheet(cfg.name);
-                
-                ws.addRow(["🔍 CERCA NEL FOGLIO:", "", "← Digita qui per evidenziare O usa i filtri di colonna per MOSTRARE SOLO i risultati", "", "", ""]);
-                ws.addRow([]);
-                ws.addRow([]);
-                ws.addRow(["Proprietario", "Categoria", "Servizio / Account", "Username / Codice", "Password / PIN", "Note / Dettagli"]);
-
-                ws.autoFilter = {
-                    from: { row: 4, column: 1 },
-                    to: { row: 4, column: 6 }
-                };
-
-                cfg.items.forEach(c => {
-                    ws.addRow([
-                        c.owner || '',
-                        c.category || '',
-                        c.service || '',
-                        c.username || '',
-                        c.password || '',
-                        c.notes || (c.domain ? `Dominio: ${c.domain}` : '')
-                    ]);
-                });
-
+            const headers = ["Proprietario", "Categoria", "Servizio / Account", "Username / Codice", "Password / PIN", "Dominio / Sito", "Note / Dettagli"];
+            const sortText = (a, b) => String(a || '').localeCompare(String(b || ''), 'it', { sensitivity: 'base' });
+            const sorted = [...credentials].sort((a, b) =>
+                sortText(a.owner, b.owner) || sortText(a.category, b.category) || sortText(a.service, b.service)
+            );
+            const safeName = (name, used) => {
+                let base = String(name || 'Senza nome').replace(/[\\/*?:[\]]/g, ' ').trim().slice(0, 25) || 'Senza nome';
+                let candidate = base, n = 2;
+                while (used.has(candidate.toLowerCase())) {
+                    const suffix = ` (${n++})`;
+                    candidate = base.slice(0, 31 - suffix.length) + suffix;
+                }
+                used.add(candidate.toLowerCase());
+                return candidate;
+            };
+            const usedNames = new Set();
+            const addSheet = (requestedName, items) => {
+                const ws = workbook.addWorksheet(safeName(requestedName, usedNames));
+                ws.addRow(["Vault - ESPORTAZIONE IN CHIARO", "", "", "", "", "", ""]);
+                ws.addRow(["Le password e i PIN sono leggibili da chiunque apra questo file. Proteggi il documento.", "", "", "", "", "", ""]);
+                ws.addRow(["Suggerimento: usa i menu a discesa sulle intestazioni per filtrare e cercare i dati.", "", "", "", "", "", ""]);
+                ws.addRow(headers);
+                items.forEach(c => ws.addRow([
+                    c.owner || '', c.category || '', c.service || '', c.username || '',
+                    c.password || '', c.domain || '', c.notes || ''
+                ]));
+                ws.views = [{ state: 'frozen', ySplit: 4, xSplit: 0, showGridLines: true }];
+                ws.autoFilter = { from: { row: 4, column: 1 }, to: { row: 4, column: headers.length } };
+                ws.getRow(1).font = { bold: true, size: 14, color: { argb: 'FF1E3A8A' } };
+                ws.getRow(2).font = { bold: true, color: { argb: 'FFB91C1C' } };
+                ws.getRow(3).font = { italic: true, color: { argb: 'FF475569' } };
+                ws.getRow(4).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                ws.getRow(4).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF334155' } };
+                ws.getRow(4).alignment = { vertical: 'middle', wrapText: true };
+                ws.getRow(4).height = 30;
                 ws.columns = [
-                    { width: 22 },
-                    { width: 18 },
-                    { width: 32 },
-                    { width: 28 },
-                    { width: 22 },
-                    { width: 35 }
+                    { width: 22 }, { width: 20 }, { width: 32 }, { width: 28 },
+                    { width: 25 }, { width: 32 }, { width: 42 }
                 ];
+                ws.eachRow((row, rowNumber) => {
+                    if (rowNumber >= 5) {
+                        row.alignment = { vertical: 'top', wrapText: true };
+                        if (rowNumber % 2 === 0) row.eachCell(cell => {
+                            cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+                        });
+                    }
+                });
+                return ws;
+            };
+
+            // Fogli riepilogativi che rispecchiano le viste e i filtri dell'app.
+            addSheet('Tutte le credenziali', sorted);
+            addSheet('Per proprietario', [...sorted].sort((a, b) => sortText(a.owner, b.owner) || sortText(a.service, b.service)));
+            addSheet('Per categoria', [...sorted].sort((a, b) => sortText(a.category, b.category) || sortText(a.service, b.service)));
+
+            // Un foglio dedicato per ogni proprietario e categoria configurati nell'app.
+            const owners = [...new Set([...ownersList, ...credentials.map(c => c.owner)].filter(Boolean))].sort(sortText);
+            owners.forEach(owner => {
+                const items = sorted.filter(c => (c.owner || '') === owner);
+                if (items.length) addSheet(`Proprietario - ${owner}`, items);
+            });
+            const categories = [...new Set([...categoriesList, ...credentials.map(c => c.category)].filter(Boolean))].sort(sortText);
+            categories.forEach(category => {
+                const items = sorted.filter(c => (c.category || '') === category);
+                if (items.length) addSheet(`Categoria - ${category}`, items);
             });
 
             const buffer = await workbook.xlsx.writeBuffer();
-            const blob = new Blob([await encryptBytes(new Uint8Array(buffer), encPw)]);
+            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `Vault_Credenziali_${new Date().toISOString().slice(0,10)}.xlsx.enc`;
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = `Vault_Credenziali_IN_CHIARO_${new Date().toISOString().slice(0,10)}.xlsx`;
+            document.body.appendChild(link);
             link.click();
-            showToast("File Excel esportato!");
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+            showToast("Excel in chiaro esportato!");
         }
 
         function triggerExcelImport() { document.getElementById('importExcelFileInput').click(); }
@@ -2962,6 +3414,8 @@ html{overflow-x:hidden}
             document.getElementById('generatorPanel').classList.add('hidden');
             document.getElementById('livePasswordStrength').innerText = "";
             document.getElementById('modalTitle').innerText = (index !== null && credentials[index]) ? 'Modifica Credenziale' : 'Aggiungi Credenziale';
+            vxCredentialPendingFiles = [];
+            const pendingLabel = document.getElementById('vxCredentialPending'); if (pendingLabel) pendingLabel.textContent = 'Puoi allegare file alla credenziale; saranno cifrati nel dispositivo.';
             if (index !== null && credentials[index]) {
                 const item = credentials[index];
                 document.getElementById('itemIndex').value = index;
@@ -2977,6 +3431,7 @@ html{overflow-x:hidden}
                 document.getElementById('itemIndex').value = "";
             }
             overlay.classList.remove('hidden');
+            vxRenderCredentialAttachments();
             setTimeout(() => overlay.classList.remove('opacity-0'), 10);
         }
 
@@ -3000,10 +3455,20 @@ html{overflow-x:hidden}
             };
 
             if (idxVal !== "" && credentials[idxVal]) {
+                const previous = credentials[idxVal];
+                newItem._vaultId = previous._vaultId || vxCredentialId();
+                newItem.attachments = Array.isArray(previous.attachments) ? previous.attachments.slice() : [];
                 credentials[idxVal] = newItem;
             } else {
+                newItem._vaultId = vxCredentialId();
+                newItem.attachments = [];
                 credentials.unshift(newItem);
             }
+            for (const file of vxCredentialPendingFiles) {
+                const meta = await vxDocStoreFile(file, newItem._vaultId, 'Allegati');
+                if (meta) newItem.attachments.push(meta.id);
+            }
+            vxCredentialPendingFiles = [];
             await saveToLocalStorage();
             renderGrid();
             closeModal();
@@ -3748,14 +4213,15 @@ html{overflow-x:hidden}
         const l = await listBackups(dir);
         for (const f of l.slice(getMax())) { try { await dir.removeEntry(f.name); } catch (e) { } }
     }
-    function snapshot() {
-        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons } };
+    async function snapshot() {
+        const docs = await vxBuildBackupDocuments();
+        return { pw: activePassword, data: { v: 2, credentials: JSON.parse(JSON.stringify(credentials)), categories: categoriesList, owners: ownersList, catColors: categoryColors, ownerColors, catIcons: categoryIcons, ownerIcons, ...docs } };
     }
 
     let busy = false, dirty = false, timer = null;
     async function backupNow(interactive) {
         if (!activePassword || busy) return false;
-        const snap = snapshot();            // copia dei dati PRIMA di qualsiasi attesa (il blocco svuota la memoria)
+        const snap = await snapshot();      // copia dei dati PRIMA di qualsiasi attesa (il blocco svuota la memoria)
         busy = true;
         try {
             const target = await getDir(interactive);
@@ -3840,7 +4306,7 @@ html{overflow-x:hidden}
     /* ---- copia da mettere dove vuoi (menu Condividi / download) ---- */
     window.vxLbShare = async function () {
         if (!activePassword) return;
-        const snap = snapshot(), payload = assertEncrypted(await encryptData(snap.data, snap.pw));
+        const snap = await snapshot(), payload = assertEncrypted(await encryptData(snap.data, snap.pw));
         const name = PREFIX + stamp() + '.json';
         const file = new File([JSON.stringify(payload)], name, { type: 'application/json' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
